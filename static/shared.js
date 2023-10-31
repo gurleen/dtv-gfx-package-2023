@@ -6,7 +6,11 @@ updateText = (k, v) => document.querySelector(`#${k} > tspan`).innerHTML = v;
 update = (data) => {
     for (const [key, value] of Object.entries(data)) {
         if(key != "epochID") {
-            updateText(key, value)
+            try {
+                updateText(key, value)
+            } catch(err) {
+                console.err(err)
+            }
         }
     }
 }
