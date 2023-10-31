@@ -20,6 +20,8 @@
     -->
     <script>
         window.addEventListener("iconload", (e) => {
+            createTemplateDefinition(e.target)
+
             tl.from("#Player-1", { duration: 0.5, opacity: 0, x: "-=100"})
             tl.from("#Player-2", { duration: 0.5, opacity: 0, x: "-=100"}, "-=0.4")
             tl.from("#Player-3", { duration: 0.5, opacity: 0, x: "-=100"}, "-=0.4")
