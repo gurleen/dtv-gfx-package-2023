@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="static/stylesheet.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js" async></script>
+    <script type="text/javascript" src="static/shared.js"></script>
+    <title>Graphics Test</title>
+</head>
+
+<body>
+    <svg id="graphic" data-unique-ids="disabled" data-src="gfx/Starting Five Full Screen.svg"></svg>
+    <!--
+    <button onclick="play()">Play</button>
+    <button onclick="stop()">Stop</button>
+    -->
+    <script>
+        window.addEventListener("iconload", (e) => {
+            tl.from("#Player-1", { duration: 0.5, opacity: 0, x: "-=100"})
+            tl.from("#Player-2", { duration: 0.5, opacity: 0, x: "-=100"}, "-=0.4")
+            tl.from("#Player-3", { duration: 0.5, opacity: 0, x: "-=100"}, "-=0.4")
+            tl.from("#Player-4", { duration: 0.5, opacity: 0, x: "-=100"}, "-=0.4")
+            tl.from("#Player-5", { duration: 0.5, opacity: 0, x: "-=100"}, "-=0.4")
+            
+            endAlignText("P1-Last-Name")
+            endAlignText("P2-Last-Name")
+            endAlignText("P3-Last-Name")
+            endAlignText("P4-Last-Name")
+            endAlignText("P5-Last-Name")
+            endAlignText("P1-Number")
+            endAlignText("P2-Number")
+            endAlignText("P3-Number")
+            endAlignText("P4-Number")
+            endAlignText("P5-Number")
+        })
+    </script>
+</body>
+
+</html>
