@@ -9,7 +9,7 @@ update = (data) => {
             try {
                 updateText(key, value)
             } catch(err) {
-                console.err(err)
+                console.error(err)
             }
         }
     }
