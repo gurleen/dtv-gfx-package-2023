@@ -19,15 +19,15 @@
     <button onclick="stop()">Stop</button>
     -->
     <script>
-        window.addEventListener("iconload", (e) => {
-            createTemplateDefinition(e.target)
+        window.SPXGCTemplateDefinition = { "description": "Starting Five Full Screen", "playserver": "OVERLAY", "playchannel": "1", "playlayer": "7", "webplayout": "7", "steps": "1", "out": "manual", "uicolor": "2", "dataformat": "json", "DataFields": [{ "field": "DREXEL-STARTING-FIVE", "ftype": "textfield", "title": "DREXEL-STARTING-FIVE", "value": "DREXEL STARTING FIVE" }, { "field": "P5-First-Name", "ftype": "textfield", "title": "P5-First-Name", "value": "BROOKE" }, { "field": "P5-Last-Name", "ftype": "textfield", "title": "P5-Last-Name", "value": "MULLIN" }, { "field": "P5-Number", "ftype": "textfield", "title": "P5-Number", "value": "15" }, { "field": "P5-Position", "ftype": "textfield", "title": "P5-Position", "value": "G" }, { "field": "P4-First-Name", "ftype": "textfield", "title": "P4-First-Name", "value": "GRACE" }, { "field": "P4-Last-Name", "ftype": "textfield", "title": "P4-Last-Name", "value": "O’NEILL" }, { "field": "P4-Number", "ftype": "textfield", "title": "P4-Number", "value": "12" }, { "field": "P4-Position", "ftype": "textfield", "title": "P4-Position", "value": "G" }, { "field": "P3-First-Name", "ftype": "textfield", "title": "P3-First-Name", "value": "CHLOE" }, { "field": "P3-Last-Name", "ftype": "textfield", "title": "P3-Last-Name", "value": "HODGES" }, { "field": "P3-Number", "ftype": "textfield", "title": "P3-Number", "value": "5" }, { "field": "P3-Position", "ftype": "textfield", "title": "P3-Position", "value": "F" }, { "field": "P2-First-Name", "ftype": "textfield", "title": "P2-First-Name", "value": "AMARIS" }, { "field": "P2-Last-Name", "ftype": "textfield", "title": "P2-Last-Name", "value": "BAKER" }, { "field": "P2-Number", "ftype": "textfield", "title": "P2-Number", "value": "3" }, { "field": "P2-Position", "ftype": "textfield", "title": "P2-Position", "value": "G" }, { "field": "P1-First-Name", "ftype": "textfield", "title": "P1-First-Name", "value": "HETTA" }, { "field": "P1-Last-Name", "ftype": "textfield", "title": "P1-Last-Name", "value": "SAATMAN" }, { "field": "P1-Number", "ftype": "textfield", "title": "P1-Number", "value": "2" }, { "field": "P1-Position", "ftype": "textfield", "title": "P1-Position", "value": "F" }] }
 
-            tl.from("#Player-1", { duration: 0.5, opacity: 0, x: "-=100"})
-            tl.from("#Player-2", { duration: 0.5, opacity: 0, x: "-=100"}, "-=0.4")
-            tl.from("#Player-3", { duration: 0.5, opacity: 0, x: "-=100"}, "-=0.4")
-            tl.from("#Player-4", { duration: 0.5, opacity: 0, x: "-=100"}, "-=0.4")
-            tl.from("#Player-5", { duration: 0.5, opacity: 0, x: "-=100"}, "-=0.4")
-            
+        window.addEventListener("iconload", (e) => {
+            tl.from("#Player-1", { duration: 0.5, opacity: 0, x: "-=100" })
+            tl.from("#Player-2", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
+            tl.from("#Player-3", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
+            tl.from("#Player-4", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
+            tl.from("#Player-5", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
+
             endAlignText("P1-Last-Name")
             endAlignText("P2-Last-Name")
             endAlignText("P3-Last-Name")
