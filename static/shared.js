@@ -3,7 +3,13 @@ const tl = gsap.timeline({paused: true});
 play = () => tl.play();
 stop = () => tl.pause().seek(0);
 updateText = (k, v) => document.querySelector(`#${k} > tspan`).innerHTML = v;
-update = (data) => console.log(data)
+update = (data) => {
+    for (const [key, value] of Object.entries(data)) {
+        if(key != "epochID") {
+            updateText(key, value)
+        }
+    }
+}
 endAlignText = (k) => {
     elem = document.getElementById(k)
     width = elem.getBBox().width - 25
