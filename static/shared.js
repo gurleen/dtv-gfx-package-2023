@@ -1,10 +1,10 @@
 indexedDB.deleteDatabase('keyval-store')
 const tl = gsap.timeline({paused: true});
-play = () => tl.play();
+play = () => tl.resume();
 stop = () => tl.pause().seek(0);
 updateText = (k, v) => document.querySelector(`#${k} > tspan`).innerHTML = v;
 update = (data) => {
-    for (const [key, value] of Object.entries(data)) {
+    for (const [key, value] of Object.entries(JSON.parse(data))) {
         if(key != "epochID") {
             try {
                 updateText(key, value)
