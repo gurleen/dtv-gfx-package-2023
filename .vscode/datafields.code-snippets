@@ -31,11 +31,11 @@
 		"prefix": "imgp",
 		"body": [
 		  "{",
-		  "  \"field\": \"{field}\",",
+		  "  \"field\": \"${field}\",",
 		  "  \"ftype\": \"filelist\",",
 		  "  \"title\": \"${title}\",",
 		  "  \"assetfolder\": \"${folder}\",",
-		  "  \"extension\": \"png\"",
+		  "  \"extension\": \"png\",",
 		  "  \"value\": \"${value}\"",
 		  "},"
 		],
