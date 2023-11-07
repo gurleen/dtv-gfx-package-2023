@@ -30,6 +30,9 @@ doUpdate = (data) => {
                 else if(key.startsWith("img:")) {
                     window.updateImage(key.replace("img:", ""), value)
                 }
+                else if(key.startsWith("color:")) {
+                    window.updateColor(key.replace("color:", ""), value)
+                }
                 else {
                     updateText(key, value)
                 }
