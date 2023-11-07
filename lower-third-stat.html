@@ -108,10 +108,10 @@
             ]
         }
 
-        window.addEventListener("iconload", (e) => {
+        window.onload = () => {
             window.svgLoaded = true;
-            
-        })
+            window.dispatchEvent(new Event("loaded"));
+        }
 
         window.handleExtra = async (k, v) => {
             

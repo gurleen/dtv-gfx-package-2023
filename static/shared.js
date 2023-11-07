@@ -15,7 +15,7 @@ updateColor = (k, v) => document.getElementById(k).setAttribute("fill", v)
 updateImage = (k, v) => document.getElementById(k).setAttribute("xlink:href", v)
 update = (data) => {
     if(!window.svgLoaded) {
-        window.addEventListener("iconload", () => doUpdate(data), {once: true});
+        window.addEventListener("loaded", () => doUpdate(data), {once: true});
     } else { doUpdate(data); }
 }
 doUpdate = (data) => {
