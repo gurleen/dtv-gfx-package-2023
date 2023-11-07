@@ -28,7 +28,7 @@ doUpdate = (data) => {
                     window.handleExtra(key, value)
                 }
                 else if(key.startsWith("img:")) {
-                    window.updateImage(key, value)
+                    window.updateImage(key.replace("img:", ""), value)
                 }
                 else {
                     updateText(key, value)
