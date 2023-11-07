@@ -1,15 +1,38 @@
-indexedDB.deleteDatabase('keyval-store')
-const tl = gsap.timeline({paused: true});
+window.cache = {}
+window.svgLoaded = false;
+indexedDB.deleteDatabase('keyval-store');
+const tl = gsap.timeline({paused: true });
+tl.eventCallback("onComplete", () => tl.seek(0).pause())
 play = () => tl.resume();
 stop = () => tl.pause().seek(0);
-updateText = (k, v) => document.querySelector(`#${k} > tspan`).innerHTML = v;
+next = () => tl.resume();
+updateText = (k, v) => {
+    element = document.querySelector(`#${k} > *`)
+    if(element.tagName == "use") { k = element.getAttribute("xlink:href"); element = document.querySelector(`${k} > tspan`) }
+    element.innerHTML = v;
+}
+updateColor = (k, v) => document.getElementById(k).setAttribute("fill", v)
+updateImage = (k, v) => document.getElementById(k).setAttribute("xlink:href", v)
 update = (data) => {
+    if(!window.svgLoaded) {
+        window.addEventListener("iconload", () => doUpdate(data), {once: true});
+    } else { doUpdate(data); }
+}
+doUpdate = (data) => {
     for (const [key, value] of Object.entries(JSON.parse(data))) {
+        console.log(key, value);
+        window.cache[key] = value;
         if(key != "epochID") {
             try {
-                updateText(key, value)
+                if(key.startsWith("extra:")) {
+                    window.handleExtra(key, value)
+                }
+                else {
+                    updateText(key, value)
+                }
             } catch(err) {
                 console.error(err)
+                console.error(key, value)
             }
         }
     }

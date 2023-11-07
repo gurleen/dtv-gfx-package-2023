@@ -1,0 +1,100 @@
+[
+    {
+        "first_name": "Hetta",
+        "last_name": "Saatman",
+        "jersey_num": "2",
+        "position": "F",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Saatman.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Amaris",
+        "last_name": "Baker",
+        "jersey_num": "3",
+        "position": "G",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Baker.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Jalyn",
+        "last_name": "McNeill",
+        "jersey_num": "4",
+        "position": "G",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_McNeill.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Chloe",
+        "last_name": "Hodges",
+        "jersey_num": "5",
+        "position": "F",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Hodges.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Grace",
+        "last_name": "O'Neill",
+        "jersey_num": "12",
+        "position": "G",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_O_Neill.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Erin",
+        "last_name": "Sweeney",
+        "jersey_num": "13",
+        "position": "G",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Sweeney.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Brooke",
+        "last_name": "Mullin",
+        "jersey_num": "15",
+        "position": "G",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Mullin.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Jennifer",
+        "last_name": "Martin",
+        "jersey_num": "20",
+        "position": "G",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Martin.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Jasmine",
+        "last_name": "Valentine",
+        "jersey_num": "21",
+        "position": "F",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Valentine.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Clara",
+        "last_name": "Bergeron",
+        "jersey_num": "22",
+        "position": "F",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Bergeron.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Momo",
+        "last_name": "LaClair",
+        "jersey_num": "23",
+        "position": "G",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Laclair.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Sira",
+        "last_name": "Ba",
+        "jersey_num": "24",
+        "position": "F",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Ba.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Erin",
+        "last_name": "Doherty",
+        "jersey_num": "25",
+        "position": "G",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_Doherty.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    },
+    {
+        "first_name": "Laine",
+        "last_name": "McGurk",
+        "jersey_num": "41",
+        "position": "G",
+        "image_url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fdrexeldragons.com%2Fimages%2F2023%2F9%2F21%2FWBB_HS_McGurk.jpg&amp;width=100&amp;height=100&amp;gravity=north"
+    }
+]

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="static/font/stylesheet.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@1.6.10/svg-loader.min.js" defer></script>
+    <script type="text/javascript" src="static/shared.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Basketball Scorebug</title>
+</head>
+
+<body>
+    <svg id="graphic" data-cache="disabled" data-unique-ids="disabled" data-src="gfx/Basketball Scorebug.svg"></svg>
+    <!--
+    <button onclick="play()">Play</button>
+    <button onclick="stop()">Stop</button>
+    -->
+    
+    <script>
+        window.SPXGCTemplateDefinition = {
+            "description": "Basketball Scorebug",
+            "playserver": "OVERLAY",
+            "playchannel": "1",
+            "playlayer": "7",
+            "webplayout": "7",
+            "steps": "2",
+            "out": "manual",
+            "uicolor": "2",
+            "dataformat": "json",
+            "DataFields": [
+                
+            ]
+        }
+
+        window.addEventListener("iconload", (e) => {
+            window.svgLoaded = true;
+            tl.from("#path-15", { duration: 1.5, x: "+=426", ease: "power3.out" })
+            tl.from("#path-11", { duration: 1.5, x: "-=426", ease: "power3.out" }, "<")
+            tl.from("#Home", { duration: 0.01, opacity: 0 })
+            tl.from("#Away", { duration: 0.01, opacity: 0 })
+            tl.from("#Info", { duration: 0.01, opacity: 0 })
+            tl.to("#Away-Full-Name", { duration: 0.2, opacity: 0 }, "+=1")
+            tl.to("#Home-Full-Name", { duration: 0.2, opacity: 0 }, "<")
+            tl.to("#path-11", { duration: 1, x: "-=179", ease: "power3.out" }, "<")
+            tl.to("#path-15", { duration: 1, x: "+=179", ease: "power3.out" }, "<")
+            tl.to("#Away-Intro > #Away-Logo", { duration: 1.5, x: "-=90" }, "<")
+            tl.to("#Home-Intro > #Home-Logo", { duration: 1.5, x: "+=90" }, "<")
+            tl.to("#Away-Intro", { duration: 0.3, opacity: 0 }, "+=0.3")
+            tl.to("#Home-Intro", { duration: 0.3, opacity: 0 }, "<")
+            tl.from("#Bottom-Bar", { duration: 0.01, opacity: 0 })
+            tl.from("#Bottom-Bar", { duration: 0.5, y: "-=53", ease: "power3.out" })
+            tl.addPause()
+            tl.to("#Page-1", { opacity: 0.5, opacity: 0, ease: "power3.out" })
+
+            window.infoBarTl = gsap.timeline({paused: true});
+            infoBarTl.from("#Info-Bar", { duration: 0.01, opacity: 0 })
+                     .to("#Info-Bar", { duration: 1, y: "+=53", ease: "power3.out" })
+                     .addPause()
+                     .to("#Info-Bar", { duration: 1, y: "-=53", ease: "power3.out" })
+                     .to("#Info-Bar", { duration: 0.01, opacity: 0 })
+                     .eventCallback("onComplete", () => infoBarTl.seek(0).pause())
+        })
+
+        window.handleExtra = async (k, v) => {
+            
+        }
+    </script>
+</body>
+
+</html>

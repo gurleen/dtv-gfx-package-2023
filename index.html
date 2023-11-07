@@ -5,30 +5,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="static/stylesheet.css" rel="stylesheet">
+    <link href="static/font/stylesheet.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js" async></script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@1.6.10/svg-loader.min.js" defer></script>
     <script type="text/javascript" src="static/shared.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Graphics Test</title>
 </head>
 
 <body>
-    <svg id="graphic" data-unique-ids="disabled" data-src="gfx/Starting Five Full Screen.svg"></svg>
+    <svg id="graphic" data-cache="disabled" data-unique-ids="disabled" data-src="/templates/gfx-test/gfx/Starting Five Full Screen.svg"></svg>
     <!--
     <button onclick="play()">Play</button>
     <button onclick="stop()">Stop</button>
     -->
+    
     <script>
-        window.SPXGCTemplateDefinition = { "description": "Starting Five Full Screen", "playserver": "OVERLAY", "playchannel": "1", "playlayer": "7", "webplayout": "7", "steps": "2", "out": "manual", "uicolor": "2", "dataformat": "json", "DataFields": [{ "field": "DREXEL-STARTING-FIVE", "ftype": "textfield", "title": "DREXEL-STARTING-FIVE", "value": "DREXEL STARTING FIVE" }, { "field": "P5-First-Name", "ftype": "textfield", "title": "P5-First-Name", "value": "BROOKE" }, { "field": "P5-Last-Name", "ftype": "textfield", "title": "P5-Last-Name", "value": "MULLIN" }, { "field": "P5-Number", "ftype": "textfield", "title": "P5-Number", "value": "15" }, { "field": "P5-Position", "ftype": "textfield", "title": "P5-Position", "value": "G" }, { "field": "P4-First-Name", "ftype": "textfield", "title": "P4-First-Name", "value": "GRACE" }, { "field": "P4-Last-Name", "ftype": "textfield", "title": "P4-Last-Name", "value": "O’NEILL" }, { "field": "P4-Number", "ftype": "textfield", "title": "P4-Number", "value": "12" }, { "field": "P4-Position", "ftype": "textfield", "title": "P4-Position", "value": "G" }, { "field": "P3-First-Name", "ftype": "textfield", "title": "P3-First-Name", "value": "CHLOE" }, { "field": "P3-Last-Name", "ftype": "textfield", "title": "P3-Last-Name", "value": "HODGES" }, { "field": "P3-Number", "ftype": "textfield", "title": "P3-Number", "value": "5" }, { "field": "P3-Position", "ftype": "textfield", "title": "P3-Position", "value": "F" }, { "field": "P2-First-Name", "ftype": "textfield", "title": "P2-First-Name", "value": "AMARIS" }, { "field": "P2-Last-Name", "ftype": "textfield", "title": "P2-Last-Name", "value": "BAKER" }, { "field": "P2-Number", "ftype": "textfield", "title": "P2-Number", "value": "3" }, { "field": "P2-Position", "ftype": "textfield", "title": "P2-Position", "value": "G" }, { "field": "P1-First-Name", "ftype": "textfield", "title": "P1-First-Name", "value": "HETTA" }, { "field": "P1-Last-Name", "ftype": "textfield", "title": "P1-Last-Name", "value": "SAATMAN" }, { "field": "P1-Number", "ftype": "textfield", "title": "P1-Number", "value": "2" }, { "field": "P1-Position", "ftype": "textfield", "title": "P1-Position", "value": "F" }] }
+        window.onerror = console.error
+        window.SPXGCTemplateDefinition = {
+            "description": "Starting Five Full Screen",
+            "playserver": "OVERLAY",
+            "playchannel": "1",
+            "playlayer": "7",
+            "webplayout": "7",
+            "steps": "2",
+            "out": "manual",
+            "uicolor": "2",
+            "dataformat": "json",
+            "DataFields": [
+                {
+                    "field": "DREXEL STARTING FIVE",
+                    "ftype": "textfield",
+                    "title": "Title",
+                    "value": "DREXEL STARTING FIVE"
+                },
+                {
+                    "field": "extra:team",
+                    "ftype": "filelist",
+                    "title": "Roster",
+                    "assetfolder": "./rosters",
+                    "extension": "json",
+                    "value": "./rosters/drexel-wbb.json"
+                },
+                {
+                    "field": "player1Num",
+                    "ftype": "number",
+                    "title": "Player 1",
+                    "value": "1"
+                },
+                {
+                    "field": "player2Num",
+                    "ftype": "number",
+                    "title": "Player 2",
+                    "value": "1"
+                },
+                {
+                    "field": "player3Num",
+                    "ftype": "number",
+                    "title": "Player 3",
+                    "value": "1"
+                },
+                {
+                    "field": "player4Num",
+                    "ftype": "number",
+                    "title": "Player 4",
+                    "value": "1"
+                },
+                {
+                    "field": "player5Num",
+                    "ftype": "number",
+                    "title": "Player 5",
+                    "value": "1"
+                }
+            ]
+        }
 
         window.addEventListener("iconload", (e) => {
-            tl.from("#Page-1", { duration: 0.01, opacity: 0 })
+            window.svgLoaded = true;
+            tl.from("#Page-1", { duration: 0.5, opacity: 0 }, "+=0.1")
             tl.addPause(">")
             tl.from("#Player-1", { duration: 0.5, opacity: 0, x: "-=100" })
             tl.from("#Player-2", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
             tl.from("#Player-3", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
             tl.from("#Player-4", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
             tl.from("#Player-5", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
+            tl.addPause(">")
+            tl.to("#Page-1", { duration: 0.3, opacity: 0, ease: "expo.out" })
 
             endAlignText("P1-Last-Name")
             endAlignText("P2-Last-Name")
@@ -41,6 +103,26 @@
             endAlignText("P4-Number")
             endAlignText("P5-Number")
         })
+
+        window.handleExtra = async (k, v) => {
+            if(k === "extra:team") {
+                const resp = await fetch(v);
+                const roster = await resp.json();
+                teamKey = v.replace(".json", "").replace("./rosters/", "")
+                _.range(1, 6).forEach((x) => {
+                    key = `player${x}Num`
+                    playerNum = window.cache[key]
+                    imageUrl = `/media/roster-images/${teamKey}/${playerNum}.png`
+                    imageKey = `P${x}-Image`
+                    updateImage(imageKey, imageUrl)
+                    playerObj = _.find(roster, (p) => p.jersey_num == playerNum)
+                    updateText(`P${x}-First-Name`, playerObj.first_name)
+                    updateText(`P${x}-Last-Name`, playerObj.last_name)
+                    updateText(`P${x}-Number`, playerObj.jersey_num)
+                    updateText(`P${x}-Position`, playerObj.position)
+                })
+            }
+        }
     </script>
 </body>
 
