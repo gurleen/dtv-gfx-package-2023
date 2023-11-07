@@ -193,8 +193,8 @@
                         <use xlink:href="#path-11"></use>
                     </mask>
                     <use id="Away-Intro-BG" fill="#007A53" xlink:href="#path-11"></use>
-                    <image id="Away-Logo" opacity="0.5" mask="url(#mask-12)" x="46" y="-127" width="334" height="334"
-                        xlink:href=""></image>
+                    <image id="Away-Intro-Logo" opacity="0.5" mask="url(#mask-12)" x="46" y="-127" width="334"
+                        height="334" xlink:href=""></image>
                     <g id="Away-Full-Name" mask="url(#mask-12)" fill="#FFFFFF" fill-opacity="1">
                         <use filter="url(#filter-14)" xlink:href="#text-13"></use>
                         <use xlink:href="#text-13"></use>
@@ -211,8 +211,8 @@
                         <use xlink:href="#path-17"></use>
                     </mask>
                     <use id="Home-Intro-BG" fill="#07294D" xlink:href="#path-17"></use>
-                    <image id="Home-Logo" opacity="0.2" mask="url(#mask-18)" x="46" y="-127" width="334" height="334"
-                        xlink:href=""></image>
+                    <image id="Home-Intro-Logo" opacity="0.2" mask="url(#mask-18)" x="46" y="-127" width="334"
+                        height="334" xlink:href=""></image>
                     <g id="Home-Full-Name" mask="url(#mask-18)" fill="#FFFFFF" fill-opacity="1">
                         <use filter="url(#filter-20)" xlink:href="#text-19"></use>
                         <use xlink:href="#text-19"></use>
@@ -235,44 +235,44 @@
             "dataformat": "json",
             "DataFields": [
                 {
-                  "field": "Home-Full-Name",
-                  "ftype": "textfield",
-                  "title": "Home Name",
-                  "value": "DREXEL DRAGONS"
+                    "field": "Home-Full-Name",
+                    "ftype": "textfield",
+                    "title": "Home Name",
+                    "value": "DREXEL DRAGONS"
                 },
                 {
-                  "field": "extra:Home-Color",
-                  "ftype": "color",
-                  "title": "Home Color",
-                  "value": "rgba(0,47,108,1.00)"
+                    "field": "extra:Home-Color",
+                    "ftype": "color",
+                    "title": "Home Color",
+                    "value": "rgba(0,47,108,1.00)"
                 },
                 {
-                  "field": "extra:Home-Logo",
-                  "ftype": "filelist",
-                  "title": "Home Logo",
-                  "assetfolder": "/media/logos-white/",
-                  "extension": "png",
-                  "value": "/media/logos-white/DREXEL.PNG"
+                    "field": "extra:Home-Logo",
+                    "ftype": "filelist",
+                    "title": "Home Logo",
+                    "assetfolder": "/media/logos-white/",
+                    "extension": "png",
+                    "value": "/media/logos-white/DREXEL.PNG"
                 },
                 {
-                  "field": "Away-Full-Name",
-                  "ftype": "textfield",
-                  "title": "Away Name",
-                  "value": "NORFOLK STATE SPARTANS"
+                    "field": "Away-Full-Name",
+                    "ftype": "textfield",
+                    "title": "Away Name",
+                    "value": "NORFOLK STATE SPARTANS"
                 },
                 {
-                  "field": "extra:Away-Color",
-                  "ftype": "color",
-                  "title": "Away Color",
-                  "value": "rgba(0,47,108,1.00)"
+                    "field": "extra:Away-Color",
+                    "ftype": "color",
+                    "title": "Away Color",
+                    "value": "rgba(0,47,108,1.00)"
                 },
                 {
-                  "field": "extra:Away-Logo",
-                  "ftype": "filelist",
-                  "title": "Away Logo",
-                  "assetfolder": "/media/logos-white/",
-                  "extension": "png",
-                  "value": "/media/logos-white/NORFOLK_STATE.PNG"
+                    "field": "extra:Away-Logo",
+                    "ftype": "filelist",
+                    "title": "Away Logo",
+                    "assetfolder": "/media/logos-white/",
+                    "extension": "png",
+                    "value": "/media/logos-white/NORFOLK_STATE.PNG"
                 },
             ]
         }
@@ -308,13 +308,21 @@
         }
 
         window.handleExtra = async (k, v) => {
-            if(k == "extra:Home-Color") {
+            if (k == "extra:Home-Color") {
                 updateColor("Home-Intro-BG", v);
                 updateColor("Home-Background", v);
             }
-            else if(k == "extra:Away-Color") {
+            else if (k == "extra:Away-Color") {
                 updateColor("Away-Intro-BG", v);
                 updateColor("Away-Background", v);
+            }
+            else if (k == "extra:Home-Logo") {
+                updateImage("Home-Intro-Logo", v)
+                updateImage("Home-Logo", v)
+            }
+            else if (k == "extra:Away-Logo") {
+                updateImage("Away-Intro-Logo", v)
+                updateImage("Away-Logo", v)
             }
         }
     </script>
