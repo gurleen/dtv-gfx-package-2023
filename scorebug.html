@@ -241,9 +241,9 @@
                   "value": "DREXEL DRAGONS"
                 },
                 {
-                  "field": "color:Home-Intro-BG",
+                  "field": "extra:Home-Color",
                   "ftype": "color",
-                  "title": "Home Intro Color",
+                  "title": "Home Color",
                   "value": "rgba(0,47,108,1.00)"
                 },
                 {
@@ -253,9 +253,9 @@
                   "value": "NORFOLK STATE SPARTANS"
                 },
                 {
-                  "field": "color:Away-Intro-BG",
+                  "field": "extra:Away-Color",
                   "ftype": "color",
-                  "title": "Away Intro Color",
+                  "title": "Away Color",
                   "value": "rgba(0,47,108,1.00)"
                 },
             ]
@@ -292,7 +292,14 @@
         }
 
         window.handleExtra = async (k, v) => {
-
+            if(k == "extra:Home-Color") {
+                updateColor("Home-Intro-BG", v);
+                updateColor("Home-Background", v);
+            }
+            else if(k == "extra:Away-Color") {
+                updateColor("Away-Intro-BG", v);
+                updateColor("Away-Background", v);
+            }
         }
     </script>
 </body>
