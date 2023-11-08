@@ -20,6 +20,12 @@ fadeText = (k, v) => {
       .to(element, { duration: 0.2, opacity: 1 })
       .play()
 }
+fadeOn = (k) => { gsap.to(`#${k}`, { opacity: 1, duration: 0.5 }) }
+fadeOff = (k) => { gsap.to(`#${k}`, { opacity: 0, duration: 0.5 }) }
+setVisibility = (k, v) => {
+    k = k.replace("show:", "")
+    v? fadeOn(k) : fadeOff(k)
+}
 updateColor = (k, v) => document.getElementById(k).setAttribute("fill", v)
 updateImage = (k, v) => document.getElementById(k).setAttribute("xlink:href", v)
 update = (data) => {
