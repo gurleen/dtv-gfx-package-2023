@@ -23,7 +23,7 @@
     </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <mask id="mask-2" fill="white">
-            <use xlink:href=""></use>
+            <use xlink:href="#path-1"></use>
         </mask>
         <g id="Mask"></g>
         <g id="Lower-Third" mask="url(#mask-2)">
@@ -31,18 +31,18 @@
                 <rect id="Info-Box" fill="#F0F0F0" fill-rule="evenodd" x="840" y="834" width="553" height="140"></rect>
                 <g id="Logo-Box" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(537, 834)">
                     <mask id="mask-4" fill="white">
-                        <use xlink:href=""></use>
+                        <use xlink:href="#path-3"></use>
                     </mask>
-                    <use id="Team-Color" fill="#002649" xlink:href=""></use>
+                    <use id="Team-Color" fill="#002649" xlink:href="#path-3"></use>
                     <image id="Team-Logo" opacity="0.15" mask="url(#mask-4)" x="-60" y="-142" width="423" height="423" xlink:href=""></image>
                 </g>
                 <g id="First-Name" fill="none" fill-opacity="1">
-                    <use fill="#FFFFFF" filter="url(#filter-6)" xlink:href=""></use>
-                    <use fill="#FFFFFF" xlink:href=""></use>
+                    <use fill="#FFFFFF" filter="url(#filter-6)" xlink:href="#text-5"></use>
+                    <use fill="#FFFFFF" xlink:href="#text-5"></use>
                 </g>
                 <g id="Last-Name" fill="none" fill-opacity="1">
-                    <use fill="#FFFFFF" filter="url(#filter-8)" xlink:href=""></use>
-                    <use fill="#FFFFFF" xlink:href=""></use>
+                    <use fill="#FFFFFF" filter="url(#filter-8)" xlink:href="#text-7"></use>
+                    <use fill="#FFFFFF" xlink:href="#text-7"></use>
                 </g>
                 <text id="Number" fill="none" font-family="Zuume-Bold, Zuume" font-size="41" font-weight="bold">
                     <tspan x="810.324" y="895" fill="#FFFFFF">11</tspan>
