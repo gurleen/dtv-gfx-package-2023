@@ -6,10 +6,19 @@ tl.eventCallback("onComplete", () => tl.seek(0).pause())
 play = () => tl.resume();
 stop = () => tl.pause().seek(0);
 next = () => tl.resume();
-updateText = (k, v) => {
+getTextElement = (k) => {
     element = document.querySelector(`#${k} > *`)
     if(element.tagName == "use") { k = element.getAttribute("xlink:href"); element = document.querySelector(`${k} > tspan`) }
-    element.innerHTML = v;
+    return element
+}
+updateText = (k, v) => { getTextElement(k).innerHTML = v; }
+fadeText = (k, v) => {
+    element = getTextElement(k)
+    ftl = gsap.timeline({paused: true})
+    ftl.to(element, { duration: 0.2, opacity: 0 })
+      .call(updateText, [k, v], ">")
+      .to(element, { duration: 0.2, opacity: 1 })
+      .play()
 }
 updateColor = (k, v) => document.getElementById(k).setAttribute("fill", v)
 updateImage = (k, v) => document.getElementById(k).setAttribute("xlink:href", v)
@@ -32,6 +41,9 @@ doUpdate = (data) => {
                 }
                 else if(key.startsWith("color:")) {
                     window.updateColor(key.replace("color:", ""), value)
+                }
+                else if(key.startsWith("fade:")) {
+                    fadeText(k, v)
                 }
                 else {
                     updateText(key, value)
