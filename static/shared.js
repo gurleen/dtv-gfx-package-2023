@@ -61,6 +61,12 @@ endAlignText = (k) => {
     gsap.to(`#${k}`, {duration: 0, x: `+=${width}`})
     elem.style.textAnchor = "end"
 }
+middleAlignText = (k) => {
+    elem = document.getElementById(k)
+    width = (elem.getBBox().width / 2) + 100
+    gsap.to(`#${k}`, {duration: 0, x: `+=${width}`})
+    elem.style.textAnchor = "middle"
+}
 
 createTemplateDefinition = (svg) => {
     def = {
