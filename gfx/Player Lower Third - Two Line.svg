@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920px" height="1080px" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Rectangle</title>
+    <defs>
+        <path d="M538,834 L538,974 L841,974 L1394,974 C1394,880.666667 1394,834 1394,834 C1394,834 1108.66667,834 538,834 Z" id="path-1"></path>
+        <rect id="path-3" x="0" y="0" width="303" height="140"></rect>
+        <text id="text-5" font-family="Zuume-Light, Zuume" font-size="49" font-weight="300" fill="#FFFFFF">
+            <tspan x="544" y="894">KEISHANA</tspan>
+        </text>
+        <filter x="-6.2%" y="-8.3%" width="112.5%" height="133.3%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="5" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-7" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#FFFFFF">
+            <tspan x="544" y="952">WASHINGTON</tspan>
+        </text>
+        <filter x="-3.5%" y="-6.2%" width="106.9%" height="125.0%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="0" dy="5" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href=""></use>
+        </mask>
+        <g id="Mask"></g>
+        <g id="Lower-Third" mask="url(#mask-2)">
+            <g transform="translate(1, 0)">
+                <rect id="Info-Box" fill="#F0F0F0" fill-rule="evenodd" x="840" y="834" width="553" height="140"></rect>
+                <g id="Logo-Box" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(537, 834)">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href=""></use>
+                    </mask>
+                    <use id="Team-Color" fill="#002649" xlink:href=""></use>
+                    <image id="Team-Logo" opacity="0.15" mask="url(#mask-4)" x="-60" y="-142" width="423" height="423" xlink:href=""></image>
+                </g>
+                <g id="First-Name" fill="none" fill-opacity="1">
+                    <use fill="#FFFFFF" filter="url(#filter-6)" xlink:href=""></use>
+                    <use fill="#FFFFFF" xlink:href=""></use>
+                </g>
+                <g id="Last-Name" fill="none" fill-opacity="1">
+                    <use fill="#FFFFFF" filter="url(#filter-8)" xlink:href=""></use>
+                    <use fill="#FFFFFF" xlink:href=""></use>
+                </g>
+                <text id="Number" fill="none" font-family="Zuume-Bold, Zuume" font-size="41" font-weight="bold">
+                    <tspan x="810.324" y="895" fill="#FFFFFF">11</tspan>
+                </text>
+                <text id="Position" fill="none" font-family="Zuume-Light, Zuume" font-size="41" font-weight="300">
+                    <tspan x="811.9025" y="940" fill="#FFFFFF">G</tspan>
+                </text>
+                <g id="Two-Line-Text" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(858, 855)" font-family="Zuume-Regular, Zuume" font-size="47" font-weight="normal">
+                    <text id="Line-1" fill="#131313">
+                        <tspan x="0" y="42">THE QUICK BROWN FOX JUMPS</tspan>
+                    </text>
+                    <text id="Line-2" fill="#131313">
+                        <tspan x="0" y="87">OVER THE LAZY DOG</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
