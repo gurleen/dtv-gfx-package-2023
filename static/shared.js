@@ -63,7 +63,7 @@ endAlignText = (k) => {
 }
 middleAlignText = (k) => {
     elem = document.getElementById(k)
-    width = (elem.getBBox().width / 2) + 100
+    width = (elem.getBBox().width / 2) + 50
     gsap.to(`#${k}`, {duration: 0, x: `+=${width}`})
     elem.style.textAnchor = "middle"
 }
