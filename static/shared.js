@@ -30,8 +30,8 @@ updateColor = (k, v) => document.getElementById(k).setAttribute("fill", v)
 updateImage = (k, v) => document.getElementById(k).setAttribute("xlink:href", v)
 update = (data) => {
     if(!window.svgLoaded) {
-        window.addEventListener("loaded", () => doUpdate(data), {once: true});
-    } else { doUpdate(data); }
+        window.addEventListener("loaded", () => { doUpdate(data); window.updateFromStore(); }, {once: true});
+    } else { doUpdate(data); window.updateFromStore(); }
 }
 doUpdate = (data) => {
     for (const [key, value] of Object.entries(JSON.parse(data))) {

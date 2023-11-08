@@ -309,6 +309,8 @@
                 .eventCallback("onComplete", () => infoBarTl.seek(0).pause())
 
             endAlignText("Away-Score")
+            setVisibility("Home-Bonus", false)
+            setVisibility("Away-Bonus", false)
         }
 
         window.handleExtra = async (k, v) => {
