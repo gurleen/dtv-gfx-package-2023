@@ -1,4 +1,5 @@
 window.cache = {}
+handlers = {}
 window.svgLoaded = false;
 indexedDB.deleteDatabase('keyval-store');
 const tl = gsap.timeline({paused: true });
@@ -6,6 +7,7 @@ tl.eventCallback("onComplete", () => tl.seek(0).pause())
 play = () => tl.resume();
 stop = () => tl.pause().seek(0);
 next = () => tl.resume();
+setHandler = (key, callback) => handlers[key] = callback
 getTextElement = (k) => {
     element = document.querySelector(`#${k} > *`)
     if(element.tagName == "use") { k = element.getAttribute("xlink:href"); element = document.querySelector(`${k} > tspan`) }
@@ -39,7 +41,10 @@ doUpdate = (data) => {
         window.cache[key] = value;
         if(key != "epochID") {
             try {
-                if(key.startsWith("extra:")) {
+                if(key in handlers) {
+                    handlers[key](value);
+                }
+                else if(key.startsWith("extra:")) {
                     window.handleExtra(key, value)
                 }
                 else if(key.startsWith("img:")) {
