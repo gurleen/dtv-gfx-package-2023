@@ -10,7 +10,7 @@ const VALUE_MAPPERS = {
 
 function getMapperFunc(prefix) {
     let mapperName = VALUE_MAPPERS[prefix];
-    let mapper = window[mapperName] || window["changeText"];
+    let mapper = window[mapperName] || window["updateText"];
     return mapper;
 }
 
