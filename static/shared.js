@@ -42,6 +42,7 @@ update = (data) => {
         console.log("update()")
         console.log(data)
     }
+    else { parsed = data }
     if (!window.svgLoaded) {
         window.addEventListener("loaded", () => { doUpdate(parsed) }, { once: true });
     } else { doUpdate(parsed); }
