@@ -304,6 +304,18 @@
                     "ftype": "spacer"
                 },
                 {
+                    "field": "Info-Bar-Text",
+                    "ftype": "textfield",
+                    "title": "Info Bar Text",
+                    "value": "FIRSTNAME LASTNAME"
+                },
+                {
+                    "field": "Info-Bar-Subtext",
+                    "ftype": "textfield",
+                    "title": "Info Bar Subtext",
+                    "value": "LINE OF STATISTICS"
+                },
+                {
                     "field": "Slider-Button",
                     "ftype": "button",
                     "title": "TOGGLE SLIDER",
@@ -358,6 +370,9 @@
             middleAlignText("Clock", 182)
             middleAlignText("Period", 50)
             middleAlignText("Shot-Clock", 310)
+
+            document.querySelector("#Info-Bar-Text :nth-child(1)").setAttribute("x", 20)
+
             setVisibility("Home-Bonus", false)
             setVisibility("Away-Bonus", false)
 
@@ -401,6 +416,14 @@
                 _.range(timeoutsUsed + 1, 5).forEach((x) => {
                     setVisibility(`Away-Timeout-${x}`, true)
                 })
+            })
+
+            setHandler("Info-Bar-Subtext", (v) => {
+                main = document.querySelector("#Info-Bar-Text :nth-child(1)")
+                tspan = document.querySelector("#Info-Bar-Text :nth-child(2)")
+                tspan.innerHTML = v
+                newx = 40 + main.getBBox().width
+                tspan.setAttribute("x", newx)
             })
 
             signal("scorebugSlider", () => infoBarTl.resume())
