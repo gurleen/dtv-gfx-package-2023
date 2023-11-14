@@ -23,16 +23,16 @@
                 <rect id="Rectangle" fill="#D3D1D1" x="0" y="0" width="363" height="149"></rect>
                 <image id="Rectangle" x="361.534091" y="10" width="1.46590909" height="129" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAACwCAYAAAAltL9aAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAAqADAAQAAAABAAAAsAAAAACHH+feAAAAKklEQVQ4EWMUERH5zwAETCACBEYZo4EATgijKWE0O0ASwmhKGE0J0JQAAOBxAptmMSrtAAAAAElFTkSuQmCC"></image>
                 <text id="Right-First-Name" font-family="Zuume-Regular, Zuume" font-size="57" font-weight="normal" fill="#131313">
-                    <tspan x="517.9795" y="69">ARI</tspan>
+                    <tspan x="518.4795" y="69">ARI</tspan>
                 </text>
                 <text id="Left-First-Name" font-family="Zuume-Regular, Zuume" font-size="57" font-weight="normal" fill="#131313">
                     <tspan x="119.2975" y="69">MAGGIE</tspan>
                 </text>
                 <text id="Right-Last-Name" font-family="Zuume-Bold, Zuume" font-size="57" font-weight="bold" fill="#131313">
-                    <tspan x="463.174" y="118">BLUESTEIN</tspan>
+                    <tspan x="462.674" y="118">BLUESTEIN</tspan>
                 </text>
                 <text id="Left-Last-Name" font-family="Zuume-Bold, Zuume" font-size="57" font-weight="bold" fill="#131313">
-                    <tspan x="98.863" y="118">MCINTYRE</tspan>
+                    <tspan x="99.363" y="118">MCINTYRE</tspan>
                 </text>
             </g>
         </g>
