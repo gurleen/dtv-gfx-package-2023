@@ -1,6 +1,7 @@
 DEBUG = window.location.search.includes("debug=true")
 window.cache = {}
 window.handlers = {}
+window.signals = {}
 window.svgLoaded = false;
 indexedDB.deleteDatabase('keyval-store');
 const tl = gsap.timeline({ paused: true });
@@ -40,18 +41,22 @@ update = (data) => {
         window.addEventListener("loaded", () => { doUpdate(parsed) }, { once: true });
     } else { doUpdate(parsed); }
 }
+parseKey = (rawKey) => {
+    if (rawKey.includes(":")) {
+        [prefix, key] = rawKey.split(":");
+    }
+    else {
+        prefix = ""
+        key = rawKey
+    }
+    return {prefix: prefix, key: key}
+}
 doUpdate = (data) => {
     for (const [rawKey, value] of Object.entries(data)) {
-        if (rawKey.includes(":")) {
-            [prefix, key] = rawKey.split(":");
-        }
-        else {
-            prefix = ""
-            key = rawKey
-        }
+        parsed = parseKey(rawKey)
         window.cache[key] = value;
         if (key != "epochID") {
-            handleKeyValue(prefix, key, value)
+            handleKeyValue(parsed.prefix, parsed.key, value)
         }
     }
 }
@@ -129,6 +134,11 @@ sock.on("connect", () => {
     sock.emit("get_store", (store) => {
         console.log(store)
         window.doUpdate(store)
+    })
+
+    sock.on("update", (payload) => {
+        parsed = parseKey(payload.key)
+        handleKeyValue(parsed.prefix, parsed.key, parsed.value)
     })
 
     window.updateKey = (key, value) => {
