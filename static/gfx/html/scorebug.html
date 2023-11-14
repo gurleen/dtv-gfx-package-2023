@@ -304,6 +304,26 @@
                     "ftype": "spacer"
                 },
                 {
+                    "field": "Info-Bar-BG",
+                    "ftype": "dropdown",
+                    "title": "Select info bar background color",
+                    "value": "neutral",
+                    "items": [
+                        {
+                            "text": "Home color",
+                            "value": "home"
+                        },
+                        {
+                            "text": "Away color",
+                            "value": "away"
+                        },
+                        {
+                            "text": "Neutral color",
+                            "value": "neutral"
+                        },
+                    ]
+                },
+                {
                     "field": "Info-Bar-Text",
                     "ftype": "textfield",
                     "title": "Info Bar Text",
@@ -424,6 +444,12 @@
                 tspan.innerHTML = v
                 newx = 40 + main.getBBox().width
                 tspan.setAttribute("x", newx)
+            })
+
+            setHandler("Info-Bar-BG", (v) => {
+                if(v == "home") { setColor("Info-Background", window.cache["Home-Color"]) }
+                else if(v == "away") { setColor("Info-Background", window.cache["Away-Color"]) }
+                else { setColor("Info-Background", "#ffffff") }
             })
 
             signal("scorebugSlider", () => infoBarTl.resume())
