@@ -73,7 +73,7 @@ handleKeyValue = (prefix, key, value) => {
             fadeText(key, value)
         }
         else if (prefix == "show") {
-            setVisibility(key, value)
+            setVisibility(key, Boolean(value))
         }
         else if(prefix == "live") {
             updateKey(key, value)
