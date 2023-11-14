@@ -45,18 +45,18 @@
           <image id="Rectangle" x="361.534091" y="10" width="1.46590909" height="129"
             xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAACwCAYAAAAltL9aAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAAqADAAQAAAABAAAAsAAAAACHH+feAAAAKklEQVQ4EWMUERH5zwAETCACBEYZo4EATgijKWE0O0ASwmhKGE0J0JQAAOBxAptmMSrtAAAAAElFTkSuQmCC">
           </image>
-          <text id="Right-First-Name" font-family="Zuume-Regular, Zuume" font-size="57" font-weight="normal"
+          <text id="Right-First-Name" text-anchor="middle" font-family="Zuume-Regular, Zuume" font-size="57" font-weight="normal"
             fill="#131313">
             <tspan x="518.4795" y="69">ARI</tspan>
           </text>
-          <text id="Left-First-Name" font-family="Zuume-Regular, Zuume" font-size="57" font-weight="normal"
+          <text id="Left-First-Name" text-anchor="middle" font-family="Zuume-Regular, Zuume" font-size="57" font-weight="normal"
             fill="#131313">
             <tspan x="119.2975" y="69">MAGGIE</tspan>
           </text>
-          <text id="Right-Last-Name" font-family="Zuume-Bold, Zuume" font-size="57" font-weight="bold" fill="#131313">
+          <text id="Right-Last-Name" text-anchor="middle" font-family="Zuume-Bold, Zuume" font-size="57" font-weight="bold" fill="#131313">
             <tspan x="462.674" y="118">BLUESTEIN</tspan>
           </text>
-          <text id="Left-Last-Name" font-family="Zuume-Bold, Zuume" font-size="57" font-weight="bold" fill="#131313">
+          <text id="Left-Last-Name" text-anchor="middle" font-family="Zuume-Bold, Zuume" font-size="57" font-weight="bold" fill="#131313">
             <tspan x="99.363" y="118">MCINTYRE</tspan>
           </text>
         </g>
@@ -122,6 +122,11 @@
       tl.from("#Top-Box", { duration: 0.3, y: "+=50", ease: "power3.out" })
       tl.addPause()
       tl.to("#Page-1", { opacity: 0, duration: 0.5, ease: "power3.out" })
+
+      middleAlignText("Left-First-Name", 180)
+      middleAlignText("Left-Last-Name", 175)
+      middleAlignText("Right-First-Name", 550)
+      middleAlignText("Right-Last-Name", 545)
     }
 
     window.handleExtra = async (k, v) => {
