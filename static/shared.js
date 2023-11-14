@@ -35,14 +35,7 @@ setVisibility = (k, v) => {
 updateColor = (k, v) => document.getElementById(k).setAttribute("fill", v)
 updateImage = (k, v) => document.getElementById(k).setAttribute("xlink:href", v)
 update = (data) => {
-    console.log("start of update()")
-    console.log(data)
-    if (typeof data == String) {
-        parsed = JSON.parse(data);
-        console.log("update()")
-        console.log(data)
-    }
-    else { parsed = data }
+    parsed = JSON.parse(data);
     if (!window.svgLoaded) {
         window.addEventListener("loaded", () => { doUpdate(parsed) }, { once: true });
     } else { doUpdate(parsed); }
