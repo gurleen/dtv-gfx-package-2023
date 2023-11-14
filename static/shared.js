@@ -128,7 +128,7 @@ sock.on("connect", () => {
     console.log("Connected to livestats.");
     sock.emit("get_store", (store) => {
         console.log(store)
-        update(store)
+        window.doUpdate(store)
     })
 
     window.updateKey = (key, value) => {
