@@ -392,6 +392,8 @@
                     setVisibility(`Away-Timeout-${x}`, true)
                 })
             })
+
+            signal("scorebugSlider", () => infoBarTl.resume())
         }
 
         window.handleExtra = async (k, v) => {

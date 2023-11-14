@@ -10,6 +10,7 @@ play = () => tl.resume();
 stop = () => tl.resume();
 next = () => tl.resume();
 setHandler = (key, callback) => handlers[key] = callback
+signal = (key, callback) => signals[key] = callback
 getTextElement = (k) => {
     element = document.querySelector(`#${k} > *`)
     if (element != null) {
@@ -141,6 +142,16 @@ sock.on("connect", () => {
         console.log(parsed.prefix, parsed.key, payload.value)
         handleKeyValue(parsed.prefix, parsed.key, payload.value)
     })
+
+    sock.on("signal", (payload) => {
+        console.log("SIGNAL: ", payload)
+        func = signals[payload.key]
+        func()
+    })
+
+    window.emitSignal = (key) => {
+        sock.emit("send_signal", {signal: key})
+    }
 
     window.updateKey = (key, value) => {
         sock.emit("do_update", { "key": key, "value": value });
