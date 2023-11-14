@@ -28,6 +28,14 @@ fadeText = (k, v) => {
         .to(element, { duration: 0.2, opacity: 1 })
         .play()
 }
+fadeGivenElementText = (element, v) => {
+    if (element.innerHTML == v) { return; }
+    ftl = gsap.timeline({ paused: true })
+    ftl.to(element, { duration: 0.2, opacity: 0 })
+        .call(updateText, [k, v], ">")
+        .to(element, { duration: 0.2, opacity: 1 })
+        .play()
+}
 fadeOn = (k) => { gsap.to(`#${k}`, { opacity: 1, duration: 0.5 }) }
 fadeOff = (k) => { gsap.to(`#${k}`, { opacity: 0, duration: 0.5 }) }
 setVisibility = (k, v) => {
