@@ -1,5 +1,6 @@
+DEBUG = window.location.search.includes("debug=true")
 window.cache = {}
-handlers = {}
+window.handlers = {}
 window.svgLoaded = false;
 indexedDB.deleteDatabase('keyval-store');
 const tl = gsap.timeline({paused: true });
@@ -10,12 +11,15 @@ next = () => tl.resume();
 setHandler = (key, callback) => handlers[key] = callback
 getTextElement = (k) => {
     element = document.querySelector(`#${k} > *`)
-    if(element.tagName == "use") { k = element.getAttribute("xlink:href"); element = document.querySelector(`${k} > tspan`) }
-    return element
+    if(element != null) {
+        if(element.tagName == "use") { k = element.getAttribute("xlink:href"); element = document.querySelector(`${k} > tspan`) }
+        return element
+    }
 }
 updateText = (k, v) => { getTextElement(k).innerHTML = v; }
 fadeText = (k, v) => {
     element = getTextElement(k)
+    if(element.innerHTML == v) { return; }
     ftl = gsap.timeline({paused: true})
     ftl.to(element, { duration: 0.2, opacity: 0 })
       .call(updateText, [k, v], ">")
@@ -31,37 +35,51 @@ setVisibility = (k, v) => {
 updateColor = (k, v) => document.getElementById(k).setAttribute("fill", v)
 updateImage = (k, v) => document.getElementById(k).setAttribute("xlink:href", v)
 update = (data) => {
+    if(typeof data == String) { 
+        data = JSON.parse(data);
+    }
     if(!window.svgLoaded) {
-        window.addEventListener("loaded", () => { doUpdate(data); }, {once: true});
+        window.addEventListener("loaded", () => { doUpdate(data) }, {once: true});
     } else { doUpdate(data); }
 }
 doUpdate = (data) => {
-    for (const [key, value] of Object.entries(JSON.parse(data))) {
-        console.log(key, value);
+    for (const [rawKey, value] of Object.entries(data)) {
+        if(rawKey.includes(":")) { 
+            [prefix, key] = rawKey.split(":");
+        }
+        else {
+            prefix = ""
+            key = rawKey
+        }
         window.cache[key] = value;
         if(key != "epochID") {
             try {
                 if(key in handlers) {
                     handlers[key](value);
                 }
-                else if(key.startsWith("extra:")) {
+                else if(prefix == "extra") {
                     window.handleExtra(key, value)
                 }
-                else if(key.startsWith("img:")) {
-                    window.updateImage(key.replace("img:", ""), value)
+                else if(prefix == "img") {
+                    window.updateImage(key, value)
                 }
-                else if(key.startsWith("color:")) {
-                    window.updateColor(key.replace("color:", ""), value)
+                else if(prefix == "color") {
+                    window.updateColor(key, value)
                 }
-                else if(key.startsWith("fade:")) {
-                    fadeText(k, v)
+                else if(prefix == "fade") {
+                    fadeText(key, value)
+                }
+                else if(prefix == "show") {
+                    setVisibility(key, value)
                 }
                 else {
                     updateText(key, value)
                 }
             } catch(err) {
-                console.error(err)
-                console.error(key, value)
+                if(DEBUG) {
+                    console.error(err)
+                    console.error(key, value)
+                }
             }
         }
     }
@@ -98,3 +116,22 @@ createTemplateDefinition = (svg) => {
     })
     window.SPXGCTemplateDefinition = def
 }
+
+const LIVESTATS_URL = "https://livestats.gurleen.dev/";
+const sock = io(LIVESTATS_URL);
+
+sock.on("connect", () => {
+    console.log("Connected to livestats.");
+    sock.emit("get_store", (store) => {
+        console.log(store)
+        update(store)
+    })
+
+    window.updateKey = (key, value) => {
+        sock.emit("do_update", {"key": key, "value": value});
+        payload = {}
+        payload[key] = value
+        console.log(payload)
+        window.doUpdate(payload)
+    }
+});
