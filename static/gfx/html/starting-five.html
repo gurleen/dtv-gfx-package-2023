@@ -285,7 +285,7 @@
             if (k === "team") {
                 const resp = await fetch(v);
                 const roster = await resp.json();
-                teamKey = v.replace(".json", "").replace("./rosters/", "")
+                teamKey = v.replace(".json", "").replace("/templates/dtv-gfx-package-2023/rosters/", "")
                 _.range(1, 6).forEach((x) => {
                     key = `player${x}Num`
                     playerNum = window.cache[key]
