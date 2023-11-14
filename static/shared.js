@@ -6,7 +6,7 @@ indexedDB.deleteDatabase('keyval-store');
 const tl = gsap.timeline({ paused: true });
 tl.eventCallback("onComplete", () => tl.seek(0).pause())
 play = () => tl.resume();
-stop = () => tl.pause().seek(0);
+stop = () => tl.resume();
 next = () => tl.resume();
 setHandler = (key, callback) => handlers[key] = callback
 getTextElement = (k) => {
