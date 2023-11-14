@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920px" height="1080px" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Talent Lower Third - Single</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="363" height="14"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Bottom-Box-And-Mask" transform="translate(778, 986)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Bottom-Box-Mask"></g>
+            <rect id="Bottom-Box" fill="#141414" mask="url(#mask-2)" x="0" y="0" width="363" height="14"></rect>
+        </g>
+        <g id="Main-Box" transform="translate(778, 837)">
+            <rect fill="#D3D1D1" x="0" y="0" width="363" height="149"></rect>
+            <text id="Caption" font-family="Zuume-Regular, Zuume" font-size="47" font-weight="normal" fill="#131313">
+                <tspan x="91.136" y="117">@ARIBLUEPXP</tspan>
+            </text>
+            <text id="Name" font-family="Zuume-Bold, Zuume" font-size="57" font-weight="bold" fill="#131313">
+                <tspan x="70.1505" y="63">ARI BLUESTEIN</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
