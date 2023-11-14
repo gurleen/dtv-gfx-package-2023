@@ -38,13 +38,13 @@ update = (data) => {
     console.log("start of update()")
     console.log(data)
     if (typeof data == String) {
-        data = JSON.parse(data);
+        parsed = JSON.parse(data);
         console.log("update()")
         console.log(data)
     }
     if (!window.svgLoaded) {
-        window.addEventListener("loaded", () => { doUpdate(data) }, { once: true });
-    } else { doUpdate(data); }
+        window.addEventListener("loaded", () => { doUpdate(parsed) }, { once: true });
+    } else { doUpdate(parsed); }
 }
 doUpdate = (data) => {
     for (const [rawKey, value] of Object.entries(data)) {
