@@ -282,7 +282,7 @@
         }
 
         window.handleExtra = async (k, v) => {
-            if (k === "extra:team") {
+            if (k === "team") {
                 const resp = await fetch(v);
                 const roster = await resp.json();
                 teamKey = v.replace(".json", "").replace("./rosters/", "")
