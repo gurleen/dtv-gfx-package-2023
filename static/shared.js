@@ -93,11 +93,11 @@ handleKeyValue = (prefix, key, value) => {
         }
     }
 }
-endAlignText = (k) => {
+endAlignText = (k, x) => {
     elem = document.getElementById(k)
-    width = elem.getBBox().width - 25
-    gsap.to(`#${k}`, { duration: 0, x: `+=${width}` })
     elem.style.textAnchor = "end"
+    tspan = getTextElement(k)
+    tspan.setAttribute("x", x)
 }
 middleAlignText = (k, x) => {
     elem = document.getElementById(k)
