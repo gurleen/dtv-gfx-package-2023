@@ -395,19 +395,19 @@
         }
 
         window.handleExtra = async (k, v) => {
-            if (k == "extra:Home-Color") {
+            if (k == "Home-Color") {
                 updateColor("Home-Intro-BG", v);
                 updateColor("Home-Background", v);
             }
-            else if (k == "extra:Away-Color") {
+            else if (k == "Away-Color") {
                 updateColor("Away-Intro-BG", v);
                 updateColor("Away-Background", v);
             }
-            else if (k == "extra:Home-Logo") {
+            else if (k == "Home-Logo") {
                 updateImage("Home-Intro-Logo", v)
                 updateImage("Home-Logo", v)
             }
-            else if (k == "extra:Away-Logo") {
+            else if (k == "Away-Logo") {
                 updateImage("Away-Intro-Logo", v)
                 updateImage("Away-Logo", v)
             }
