@@ -449,9 +449,9 @@
             setHandler("Info-Bar-BG", (v) => {
                 console.log("INFO BAR BG ", v)
                 console.log(window.cache)
-                if(v == "home") { updateColor("Info-Background", window.cache["Home-Color"]) }
-                else if(v == "away") { updateColor("Info-Background", window.cache["Away-Color"]) }
-                else { updateColor("Info-Background", "#ffffff") }
+                if(v == "home") { console.log("home!!"); updateColor("Info-Background", window.cache["Home-Color"]) }
+                else if(v == "away") { console.log("away!!"); updateColor("Info-Background", window.cache["Away-Color"]) }
+                else { console.log("neutral!!"); updateColor("Info-Background", "#ffffff") }
             })
 
             signal("scorebugSlider", () => infoBarTl.resume())
