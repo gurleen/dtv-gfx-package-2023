@@ -363,7 +363,7 @@
             tl.to("#Home-Intro", { duration: 0.3, opacity: 0 }, "<")
             tl.from("#Bottom-Bar", { duration: 0.01, opacity: 0 })
             tl.from("#Bottom-Bar", { duration: 0.5, y: "-=53", ease: "power3.out" })
-            tl.addPause()
+            tl.addPause("+=0", checkForStop)
             tl.to("#Page-1", { opacity: 0.5, opacity: 0, ease: "power3.out" })
 
             window.infoBarTl = gsap.timeline({ paused: true });

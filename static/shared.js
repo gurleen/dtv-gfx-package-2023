@@ -3,14 +3,16 @@ window.cache = {}
 window.handlers = {}
 window.signals = {}
 window.svgLoaded = false;
+shouldBeStopped = false;
 indexedDB.deleteDatabase('keyval-store');
 const tl = gsap.timeline({ paused: true });
 tl.from("body", { opacity: 0, duration: 1 })
-tl.eventCallback("onComplete", () => tl.seek(0).pause())
+tl.eventCallback("onComplete", () => { tl.seek(0).pause(); shouldBeStopped = false; })
 showBody = () => document.querySelector("body").style.visibility = "visible";
 play = () => tl.resume();
-stop = () => tl.resume();
+stop = () => { tl.resume(); shouldBeStopped = true; }
 next = () => tl.resume();
+checkForStop = () => { if(shouldBeStopped) { play(); } }
 setHandler = (key, callback) => handlers[key] = callback
 signal = (key, callback) => signals[key] = callback
 getTextElement = (k) => {
