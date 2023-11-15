@@ -15,7 +15,7 @@
   <title>Player Lower Third - Stats</title>
 </head>
 
-<body>
+<body style="visibility: hidden">
   <?xml version="1.0" encoding="UTF-8"?>
   <svg width="1920px" height="1080px" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -165,6 +165,8 @@
 
       middleAlignText("Number", 820)
       middleAlignText("Position", 820)
+
+      showBody();
     }
 
     window.handleExtra = async (k, v) => {
