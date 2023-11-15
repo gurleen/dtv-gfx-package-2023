@@ -5,6 +5,7 @@ window.signals = {}
 window.svgLoaded = false;
 indexedDB.deleteDatabase('keyval-store');
 const tl = gsap.timeline({ paused: true });
+tl.delay(0.5)
 tl.eventCallback("onComplete", () => tl.seek(0).pause())
 play = () => tl.resume();
 stop = () => tl.resume();
