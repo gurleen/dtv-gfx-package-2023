@@ -78,7 +78,7 @@
       tl.from("#Bottom-Box", { duration: 0.5, opacity: 0, x: "-=200", ease: "power3.out" })
       tl.from("#Main-Box", { duration: 0.5, opacity: 0, x: "-=200", ease: "power3.out" }, "<")
       tl.from("text", { duration: 0.5, opacity: 0, x: "-=50", ease: "power3.out" }, "-=0.3")
-      tl.addPause()
+      tl.addPause("+=0", checkForStop)
       tl.to("#Page-1", { opacity: 0, duration: 0.5, ease: "power3.out" })
 
       middleAlignText("Name", 180)

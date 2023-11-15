@@ -150,7 +150,7 @@
 
       tl.from("#Page-1", { duration: 0.5, x: "-=100", opacity: 0, ease: "power3.out" });
       tl.from("text", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "-=0.4")
-      tl.addPause()
+      tl.addPause("+=0", checkForStop)
       tl.to("#Page-1", { duration: 0.3, opacity: 0, ease: "power3.out" })
 
       middleAlignText("Number", 820)
