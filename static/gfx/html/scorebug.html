@@ -348,7 +348,7 @@
         window.onload = () => {
             window.svgLoaded = true;
             window.dispatchEvent(new Event("loaded"));
-            tl.from("#path-15", { duration: 1.5, x: "+=426", ease: "power3.out" })
+            tl.from("#path-15", { duration: 1.5, x: "+=426", ease: "power3.out" }, "+=0.5")
             tl.from("#path-11", { duration: 1.5, x: "-=426", ease: "power3.out" }, "<")
             tl.from("#Home", { duration: 0.01, opacity: 0 })
             tl.from("#Away", { duration: 0.01, opacity: 0 })
