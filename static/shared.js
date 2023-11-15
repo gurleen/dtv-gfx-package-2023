@@ -7,6 +7,7 @@ indexedDB.deleteDatabase('keyval-store');
 const tl = gsap.timeline({ paused: true });
 tl.from("body", { opacity: 0, duration: 1 })
 tl.eventCallback("onComplete", () => tl.seek(0).pause())
+showBody = () => document.querySelector("body").style.visibility = "visible";
 play = () => tl.resume();
 stop = () => tl.resume();
 next = () => tl.resume();
