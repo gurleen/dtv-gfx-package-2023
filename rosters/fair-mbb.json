@@ -1,0 +1,121 @@
+[
+    {
+        "first_name": "Caleb",
+        "last_name": "Fields",
+        "jersey_num": "0",
+        "position": "G",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/0_Fields.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Birima",
+        "last_name": "Seck",
+        "jersey_num": "1",
+        "position": "F",
+        "image_url": "https://fairfieldstags.com/images/2023/11/5/1_Seck.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Brycen",
+        "last_name": "Goodine",
+        "jersey_num": "2",
+        "position": "G",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/2_Goodine.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Jalen",
+        "last_name": "Leach",
+        "jersey_num": "3",
+        "position": "G",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/3_Leach.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Jasper",
+        "last_name": "Floyd",
+        "jersey_num": "4",
+        "position": "G",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/4_Floyd.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Matt",
+        "last_name": "Curtis",
+        "jersey_num": "5",
+        "position": "G",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/5_Curtis.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Alexis",
+        "last_name": "Yetna",
+        "jersey_num": "10",
+        "position": "F",
+        "image_url": "https://fairfieldstags.com/images/2023/11/5/10_Yetna.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Louis",
+        "last_name": "Bleechmore",
+        "jersey_num": "12",
+        "position": "G/F",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/12_Bleechmore.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Anthony",
+        "last_name": "Davis Jr.",
+        "jersey_num": "13",
+        "position": "G",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/13_Davis.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "James",
+        "last_name": "Johns Jr.",
+        "jersey_num": "14",
+        "position": "G",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/14_Johns.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Jack",
+        "last_name": "Brown",
+        "jersey_num": "15",
+        "position": "F",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/15_Brown.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Ryan",
+        "last_name": "McPartlan",
+        "jersey_num": "20",
+        "position": "G",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/20_McPartlan.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Luke",
+        "last_name": "Davidson",
+        "jersey_num": "22",
+        "position": "G",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/22_Davidson.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Marouf",
+        "last_name": "Moumine",
+        "jersey_num": "23",
+        "position": "G/F",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/23_Moumine.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Joe",
+        "last_name": "Ganton",
+        "jersey_num": "24",
+        "position": "G",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/24_Ganton.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Michael",
+        "last_name": "Rogan",
+        "jersey_num": "25",
+        "position": "G/F",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/25_Rogan.jpg?width=80&amp;quality=90"
+    },
+    {
+        "first_name": "Peyton",
+        "last_name": "Smith",
+        "jersey_num": "33",
+        "position": "F",
+        "image_url": "https://fairfieldstags.com/images/2023/10/31/33_Smith.jpg?width=80&amp;quality=90"
+    }
+]
