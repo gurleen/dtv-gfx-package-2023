@@ -3,6 +3,7 @@ import msgspec
 from strenum import StrEnum
 from enum import auto
 from datetime import datetime
+from pydantic import BaseModel
 
 
 class MessageType(StrEnum):
@@ -15,13 +16,13 @@ class MessageType(StrEnum):
     ACTION = auto()
     PLAYBYPLAY = auto()
 
-class ConnectionParams(msgspec.Struct):
+class ConnectionParams(BaseModel):
     types: str = "se,ac,mi,te,box,pbp"
     playbyplayOnConnect: bool = False
     fromMessageId: int = 0
 
 
-class Ping(msgspec.Struct):
+class Ping(BaseModel):
     timestamp: datetime
 
 
@@ -52,18 +53,18 @@ class PeriodStatus(StrEnum):
     ENDED = auto()
     CONFIRMED = auto()
 
-class Period(msgspec.Struct, rename="camel"):
+class Period(BaseModel):
     current: int
     period_type: PeriodType
 
-class Score(msgspec.Struct, rename="camel"):
+class Score(BaseModel):
     team_number: int
     score: int
     timeouts_remaining: int
     fouls: int
     team_fouls: int
 
-class Status(msgspec.Struct, rename="camel"):
+class Status(BaseModel):
     status: MatchStatus
     period: Period
     clock: str
@@ -73,7 +74,7 @@ class Status(msgspec.Struct, rename="camel"):
     possessionArrow: int
     scores: list[Score]
 
-class TeamRecordDetail(msgspec.Struct, rename="camel"):
+class TeamRecordDetail(BaseModel):
     team_name: str
     team_id: int
     team_code: str
@@ -90,13 +91,13 @@ class Player:
     starter: bool
     active: bool
 
-class TeamRecord(msgspec.Struct, rename="camel"):
+class TeamRecord(BaseModel):
     team_number: int
     detail: TeamRecordDetail
     players: list[Player]
 
 
-class Teams(msgspec.Struct, rename="camel"):
+class Teams(BaseModel):
     teams: list[TeamRecord]
 
 
@@ -104,14 +105,14 @@ class Referee:
     family_name: str
     first_name: str
 
-class Officials(msgspec.Struct, rename="camel"):
+class Officials(BaseModel):
     referee1: Referee
     referee2: Referee
     referee3: Referee
 
 # --- BOXSCORE ---
 
-class PlayerBox(msgspec.Struct, rename="camel"):
+class PlayerBox(BaseModel):
     pno: int
     assists: int
     blocks: int
@@ -148,7 +149,7 @@ class PlayerBox(msgspec.Struct, rename="camel"):
     two_pointers_made: int
     two_pointers_percentage: float
 
-class TeamBox(msgspec.Struct, rename="camel"):
+class TeamBox(BaseModel):
     assists: int
     bench_points: int
     biggest_lead: int
@@ -198,17 +199,17 @@ class TeamBox(msgspec.Struct, rename="camel"):
     two_pointers_made: int
     two_pointers_percentage: int
 
-class BoxscoreTotal(msgspec.Struct, rename="camel"):
+class BoxscoreTotal(BaseModel):
     players: list[PlayerBox]
     team: TeamBox
 
-class BoxscorePeriod(msgspec.Struct, rename="camel"):
+class BoxscorePeriod(BaseModel):
     period: int
     period_type: PeriodType
     players: list[PlayerBox]
     team: TeamBox
 
-class Boxscore(msgspec.Struct, rename="camel"):
+class Boxscore(BaseModel):
     teams: list
     total: BoxscoreTotal
     periods: list[BoxscorePeriod]
@@ -304,7 +305,7 @@ class ActionSubType:
     FOUL = auto()
     VIOLENCE = auto()
 
-class Action(msgspec.Struct, rename="camel"):
+class Action(BaseModel):
     message_id: int
     action_number: int
     team_number: int
@@ -332,7 +333,7 @@ class Action(msgspec.Struct, rename="camel"):
     deleted: datetime
     orig_message_id: int
 
-class PlayByPlay(msgspec.Struct):
+class PlayByPlay(BaseModel):
     actions: list[Action]
 
 
