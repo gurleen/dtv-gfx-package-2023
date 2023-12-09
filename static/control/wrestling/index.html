@@ -432,6 +432,7 @@
     })
 
     update = () => {
+        console.log("Update done")
         Alpine.store("g").rosters = rosters;
         window.getCachedRosterSelection();
     }
