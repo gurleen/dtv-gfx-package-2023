@@ -245,6 +245,7 @@
     let alpineInit = false;
     let files;
     let rosters = {};
+    /*
     let text = fetch('../../../rosters').then(res => res.text()).then(text => {
         files = text.match(/href="([^"]+)/g).map((x) => x.replace('href="', ''));
         files.forEach((file) => {
@@ -254,6 +255,14 @@
             }
         });
         document.dispatchEvent(new Event('loaded'));
+    });
+    */
+    files = ["drexel-wrest.json", "wis-wrest.json"]
+    files.forEach((file) => {
+        if (file.includes('wrest')) {
+            roster = get(`../../../rosters/${file}`);
+            rosters[file.replace(".json", "")] = roster;
+        }
     });
 
     document.addEventListener(("alpine:init"), () => {
