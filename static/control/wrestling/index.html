@@ -94,6 +94,54 @@
                     </template>
                 </fieldset>
             </template>
+
+            <fieldset>
+                <legend>Bug Control</legend>
+                <div class="row">
+                    <label for="awayScore">Away</label>
+                    <input type="number" x-model="gameInfo.awayScore" placeholder=0>
+                    <button type="button" @click="gameInfo.awayScore += 1">+1</button>
+                    <button type="button" @click="gameInfo.awayScore += 2">+2</button>
+                    <button type="button" @click="gameInfo.awayScore += 3">+3</button>
+                    <button type="button" @click="gameInfo.awayScore -= 1">-1</button>
+                </div>
+                <div class="row">
+                    <label for="homeScore">Home</label>
+                    <input type="number" x-model="gameInfo.homeScore" placeholder=0>
+                    <button type="button" @click="gameInfo.homeScore += 1">+1</button>
+                    <button type="button" @click="gameInfo.homeScore += 2">+2</button>
+                    <button type="button" @click="gameInfo.homeScore += 3">+3</button>
+                    <button type="button" @click="gameInfo.homeScore -= 1">-1</button>
+                </div>
+                <div class="row">
+                    <label for="weight">Weight </label>
+                    <select name="weight" x-model="weight">
+                        <option></option>
+                        <option value="125lbs">125lbs</option>
+                        <option value="133lbs">133lbs</option>
+                        <option value="141lbs">141lbs</option>
+                        <option value="149lbs">149lbs</option>
+                        <option value="157lbs">157lbs</option>
+                        <option value="165lbs">165lbs</option>
+                        <option value="174lbs">174lbs</option>
+                        <option value="184lbs">184lbs</option>
+                        <option value="197lbs">197lbs</option>
+                        <option value="285lbs">285lbs</option>
+                    </select>
+                </div> 
+                <div class="row">
+                    <label for="period">Period</label>
+                    <select name="period" x-model="gameInfo.period">
+                        <option value="1st">1st</option>
+                        <option value="2nd">2nd</option>
+                        <option value="3rd">3rd</option>
+                        <option value="OT">OT</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <button type="button" @click="updateBug()">Update Bug</button>
+                </div>
+            </fieldset>
         </div>
         <div class="col">
             <fieldset>
@@ -131,11 +179,7 @@
                                     <label for="Stat-4">Majors</label>
                                     <input name="Stat-4" type="text" x-model="awayStats.majors">
                                 </details>
-                                <label for="awayScore">Score</label>
-                                <input type="number" x-model="gameInfo.awayScore" placeholder="0">
-                                <button type="button" @click="gameInfo.awayScore += 1">+1</button>
-                                <button type="button" @click="gameInfo.awayScore += 2">+2</button>
-                                <button type="button" @click="gameInfo.awayScore += 3">+3</button>
+                                
                             </div>
                         </template>
                     </div>
@@ -171,41 +215,12 @@
                                     <label for="Stat-4">Majors</label>
                                     <input name="Stat-4" type="text" x-model="homeStats.majors">
                                 </details>
-                                <label for="homeScore">Score</label>
-                                <input type="number" x-model="gameInfo.homeScore" placeholder="0">
-                                <button type="button" @click="gameInfo.homeScore += 1">+1</button>
-                                <button type="button" @click="gameInfo.homeScore += 2">+2</button>
-                                <button type="button" @click="gameInfo.homeScore += 3">+3</button>
+                                
                             </div>
                         </template>
                         <button name="updateBtn" @click="update()" type="button">Update</button>
                         <label x-cloak x-transition x-show="showUpdated" for="updateBtn">Updated!</label>
                         <button name="saveBtn" @click="saveMatchup()" type="button">Save</button>
-                        <label for="period">Period</label>
-                        <select name="period" x-model="gameInfo.period">
-                            <option value="1st">1st</option>
-                            <option value="2nd">2nd</option>
-                            <option value="3rd">3rd</option>
-                            <option value="OT">OT</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="row">
-                        <label for="weight">Weight </label>
-                        <select name="weight" x-model="weight">
-                            <option></option>
-                            <option value="125lbs">125lbs</option>
-                            <option value="133lbs">133lbs</option>
-                            <option value="141lbs">141lbs</option>
-                            <option value="149lbs">149lbs</option>
-                            <option value="157lbs">157lbs</option>
-                            <option value="165lbs">165lbs</option>
-                            <option value="174lbs">174lbs</option>
-                            <option value="184lbs">184lbs</option>
-                            <option value="197lbs">197lbs</option>
-                            <option value="285lbs">285lbs</option>
-                        </select>
                     </div>
                 </div>
             </fieldset>
@@ -368,6 +383,15 @@
                     window.updateKey("fade:period", this.gameInfo.period)
                     this.showUpdated = true;
                     setTimeout(() => { this.showUpdated = false }, 3000)
+                },
+                updateBug() {
+                    window.updateKey("Home-Score", this.gameInfo.homeScore)
+                    window.updateKey("Away-Score", this.gameInfo.awayScore)
+                    window.updateKey("fade:period", this.gameInfo.period)
+                    window.updateKey("fade:homeScore", this.gameInfo.homeScore)
+                    window.updateKey("fade:awayScore", this.gameInfo.awayScore)
+                    window.updateKey("fade:weight", this.weight)
+                    window.updateKey("Weight", this.weight)
                 },
                 saveMatchup() {
                     this.savedMatchups.push({
