@@ -245,7 +245,7 @@
     let alpineInit = false;
     let files;
     let rosters = {};
-    
+
     let text = fetch('../../../rosters').then(res => res.text()).then(text => {
         files = text.match(/href="([^"]+)/g).map((x) => x.replace('href="', ''));
         files.forEach((file) => {
@@ -336,11 +336,11 @@
                 update() {
                     console.log("Updating...")
                     window.updateKey("homePlayerName", this.homeNameSplit)
-                    window.updateKey("Home-Wrestler", this.homeCleanName)
+                    window.updateKey("homeWrestler", this.homeCleanName)
                     window.updateKey("Home-Rank", this.homeRank)
                     window.updateKey("img:Home-Wrestler-Image", this.homePlayerImgUrl)
                     window.updateKey("awayPlayerName", this.awayNameSplit)
-                    window.updateKey("Away-Wrestler", this.awayCleanName)
+                    window.updateKey("awayWrestler", this.awayCleanName)
                     window.updateKey("img:Away-Wrestler-Image", this.awayPlayerImgUrl)
                     window.updateKey("Away-Rank", this.awayRank)
                     window.updateKey("fade:weight", this.weight)
