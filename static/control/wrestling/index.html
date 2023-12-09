@@ -181,6 +181,13 @@
                         <button name="updateBtn" @click="update()" type="button">Update</button>
                         <label x-cloak x-transition x-show="showUpdated" for="updateBtn">Updated!</label>
                         <button name="saveBtn" @click="saveMatchup()" type="button">Save</button>
+                        <label for="period">Period</label>
+                        <select name="period" x-model="gameInfo.period">
+                            <option value="1st">1st</option>
+                            <option value="2nd">2nd</option>
+                            <option value="3rd">3rd</option>
+                            <option value="OT">OT</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-3">
@@ -337,14 +344,16 @@
                     console.log("Updating...")
                     window.updateKey("homePlayerName", this.homeNameSplit)
                     window.updateKey("homeWrestler", this.homeCleanName)
-                    window.updateKey("Home-Rank", this.homeRank)
+                    window.updateKey("homeRank", this.homeRank)
                     window.updateKey("img:Home-Wrestler-Image", this.homePlayerImgUrl)
                     window.updateKey("awayPlayerName", this.awayNameSplit)
                     window.updateKey("awayWrestler", this.awayCleanName)
                     window.updateKey("img:Away-Wrestler-Image", this.awayPlayerImgUrl)
-                    window.updateKey("Away-Rank", this.awayRank)
+                    window.updateKey("awayRank", this.awayRank)
                     window.updateKey("fade:weight", this.weight)
                     window.updateKey("Weight", this.weight)
+                    window.updateKey("Home-Score", this.gameInfo.homeScore)
+                    window.updateKey("Away-Score", this.gameInfo.awayScore)
                     window.updateKey("Home-Stat-1", this.homeStats.record)
                     window.updateKey("Home-Stat-2", this.homeStats.majors)
                     window.updateKey("Home-Stat-3", this.homeStats.techs)
