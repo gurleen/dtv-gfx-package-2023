@@ -264,6 +264,7 @@
             rosters[file.replace(".json", "")] = roster;
         }
     });
+    document.dispatchEvent(new Event('loaded'));
 
     document.addEventListener(("alpine:init"), () => {
         alpineInit = true;
