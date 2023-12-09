@@ -259,12 +259,11 @@
     */
     files = ["drexel-wrest.json", "wis-wrest.json"]
     files.forEach((file) => {
-        if (file.includes('wrest')) {
             roster = get(`../../../rosters/${file}`);
             rosters[file.replace(".json", "")] = roster;
-        }
     });
     document.dispatchEvent(new Event('loaded'));
+    
 
     document.addEventListener(("alpine:init"), () => {
         alpineInit = true;
