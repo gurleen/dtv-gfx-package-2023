@@ -118,6 +118,44 @@ middleAlignText = (k, x) => {
     tspan = getTextElement(k)
     tspan.setAttribute("x", x)
 }
+editSpanText = (textElementId, newTextArray) => {
+    const textElement = document.getElementById(textElementId);
+    if (!textElement) return;
+
+    let currentX = 0;
+    const tspans = textElement.querySelectorAll('tspan');
+    let prevWidth;
+    let prevX;
+
+    tspans.forEach((tspan, index) => {
+        if (index >= newTextArray.length) return;
+        tspan.textContent = newTextArray[index];
+        if (index > 0) {
+            console.log(prevWidth)
+            currentX += prevX + prevWidth + 10;
+            tspan.setAttribute('x', currentX);
+        }
+        prevWidth = tspan.getComputedTextLength();
+        prevX = parseFloat(tspan.getAttribute('x'));
+    });
+}
+
+editSpanTextReverse = (textElementId, newTextArray) => {
+    const textElement = document.getElementById(textElementId);
+    if (!textElement) return;
+    newTextReverse = newTextArray.reverse()
+    const tspans = Array.from(textElement.querySelectorAll('tspan'));
+
+    tspans.reverse().forEach((tspan, index) => {
+        tspan.textContent = newTextReverse[index];
+        console.log("index", index)
+        if(index > 0) {
+            let last = tspans[index - 1];
+            let newX = last.getAttribute('x') - last.getComputedTextLength();
+            tspan.setAttribute('x', newX);
+        }
+    });
+}
 
 createTemplateDefinition = (svg) => {
     def = {

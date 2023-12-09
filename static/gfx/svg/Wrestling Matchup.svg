@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920px" height="1080px" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Wrestling Matchup</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="726" height="782"></rect>
+        <rect id="path-3" x="0" y="0" width="726" height="782"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Away-Team" transform="translate(-1, 149)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Away-Color" fill="#C4012F" xlink:href="#path-1"></use>
+            <image id="Away-Team-Logo" opacity="0.15" mask="url(#mask-2)" x="-348" y="-322" width="1426" height="1426" xlink:href=""></image>
+        </g>
+        <g id="Home-Team" transform="translate(1194, 149)">
+            <mask id="mask-4" fill="white">
+                <use xlink:href="#path-3"></use>
+            </mask>
+            <use id="Home-Color" fill="#07294D" xlink:href="#path-3"></use>
+            <image id="Home-Team-Logo" opacity="0.15" mask="url(#mask-4)" x="-346" y="-322" width="1426" height="1426" xlink:href=""></image>
+        </g>
+        <rect id="Rectangle" fill="#131313" x="627.535948" y="149" width="664.444444" height="782"></rect>
+        <image id="Home-Wrestler-Image" x="1334.14706" y="149" width="586.5" height="782" xlink:href=""></image>
+        <rect id="Rectangle" fill="#131313" x="1194.86928" y="844.111111" width="725.777778" height="86.8888889"></rect>
+        <text id="Home-Wrestler-Name" font-family="Zuume-LightItalic, Zuume" font-size="58" font-style="italic" font-weight="300" fill="#FFFFFF">
+            <tspan x="1564.6655" y="901.222222">desmond</tspan>
+            <tspan x="1729.0375" y="901.222222" font-family="Zuume-BoldItalic, Zuume" font-weight="bold"> pleasant</tspan>
+        </text>
+        <image id="Away-Wrestler-Image" x="-1.13071895" y="149" width="485.555556" height="776.888889" xlink:href=""></image>
+        <rect id="Rectangle-Copy-2" fill="#131313" x="-1.13071895" y="844.111111" width="725.777778" height="86.8888889"></rect>
+        <text id="Away-Wrestler-Name" font-family="Zuume-LightItalic, Zuume" font-size="58" font-style="italic" font-weight="300" fill="#FFFFFF">
+            <tspan x="14.2026144" y="901.222222">#11 Eric</tspan>
+            <tspan x="145.804614" y="901.222222" font-family="Zuume-BoldItalic, Zuume" font-weight="bold"> Barnett</tspan>
+        </text>
+        <text id="125-LBS-MATCH" font-family="Zuume-Bold, Zuume" font-size="58" font-weight="bold" fill="#FFFFFF">
+            <tspan x="839.295725" y="901.222222">125 LBS MATCH</tspan>
+        </text>
+        <text id="Stat-Name-1" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#FFFFFF">
+            <tspan x="892.745725" y="313.333333">RECORD</tspan>
+        </text>
+        <text id="Stat-Name-2" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#FFFFFF">
+            <tspan x="819.945725" y="451.333333">maj. decisions</tspan>
+        </text>
+        <text id="Stat-Name-3" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#FFFFFF">
+            <tspan x="866.249725" y="589.333333">tech falls</tspan>
+        </text>
+        <text id="Stat-Name-4" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#FFFFFF">
+            <tspan x="913.449725" y="727.333333">falls</tspan>
+        </text>
+        <rect id="Rectangle" fill="#FFFFFF" x="642.869281" y="256.333333" width="153.333333" height="76.6666667" rx="38"></rect>
+        <rect id="Rectangle-Copy-4" fill="#FFFFFF" x="642.869281" y="394.333333" width="153.333333" height="76.6666667" rx="38"></rect>
+        <rect id="Rectangle-Copy-6" fill="#FFFFFF" x="642.869281" y="532.333333" width="153.333333" height="76.6666667" rx="38"></rect>
+        <rect id="Rectangle-Copy-8" fill="#FFFFFF" x="642.869281" y="670.333333" width="153.333333" height="76.6666667" rx="38"></rect>
+        <rect id="Rectangle-Copy-3" fill="#FFFFFF" x="1123.31373" y="256.333333" width="153.333333" height="76.6666667" rx="38"></rect>
+        <rect id="Rectangle-Copy-5" fill="#FFFFFF" x="1123.31373" y="394.333333" width="153.333333" height="76.6666667" rx="38"></rect>
+        <rect id="Rectangle-Copy-7" fill="#FFFFFF" x="1123.31373" y="532.333333" width="153.333333" height="76.6666667" rx="38"></rect>
+        <rect id="Rectangle-Copy-9" fill="#FFFFFF" x="1123.31373" y="670.333333" width="153.333333" height="76.6666667" rx="38"></rect>
+        <text id="Away-Stat-1" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+            <tspan x="692.020392" y="313.333333">5-1</tspan>
+        </text>
+        <text id="Away-Stat-2" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+            <tspan x="692.020392" y="451.333333">5-1</tspan>
+        </text>
+        <text id="Away-Stat-3" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+            <tspan x="692.020392" y="589.333333">5-1</tspan>
+        </text>
+        <text id="Away-Stat-4" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+            <tspan x="692.020392" y="727.333333">5-1</tspan>
+        </text>
+        <text id="Home-Stat-1" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+            <tspan x="1174.66395" y="313.333333">7-6</tspan>
+        </text>
+        <text id="Home-Stat-2" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+            <tspan x="1174.66395" y="451.333333">7-6</tspan>
+        </text>
+        <text id="Home-Stat-3" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+            <tspan x="1174.66395" y="589.333333">7-6</tspan>
+        </text>
+        <text id="Home-Stat-4" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+            <tspan x="1174.66395" y="727.333333">7-6</tspan>
+        </text>
+    </g>
+</svg>

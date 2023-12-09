@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrestling Control</title>
+
+    <!-- Alpine Plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Socket IO -->
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://classless.de/classless.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        [x-cloak] { display: none !important; }
+
+        :root {
+            /* foreground   | background color */
+            --cfg: #cecbc4;
+            --cbg: #252220;
+            --cdark: #999;
+            --clight: #333;
+            --cmed: #566;
+            --clink: #1ad;
+            --cemph: #0b9;
+            --cemphbg: #0b91;
+            --width: 90%;
+        }
+
+        body {
+            font-family: 'Noto Sans Mono', monospace;
+        }
+
+        .roster-img {
+            max-height: 100px;
+        }
+
+        .clickable:hover {
+            text-decoration:none;
+            text-shadow: 1px 1px 1px #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="row" x-data="app">
+        <div class="col-4">
+            <fieldset>
+                <legend>Teams</legend>
+                <label for="home-team">Home Team</label>
+                <select name="home-team" x-model="homeRosterId">
+                    <option></option>
+                    <template x-for="roster in $store.g.rosterIds">
+                        <option x-text="roster" :value="roster"></option>
+                    </template>
+                </select>
+                <label for="away-team">Away Team</label>
+                <select name="away-team" x-model="awayRosterId">
+                    <option></option>
+                    <template x-for="roster in $store.g.rosterIds">
+                        <option x-text="roster" :value="roster"></option>
+                    </template>
+                </select>
+            </fieldset>
+
+            <template x-if="teamsSelected">
+                <fieldset>
+                    <legend>Saved Matchups</legend>
+                    <template x-for="(matchup, idx) in matchupsForRoster">
+                        <div class="card">
+                            <a href="#" @click="loadMatchup(idx)"><span x-text="awayRoster[matchup.awayPlayerId].first_name"></span> <strong
+                                    x-text="awayRoster[matchup.awayPlayerId].last_name"></strong> vs <span
+                                    x-text="homeRoster[matchup.homePlayerId].first_name"></span> <strong
+                                    x-text="homeRoster[matchup.homePlayerId].last_name"></strong></a>
+                            <p x-text="matchup.weight"></p>
+                            <button @click="deleteMatchup(idx)" type="reset">Delete</button>
+                            <button @click="overwriteMatchup(idx)">Overwrite</button>
+                            <p x-cloak x-transition x-show="overwriteDoneIdx == idx">Saved!</p>
+                        </div>
+                    </template>
+                </fieldset>
+            </template>
+        </div>
+        <div class="col">
+            <fieldset>
+                <legend>Selected Matchup</legend>
+                <div class="row">
+                    <div class="col">
+                        <label for="away-player">Away Player</label>
+                        <select name="away-player" x-model="awayPlayerId">
+                            <option></option>
+                            <template x-for="(player, idx) in awayRoster">
+                                <option x-text="player.first_name + ' ' + player.last_name" :value="idx"></option>
+                            </template>
+                        </select>
+                        <template x-if="playersSelected">
+                            <div class="card">
+                                <p><span x-text="awayPlayer.first_name"></span> <strong
+                                        x-text="awayPlayer.last_name"></strong></p>
+                                <p x-text="awayPlayer.weight + 'lbs'"></p>
+                                <p x-text="awayPlayer.year"></p>
+                                <img class="roster-img" :src="awayPlayer.image_url">
+                                <label for="awayHasRank">Has Rank?</label>
+                                <input name="awayHasRank" type="checkbox" x-model="awayPlayerHasRank">
+                                <div x-cloak x-show="awayPlayerHasRank">
+                                    <label for="awayRank">Rank</label>
+                                    <input name="awayRank" type="number" x-model="awayRank">
+                                </div>
+                                <details class="card">
+                                    <summary>Stats</summary>
+                                    <label for="Stat-1">Record</label>
+                                    <input name="Stat-1" type="text" x-model="awayStats.record">
+                                    <label for="Stat-2">Falls</label>
+                                    <input name="Stat-2" type="text" x-model="awayStats.falls">
+                                    <label for="Stat-3">Techs</label>
+                                    <input name="Stat-3" type="text" x-model="awayStats.techs">
+                                    <label for="Stat-4">Majors</label>
+                                    <input name="Stat-4" type="text" x-model="awayStats.majors">
+                                </details>
+                                <label for="awayScore">Score</label>
+                                <input type="number" x-model="gameInfo.awayScore" placeholder="0">
+                                <button type="button" @click="gameInfo.awayScore += 1">+1</button>
+                                <button type="button" @click="gameInfo.awayScore += 2">+2</button>
+                                <button type="button" @click="gameInfo.awayScore += 3">+3</button>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="col">
+                        <label for="home-player">Home Player</label>
+                        <select name="home-player" x-model="homePlayerId">
+                            <option></option>
+                            <template x-for="(player, idx) in homeRoster">
+                                <option x-text="player.first_name + ' ' + player.last_name" :value="idx"></option>
+                            </template>
+                        </select>
+                        <template x-if="playersSelected">
+                            <div class="card">
+                                <p><span x-text="homePlayer.first_name"></span> <strong
+                                        x-text="homePlayer.last_name"></strong></p>
+                                <p x-text="homePlayer.weight + 'lbs'"></p>
+                                <p x-text="homePlayer.year"></p>
+                                <img class="roster-img" :src="homePlayer.image_url">
+                                <label for="homeHasRank">Has Rank?</label>
+                                <input name="homeHasRank" type="checkbox" x-model="homePlayerHasRank">
+                                <div x-cloak x-show="homePlayerHasRank">
+                                    <label for="homeRank">Rank</label>
+                                    <input name="homeRank" type="number" x-model="homeRank">
+                                </div>
+                                <details class="card">
+                                    <summary>Stats</summary>
+                                    <label for="Stat-1">Record</label>
+                                    <input name="Stat-1" type="text" x-model="homeStats.record">
+                                    <label for="Stat-2">Falls</label>
+                                    <input name="Stat-2" type="text" x-model="homeStats.falls">
+                                    <label for="Stat-3">Techs</label>
+                                    <input name="Stat-3" type="text" x-model="homeStats.techs">
+                                    <label for="Stat-4">Majors</label>
+                                    <input name="Stat-4" type="text" x-model="homeStats.majors">
+                                </details>
+                                <label for="homeScore">Score</label>
+                                <input type="number" x-model="gameInfo.homeScore" placeholder="0">
+                                <button type="button" @click="gameInfo.homeScore += 1">+1</button>
+                                <button type="button" @click="gameInfo.homeScore += 2">+2</button>
+                                <button type="button" @click="gameInfo.homeScore += 3">+3</button>
+                            </div>
+                        </template>
+                        <button name="updateBtn" @click="update()" type="button">Update</button>
+                        <label x-cloak x-transition x-show="showUpdated" for="updateBtn">Updated!</label>
+                        <button name="saveBtn" @click="saveMatchup()" type="button">Save</button>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <label for="weight">Weight </label>
+                        <select name="weight" x-model="weight">
+                            <option value="125lbs">125lbs</option>
+                            <option value="133lbs">133lbs</option>
+                            <option value="141lbs">141lbs</option>
+                            <option value="149lbs">149lbs</option>
+                            <option value="157lbs">157lbs</option>
+                            <option value="165lbs">165lbs</option>
+                            <option value="174lbs">174lbs</option>
+                            <option value="184lbs">184lbs</option>
+                            <option value="197lbs">197lbs</option>
+                            <option value="285lbs">285lbs</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</body>
+
+<script>
+    const LIVESTATS_URL = "https://livestats.gurleen.dev/";
+    const sock = io(LIVESTATS_URL);
+
+    sock.on("connect", () => {
+        console.log("Connected to livestats.");
+        sock.emit("get_store", (store) => {
+            console.log(store)
+        })
+    
+        sock.on("update", (payload) => {
+            console.log(payload)
+        })
+    
+        sock.on("signal", (payload) => {
+            console.log("SIGNAL: ", payload)
+        })
+    
+        window.emitSignal = (key) => {
+            sock.emit("send_signal", {signal: key})
+        }
+    
+        window.updateKey = (key, value) => {
+            sock.emit("do_update", { "key": key, "value": value });
+            payload = {}
+            payload[key] = value
+            console.log(payload)
+        }
+    });
+
+    get = (url) => {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, false);
+        xhr.send();
+        return JSON.parse(xhr.responseText);
+    }
+
+    let alpineInit = false;
+    let files;
+    let rosters = {};
+    let text = fetch('/rosters').then(res => res.text()).then(text => {
+        files = text.match(/href="([^"]+)/g).map((x) => x.replace('href="', ''));
+        files.forEach((file) => {
+            if (file.includes('wrest')) {
+                roster = get(`/rosters/${file}`);
+                rosters[file.replace(".json", "")] = roster;
+            }
+        });
+        document.dispatchEvent(new Event('loaded'));
+    });
+
+    document.addEventListener(("alpine:init"), () => {
+        alpineInit = true;
+        Alpine.store("g", {
+            rosters: [],
+            get rosterIds() {
+                return Object.keys(this.rosters);
+            },
+        })
+
+        Alpine.data("app", () => {
+            return {
+                savedMatchups: Alpine.$persist([]),
+                homeRosterId: null,
+                get homeRoster() {
+                    return rosters[this.homeRosterId];
+                },
+                homePlayerId: null,
+                get homePlayer() {
+                    return this.homeRoster[this.homePlayerId];
+                },
+                get homePlayerImgUrl() {
+                    let code = (this.homePlayer.first_name.toLowerCase() + this.homePlayer.last_name.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '');
+                    return `/media/roster-images/${this.homeRosterId}/${code}.png`;
+                },
+                get homeNameSplit() {
+                    if(this.homePlayerHasRank) {
+                        return "#" + this.homeRank + " " + this.homePlayer.first_name + "$" + this.homePlayer.last_name;
+                    } else {
+                        return this.homePlayer.first_name + "$" + this.homePlayer.last_name;
+                    }
+                },
+                homePlayerHasRank: false,
+                homeRank: null,
+                homeStats: {record: "", falls: "", techs: "", majors: ""},
+                get awayRoster() {
+                    return rosters[this.awayRosterId];
+                },
+                awayRosterId: null,
+                awayPlayerId: null,
+                get awayPlayer() {
+                    return this.awayRoster[this.awayPlayerId];
+                },
+                get awayPlayerImgUrl() {
+                    let code = (this.awayPlayer.first_name.toLowerCase() + this.awayPlayer.last_name.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '');
+                    return `/media/roster-images/${this.awayRosterId}/${code}.png`;
+                },
+                get awayNameSplit() {
+                    if(this.awayPlayerHasRank) {
+                        return "#" + this.awayRank + " " + this.awayPlayer.first_name + "$" + this.awayPlayer.last_name;
+                    } else {
+                        return this.awayPlayer.first_name + "$" + this.awayPlayer.last_name;
+                    }
+                },
+                awayPlayerHasRank: false,
+                awayRank: null,
+                awayStats: {record: "", falls: "", techs: "", majors: ""},
+                get playersSelected() {
+                    return this.homePlayerId != null && this.awayPlayerId != null;
+                },
+                get teamsSelected() {
+                    return this.homeRosterId != null && this.awayRosterId != null;
+                },
+                get homeCleanName() {
+                    return this.homePlayer.first_name.charAt(0) + ". " + this.homePlayer.last_name;
+                },
+                get awayCleanName() {
+                    return this.awayPlayer.first_name.charAt(0) + ". " + this.awayPlayer.last_name;
+                },
+                weight: null,
+                showUpdated: false,
+                gameInfo: {
+                    homeScore: 0,
+                    awayScore: 0,
+                    period: "1st"
+                },
+                update() {
+                    console.log("Updating...")
+                    window.updateKey("homePlayerName", this.homeNameSplit)
+                    window.updateKey("Home-Wrestler", this.homeCleanName)
+                    window.updateKey("Home-Rank", this.homeRank)
+                    window.updateKey("img:Home-Wrestler-Image", this.homePlayerImgUrl)
+                    window.updateKey("awayPlayerName", this.awayNameSplit)
+                    window.updateKey("Away-Wrestler", this.awayCleanName)
+                    window.updateKey("img:Away-Wrestler-Image", this.awayPlayerImgUrl)
+                    window.updateKey("Away-Rank", this.awayRank)
+                    window.updateKey("fade:weight", this.weight)
+                    window.updateKey("Weight", this.weight)
+                    window.updateKey("Home-Stat-1", this.homeStats.record)
+                    window.updateKey("Home-Stat-2", this.homeStats.majors)
+                    window.updateKey("Home-Stat-3", this.homeStats.techs)
+                    window.updateKey("Home-Stat-4", this.homeStats.falls)
+                    window.updateKey("Away-Stat-1", this.awayStats.record)
+                    window.updateKey("Away-Stat-2", this.awayStats.majors)
+                    window.updateKey("Away-Stat-3", this.awayStats.techs)
+                    window.updateKey("Away-Stat-4", this.awayStats.falls)
+                    window.updateKey("fade:Home-Score", this.gameInfo.homeScore)
+                    window.updateKey("fade:Away-Score", this.gameInfo.awayScore)
+                    window.updateKey("fade:period", this.gameInfo.period)
+                    this.showUpdated = true;
+                    setTimeout(() => { this.showUpdated = false }, 3000)
+                },
+                saveMatchup() {
+                    this.savedMatchups.push({
+                        homeRosterId: this.homeRosterId,
+                        homePlayerId: this.homePlayerId,
+                        homePlayerHasRank: this.homePlayerHasRank,
+                        homeRank: this.homeRank,
+                        awayRosterId: this.awayRosterId,
+                        awayPlayerId: this.awayPlayerId,
+                        awayPlayerHasRank: this.awayPlayerHasRank,
+                        awayRank: this.awayRank,
+                        weight: this.weight,
+                        homeStats: this.homeStats,
+                        awayStats: this.awayStats
+                    })
+                },
+                deleteMatchup(i) {
+                    this.savedMatchups.splice(i, 1);
+                },
+                get matchupsForRoster() {
+                    return this.savedMatchups.filter((matchup) => {
+                        return matchup.homeRosterId == this.homeRosterId && matchup.awayRosterId == this.awayRosterId;
+                    })
+                },
+                loadMatchup(i) {
+                    matchup = this.matchupsForRoster[i];
+                    this.homePlayerId = matchup.homePlayerId;
+                    this.homePlayerHasRank = matchup.homePlayerHasRank;
+                    this.homeRank = matchup.homeRank;
+                    this.awayPlayerId = matchup.awayPlayerId;
+                    this.awayPlayerHasRank = matchup.awayPlayerHasRank;
+                    this.awayRank = matchup.awayRank;
+                    this.weight = matchup.weight;
+                    this.homeStats = matchup.homeStats;
+                    this.awayStats = matchup.awayStats;
+                },
+                overwriteDoneIdx: null,
+                overwriteMatchup(i) {
+                    matchup = this.matchupsForRoster[i];
+                    matchup.homePlayerId = this.homePlayerId;
+                    matchup.homePlayerHasRank = this.homePlayerHasRank;
+                    matchup.homeRank = this.homeRank;
+                    matchup.awayPlayerId = this.awayPlayerId;
+                    matchup.awayPlayerHasRank = this.awayPlayerHasRank;
+                    matchup.awayRank = this.awayRank;
+                    matchup.weight = this.weight;
+                    matchup.homeStats = this.homeStats;
+                    matchup.awayStats = this.awayStats;
+                    this.savedMatchups.splice(i, 1, matchup);
+                    this.overwriteDoneIdx = i;
+                    setTimeout(() => { this.overwriteDoneIdx = -1 }, 3000)
+                },
+                init() {
+                    Alpine.effect(() => {
+                        if(this.homeRosterId != null) window.localStorage.setItem("g_homeRosterId", this.homeRosterId);
+                        if(this.awayRosterId != null) window.localStorage.setItem("g_awayRosterId", this.awayRosterId);
+                    })
+                    window.getCachedRosterSelection = () => {
+                        this.homeRosterId = window.localStorage.getItem("g_homeRosterId");
+                        this.awayRosterId = window.localStorage.getItem("g_awayRosterId");
+                    }
+                }
+            }
+        })
+    })
+
+    update = () => {
+        Alpine.store("g").rosters = rosters;
+        window.getCachedRosterSelection();
+    }
+
+    document.addEventListener('loaded', () => {
+        if (!alpineInit) {
+            document.addEventListener("alpine:init", update)
+        } else {
+            update();
+        }
+    })
+</script>
+
+</html>

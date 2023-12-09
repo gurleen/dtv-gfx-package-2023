@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../../font/stylesheet.css" rel="stylesheet">
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@1.6.10/svg-loader.min.js" async></script>
+    <script type="text/javascript" src="../../shared.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Wrestling Matchup</title>
+</head>
+
+<body style="visibility: hidden">
+    <?xml version="1.0" encoding="UTF-8"?>
+    <svg width="1920px" height="1080px" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>Wrestling Matchup</title>
+        <defs>
+            <rect id="path-1" x="0" y="0" width="726" height="782"></rect>
+            <rect id="path-3" x="0" y="0" width="726" height="782"></rect>
+        </defs>
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Away-Team" transform="translate(-1, 149)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Away-Color" fill="#C4012F" xlink:href="#path-1"></use>
+                <image id="Away-Team-Logo" opacity="0.15" mask="url(#mask-2)" x="-348" y="-322" width="1426"
+                    height="1426" xlink:href=""></image>
+            </g>
+            <g id="Home-Team" transform="translate(1194, 149)">
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <use id="Home-Color" fill="#07294D" xlink:href="#path-3"></use>
+                <image id="Home-Team-Logo" opacity="0.15" mask="url(#mask-4)" x="-346" y="-322" width="1426"
+                    height="1426" xlink:href=""></image>
+            </g>
+            <rect id="Rectangle" fill="#131313" x="627.535948" y="149" width="664.444444" height="782"></rect>
+            <image id="Home-Wrestler-Image" x="1334.14706" y="149" width="586.5" height="782" xlink:href=""></image>
+            <rect id="Rectangle" fill="#131313" x="1194.86928" y="844.111111" width="725.777778" height="86.8888889">
+            </rect>
+            <text id="Home-Wrestler-Name" font-family="Zuume-LightItalic, Zuume" font-size="58" font-style="italic"
+                font-weight="300" fill="#FFFFFF" text-anchor="end">
+                <tspan x="1564.6655" y="901.222222">desmond</tspan>
+                <tspan x="1900" y="901.222222" font-family="Zuume-BoldItalic, Zuume" font-weight="bold"> pleasant
+                </tspan>
+            </text>
+            <image id="Away-Wrestler-Image" x="-1.13071895" y="149" width="485.555556" height="776.888889"
+                xlink:href=""></image>
+            <rect id="Rectangle-Copy-2" fill="#131313" x="-1.13071895" y="844.111111" width="725.777778"
+                height="86.8888889"></rect>
+            <text id="Away-Wrestler-Name" font-family="Zuume-LightItalic, Zuume" font-size="58" font-style="italic"
+                font-weight="300" fill="#FFFFFF">
+                <tspan x="14.2026144" y="901.222222">#11 Eric</tspan>
+                <tspan x="145.804614" y="901.222222" font-family="Zuume-BoldItalic, Zuume" font-weight="bold"> Barnett
+                </tspan>
+            </text>
+            <text id="Match-Weight" font-family="Zuume-Bold, Zuume" font-size="58" font-weight="bold" fill="#FFFFFF">
+                <tspan x="839.295725" y="901.222222">125 LBS MATCH</tspan>
+            </text>
+            <text id="Stat-Name-1" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#FFFFFF">
+                <tspan x="892.745725" y="313.333333">RECORD</tspan>
+            </text>
+            <text id="Stat-Name-2" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#FFFFFF">
+                <tspan x="819.945725" y="451.333333">maj. decisions</tspan>
+            </text>
+            <text id="Stat-Name-3" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#FFFFFF">
+                <tspan x="866.249725" y="589.333333">tech falls</tspan>
+            </text>
+            <text id="Stat-Name-4" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#FFFFFF">
+                <tspan x="913.449725" y="727.333333">falls</tspan>
+            </text>
+            <rect id="Rectangle" fill="#FFFFFF" x="642.869281" y="256.333333" width="153.333333" height="76.6666667"
+                rx="38"></rect>
+            <rect id="Rectangle-Copy-4" fill="#FFFFFF" x="642.869281" y="394.333333" width="153.333333"
+                height="76.6666667" rx="38"></rect>
+            <rect id="Rectangle-Copy-6" fill="#FFFFFF" x="642.869281" y="532.333333" width="153.333333"
+                height="76.6666667" rx="38"></rect>
+            <rect id="Rectangle-Copy-8" fill="#FFFFFF" x="642.869281" y="670.333333" width="153.333333"
+                height="76.6666667" rx="38"></rect>
+            <rect id="Rectangle-Copy-3" fill="#FFFFFF" x="1123.31373" y="256.333333" width="153.333333"
+                height="76.6666667" rx="38"></rect>
+            <rect id="Rectangle-Copy-5" fill="#FFFFFF" x="1123.31373" y="394.333333" width="153.333333"
+                height="76.6666667" rx="38"></rect>
+            <rect id="Rectangle-Copy-7" fill="#FFFFFF" x="1123.31373" y="532.333333" width="153.333333"
+                height="76.6666667" rx="38"></rect>
+            <rect id="Rectangle-Copy-9" fill="#FFFFFF" x="1123.31373" y="670.333333" width="153.333333"
+                height="76.6666667" rx="38"></rect>
+            <text id="Away-Stat-1" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+                <tspan x="692.020392" y="313.333333">5-1</tspan>
+            </text>
+            <text id="Away-Stat-2" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+                <tspan x="692.020392" y="451.333333">5-1</tspan>
+            </text>
+            <text id="Away-Stat-3" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+                <tspan x="692.020392" y="589.333333">5-1</tspan>
+            </text>
+            <text id="Away-Stat-4" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+                <tspan x="692.020392" y="727.333333">5-1</tspan>
+            </text>
+            <text id="Home-Stat-1" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+                <tspan x="1174.66395" y="313.333333">7-6</tspan>
+            </text>
+            <text id="Home-Stat-2" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+                <tspan x="1174.66395" y="451.333333">7-6</tspan>
+            </text>
+            <text id="Home-Stat-3" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+                <tspan x="1174.66395" y="589.333333">7-6</tspan>
+            </text>
+            <text id="Home-Stat-4" font-family="Zuume-Bold, Zuume" font-size="64" font-weight="bold" fill="#000000">
+                <tspan x="1174.66395" y="727.333333">7-6</tspan>
+            </text>
+        </g>
+    </svg>
+
+    <script>
+        window.onerror = console.error
+        window.SPXGCTemplateDefinition = {
+            "description": "Full Screen Prerender",
+            "playserver": "OVERLAY",
+            "playchannel": "1",
+            "playlayer": "7",
+            "webplayout": "7",
+            "steps": "2",
+            "out": "manual",
+            "uicolor": "2",
+            "dataformat": "json",
+            "DataFields": [
+                {
+                    "field": "extra:Home-Color",
+                    "ftype": "color",
+                    "title": "Home Color",
+                    "value": "rgba(0,47,108,1.00)"
+                },
+                {
+                    "field": "extra:Home-Team-Logo",
+                    "ftype": "filelist",
+                    "title": "Home Logo",
+                    "assetfolder": "/media/logos-white/",
+                    "extension": "png",
+                    "value": "/media/logos-white/DREXEL.PNG"
+                },
+                {
+                    "field": "extra:Away-Color",
+                    "ftype": "color",
+                    "title": "Away Color",
+                    "value": "rgba(0,47,108,1.00)"
+                },
+                {
+                    "field": "extra:Away-Team-Logo",
+                    "ftype": "filelist",
+                    "title": "Away Logo",
+                    "assetfolder": "/media/logos-white/",
+                    "extension": "png",
+                    "value": "/media/logos-white/NORFOLK_STATE.PNG"
+                }
+            ]
+        }
+
+        window.onload = () => {
+            window.svgLoaded = true;
+            window.dispatchEvent(new Event("loaded"));
+
+            tl.from("#Page-1", { duration: 0.5, opacity: 0, ease: "power3.out" })
+            tl.addPause()
+            tl.to("#Page-1", { duration: 0.5, opacity: 0 })
+
+            _.range(1, 5).forEach(i => middleAlignText(`Away-Stat-${i}`, 720))
+            _.range(1, 5).forEach(i => middleAlignText(`Home-Stat-${i}`, 1200))
+
+            showBody();
+        }
+
+        window.handleExtra = async (k, v) => {}
+
+        setHandler("homePlayerName", (v) => editSpanTextReverse("Home-Wrestler-Name", v.split("$")))
+        setHandler("awayPlayerName", (v) => editSpanText("Away-Wrestler-Name", v.split("$")))
+        setHandler("Weight", (v) => updateText("Match-Weight", `${v} MATCH`))
+    </script>
+</body>
+
+</html>
