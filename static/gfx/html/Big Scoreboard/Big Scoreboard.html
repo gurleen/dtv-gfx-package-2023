@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>Big Scoreboard</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, width=1920" />
+	
+	
+
+	<script src="https://cdn.jsdelivr.net/gh/worldoptimizer/HypeClipPath/HypeClipPath.min.js"></script>
+	
+<script>
+    window.SPXGCTemplateDefinition = {
+        "description": "Big Scoreboard",
+        "playserver": "OVERLAY",
+        "playchannel": "1",
+        "playlayer": "8",
+        "webplayout": "8",
+        "steps" : "1",
+        "out": "manual",
+        "uicolor": "2",
+        "dataformat": "json",
+        "DataFields": [
+            {
+                "field" : "color:homeColor",
+                "ftype" : "color",
+                "title" : "Home Color",
+                "value" : ""
+            },
+            {
+                "field": "img:homeLogo",
+                "ftype": "filelist",
+                "title": "Home Team Logo",
+                "assetfolder" : "/media/logos-white/" ,
+                "extension" : "png",
+                "value": "",
+            },
+            {
+                "field" : "color:awayColor",
+                "ftype" : "color",
+                "title" : "Away Color",
+                "value" : ""
+            },
+            {
+                "field": "img:awayLogo",
+                "ftype": "filelist",
+                "title": "Away Team Logo",
+                "assetfolder" : "/media/logos-white/" ,
+                "extension" : "png",
+                "value": "",
+            },
+            {
+                "field" : "fade:period",
+                "ftype" : "textfield",
+                "title" : "Period",
+                "value" : "1st"
+            }
+        ]
+    };
+</script>
+	
+
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="bigscoreboard_hype_container" class="HYPE_document" style="margin:auto;position:relative;width:1920px;height:1080px;overflow:hidden;">
+		<script type="text/javascript" charset="utf-8" src="Big%20Scoreboard.hyperesources/bigscoreboard_hype_generated_script.js?5748"></script>
+	</div>
+
+	<!-- end copy -->
+  </body>
+</html>

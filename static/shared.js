@@ -1,13 +1,29 @@
 DEBUG = window.location.search.includes("debug=true")
+const STATE = {
+    NotPlaying: 0,
+    InAnimation: 1,
+    Playing: 2,
+    MiddleAnimation: 3,
+    OutAnimation: 4
+}
 window.cache = {}
 window.handlers = {}
 window.signals = {}
 window.svgLoaded = false;
 shouldBeStopped = false;
 indexedDB.deleteDatabase('keyval-store');
+get = (url) => {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false);
+    xhr.send();
+    return JSON.parse(xhr.responseText);
+}
 const tl = gsap.timeline({ paused: true });
 tl.from("body", { opacity: 0, duration: 1 })
-tl.eventCallback("onComplete", () => { tl.seek(0).pause(); shouldBeStopped = false; })
+tl.eventCallback("onComplete", () => { 
+    tl.seek(0).pause(); shouldBeStopped = false; 
+    window.parent.setRendererStopped();
+})
 showBody = () => document.querySelector("body").style.visibility = "visible";
 play = () => tl.resume();
 stop = () => { tl.resume(); shouldBeStopped = true; }
@@ -177,7 +193,10 @@ createTemplateDefinition = (svg) => {
     window.SPXGCTemplateDefinition = def
 }
 
+
+
 const LIVESTATS_URL = "https://livestats.gurleen.dev/";
+// const LIVESTATS_URL = "http://localhost:8000/";
 const sock = io(LIVESTATS_URL);
 
 sock.on("connect", () => {
@@ -209,5 +228,13 @@ sock.on("connect", () => {
         payload[key] = value
         console.log(payload)
         window.doUpdate(payload)
+    }
+
+    window.setRunning = () => {
+        sock.emit("setRendererRunning")
+    }
+
+    window.setStopped = () => {
+        sock.emit("setRendererStopped")
     }
 });

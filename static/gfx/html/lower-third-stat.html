@@ -210,11 +210,33 @@
 
       tl.from("#Page-1", { duration: 0.5, x: "-=100", opacity: 0, ease: "power3.out" });
       tl.from("text", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "-=0.4")
+      tl.call(() => setPlaying())
       tl.addPause("+=0", checkForStop)
       tl.to("#Page-1", { duration: 0.3, opacity: 0, ease: "power3.out" })
 
       middleAlignText("Number", 820)
       middleAlignText("Position", 820)
+
+      setHandler("Team", (v) => {
+        if(v == "Home") {
+          updateColor("Team-Color", window.cache["Home-Color"])
+          updateImage("Team-Logo", window.cache["Home-Logo"])
+        }
+        else {
+          updateColor("Team-Color", window.cache["Away-Color"])
+          updateImage("Team-Logo", window.cache["Away-Logo"])
+        }
+      })
+
+      setHandler("Player", (v)=> {
+        sport = window.cache["Sport"]
+        teamId = window.cache["Team"] == "Home" ? window.cache["Home-ID"] : window.cache["Away-ID"]
+        let player = get(`/teams/${sport}/${teamId}/players/${v}`)
+        updateText("First-Name", player.firstName)
+        updateText("Last-Name", player.lastName)
+        updateText("Number", player.jersey)
+        updateText("Position", player.position)
+      })
 
       showBody();
     }

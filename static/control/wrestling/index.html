@@ -229,7 +229,8 @@
 </body>
 
 <script>
-    const LIVESTATS_URL = "https://livestats.gurleen.dev/";
+    // const LIVESTATS_URL = "https://livestats.gurleen.dev/";
+    const LIVESTATS_URL = "http://localhost:8000/"
     const sock = io(LIVESTATS_URL);
 
     sock.on("connect", () => {

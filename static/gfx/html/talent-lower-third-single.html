@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=1920, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="../../font/stylesheet.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -78,6 +78,7 @@
       tl.from("#Bottom-Box", { duration: 0.5, opacity: 0, x: "-=200", ease: "power3.out" })
       tl.from("#Main-Box", { duration: 0.5, opacity: 0, x: "-=200", ease: "power3.out" }, "<")
       tl.from("text", { duration: 0.5, opacity: 0, x: "-=50", ease: "power3.out" }, "-=0.3")
+      tl.call(() => setPlaying())
       tl.addPause("+=0", checkForStop)
       tl.to("#Page-1", { opacity: 0, duration: 0.5, ease: "power3.out" })
 

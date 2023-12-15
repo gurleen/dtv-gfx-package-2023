@@ -1,4 +1,5 @@
 const LIVESTATS_URL = "https://livestats.gurleen.dev/";
+//const LIVESTATS_URL = "http://localhost:8000/";
 
 const VALUE_MAPPERS = {
     "img": "updateImage",

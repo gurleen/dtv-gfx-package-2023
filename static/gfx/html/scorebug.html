@@ -113,14 +113,14 @@
                 </text>
             </g>
             <g id="Away" transform="translate(534, 865)">
-                <g id="Away-ID">
+                <g id="Away-Ident">
                     <mask id="mask-2" fill="white">
                         <use xlink:href="#path-1"></use>
                     </mask>
                     <use id="Away-Background" fill="#007A53" xlink:href="#path-1"></use>
                     <image id="Away-Logo" opacity="0.2" mask="url(#mask-2)" x="-44" y="-127" width="334" height="334" xlink:href=""></image>
                 </g>
-                <text id="Away-Name" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#FFFFFF">
+                <text id="Away-Abbr" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#FFFFFF">
                     <tspan x="14" y="62">NSU</tspan>
                 </text>
                 <g id="Away-Score" fill="#FFFFFF" fill-opacity="1">
@@ -129,14 +129,14 @@
                 </g>
             </g>
             <g id="Home" transform="translate(1138, 865)">
-                <g id="Home-ID">
+                <g id="Home-Ident">
                     <mask id="mask-6" fill="white">
                         <use xlink:href="#path-5"></use>
                     </mask>
                     <use id="Home-Background" fill="#07294D" xlink:href="#path-5"></use>
                     <image id="Home-Logo" opacity="0.2" mask="url(#mask-6)" x="-43" y="-127" width="334" height="334" xlink:href=""></image>
                 </g>
-                <text id="Home-Name" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#FFFFFF">
+                <text id="Home-Abbr" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#FFFFFF">
                     <tspan x="143.025" y="62">DREX</tspan>
                 </text>
                 <g id="Home-Score" fill="#FFFFFF" fill-opacity="1">
@@ -369,6 +369,7 @@
             tl.to("#Home-Intro", { duration: 0.3, opacity: 0 }, "<")
             tl.from("#Bottom-Bar", { duration: 0.01, opacity: 0 })
             tl.from("#Bottom-Bar", { duration: 0.5, y: "-=53", ease: "power3.out" })
+            tl.call(() => setPlaying())
             tl.addPause("+=0", checkForStop)
             tl.to("#Page-1", { opacity: 0.5, opacity: 0, ease: "power3.out" })
 
@@ -444,6 +445,16 @@
                 })
             })
 
+            setHandler("Home-Logo", (v) => {
+                updateImage("Home-Intro-Logo", v)
+                updateImage("Home-Logo", v)
+            })
+
+            setHandler("Away-Logo", (v) => {
+                updateImage("Away-Intro-Logo", v)
+                updateImage("Away-Logo", v)
+            })
+
             setHandler("Info-Bar-Subtext", (v) => {
                 main = document.querySelector("#Info-Bar-Text :nth-child(1)")
                 tspan = document.querySelector("#Info-Bar-Text :nth-child(2)")
@@ -458,28 +469,19 @@
                 else { updateColor("Info-Bar-Background", "#131313") }
             })
 
+            setHandler("Home-Color", (v) => {
+                updateColor("Home-Background", v)
+                updateColor("Home-Intro-BG", v)
+            })
+
+            setHandler("Away-Color", (v) => {
+                updateColor("Away-Background", v)
+                updateColor("Away-Intro-BG", v)
+            })
+
             signal("scorebugSlider", () => infoBarTl.resume())
 
             showBody()
-        }
-
-        window.handleExtra = async (k, v) => {
-            if (k == "Home-Color") {
-                updateColor("Home-Intro-BG", v);
-                updateColor("Home-Background", v);
-            }
-            else if (k == "Away-Color") {
-                updateColor("Away-Intro-BG", v);
-                updateColor("Away-Background", v);
-            }
-            else if (k == "Home-Logo") {
-                updateImage("Home-Intro-Logo", v)
-                updateImage("Home-Logo", v)
-            }
-            else if (k == "Away-Logo") {
-                updateImage("Away-Intro-Logo", v)
-                updateImage("Away-Logo", v)
-            }
         }
     </script>
 </body>
