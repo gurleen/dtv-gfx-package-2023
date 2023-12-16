@@ -10,7 +10,7 @@ app = ASGIApp(sio, fastapi_app)
 fastapi_app.include_router(templates_router)
 fastapi_app.include_router(rosters_router)
 
-app.add_middleware(
+fastapi_app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
