@@ -59,7 +59,7 @@ class Renderer:
         return False
 
     async def running(self) -> bool:
-        if self.state == RendererState.InAnimation:
+        if self.state in [RendererState.InAnimation, RendererState.MiddleAnimation, RendererState.OutAnimation]:
             await self.set_state(RendererState.Playing)
             return True
         return False
@@ -72,7 +72,7 @@ class Renderer:
         return False
 
     async def stopped(self) -> bool:
-        if self.state == RendererState.OutAnimation:
+        if self.state in [RendererState.OutAnimation, RendererState.MiddleAnimation]:
             renderer.graphic = None
             await self.set_state(RendererState.NotPlaying)
             return True
@@ -83,6 +83,13 @@ class Renderer:
         self.graphic = None
         await self.set_state(RendererState.NotPlaying)
         return True
+    
+    async def next(self) -> bool:
+        if self.state == RendererState.Playing:
+            await sio.emit("rendererNext")
+            await self.set_state(RendererState.MiddleAnimation)
+            return True
+        return False
     
     async def update_global_var(self, key: str, value: str):
         logger.info(f"Updated global var {key} to {value}")
@@ -108,6 +115,11 @@ async def request_renderer_stop(sid: str):
 async def request_renderer_blank(sid: str):
     logger.info(f"{sid} requested to blank")
     return await renderer.blank()
+
+@sio.on("requestRendererNext")
+async def request_renderer_next(sid: str):
+    logger.info(f"{sid} requested to next")
+    return await renderer.next()
 
 @sio.on("setRendererRunning")
 async def set_renderer_running(sid: str):
@@ -162,6 +174,9 @@ async def set_teams(sid: str, home_id: int, away_id: int, sport: str):
     await renderer.update_global_var("img:Away-Logo", away.white_logo)
     await renderer.update_global_var("color:Home-Color", "#" + home.color)
     await renderer.update_global_var("color:Away-Color", "#" + away.color)
+    sport_code = "wbb" if sport == "womens" else "mbb"
+    await renderer.update_global_var("Home-Roster-Dir", f"{home.abbreviation.lower()}-{sport_code}")
+    await renderer.update_global_var("Away-Roster-Dir", f"{away.abbreviation.lower()}-{sport_code}")
 
     loop = asyncio.get_running_loop()
     loop.run_in_executor(executor, get_roster_for_team, sport, home_id)

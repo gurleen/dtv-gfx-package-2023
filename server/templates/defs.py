@@ -1,7 +1,6 @@
 from pathlib import Path
 from .template import Template, TemplateVar, TemplateVarType
 
-
 TEMPLATES = [
     Template(name="Talent Lower Third Single", template_file="/static/gfx/html/talent-lower-third-single.html", vars=[
         TemplateVar(name="Name", key="Name", type=TemplateVarType.STRING, default="FIRSTNAME LASTNAME"),
@@ -47,4 +46,8 @@ TEMPLATES = [
     Template(name="Big Scoreboard", template_file="/static/gfx/html/Big Scoreboard/Big Scoreboard.html", vars=[
         TemplateVar(name="Period", key="Period", type=TemplateVarType.STRING, default=""),
     ]),
+    Template(name="Starting Five", template_file="/static/gfx/html/starting-five.html", vars=[
+        TemplateVar(name="Team", key="Team", type=TemplateVarType.OPTION, default="Home", choices=["Home", "Away"]),
+        TemplateVar(name="Players", key="Players", type=TemplateVarType.STRING, default=""),
+    ])
 ]
