@@ -40,7 +40,7 @@ sock.on("connect", () => {
             graphic.vars.forEach((x) => {
                 data[x.key] = x.value;
             });
-            frame.contentWindow.update(JSON.stringify(data));
+            frame.contentWindow.update(JSON.stringify(data), delay=true);
             frame.contentWindow.play();
         }
     })
@@ -56,6 +56,10 @@ sock.on("connect", () => {
 
     sock.on("rendererStop", () => {
         getFrame().contentWindow.stop();
+    })
+
+    sock.on("rendererNext", () => {
+        getFrame().contentWindow.play();
     })
 
     sock.on("rendererBlank", () => {

@@ -12,6 +12,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
         integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+    integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+    crossorigin="anonymous"></script>
     <title>Graphics Test</title>
 </head>
 
@@ -195,10 +198,10 @@
             "dataformat": "json",
             "DataFields": [
                 {
-                  "field": "color:Background",
-                  "ftype": "color",
-                  "title": "Background Color",
-                  "value": "rgba(0,47,108,1.00)"
+                    "field": "color:Background",
+                    "ftype": "color",
+                    "title": "Background Color",
+                    "value": "rgba(0,47,108,1.00)"
                 },
                 {
                     "field": "img:Team-Logo",
@@ -259,6 +262,7 @@
             window.svgLoaded = true;
             window.dispatchEvent(new Event("loaded"));
             tl.from("#Page-1", { duration: 0.5, opacity: 0 }, "+=0.1")
+            tl.call(() => setPlaying())
             tl.addPause(">")
             tl.from("#Player-1", { duration: 0.5, opacity: 0, x: "-=100" })
             tl.from("#Player-2", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
@@ -266,6 +270,7 @@
             tl.from("#Player-4", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
             tl.from("#Player-5", { duration: 0.5, opacity: 0, x: "-=100" }, "-=0.4")
             tl.addPause(">")
+            tl.call(() => setPlaying())
             tl.to("#Page-1", { duration: 0.3, opacity: 0, ease: "expo.out" })
 
             endAlignText("P1-Last-Name", 320)
@@ -281,8 +286,59 @@
             middleAlignText("Title", 950)
 
             showBody();
+
+            setHandler("Team", (v) => {
+                isHome = v == "Home"
+                color = isHome? window.cache["Home-Color"] : window.cache["Away-Color"]
+                logo = isHome? window.cache["Home-Logo"] : window.cache["Away-Logo"]
+                name = isHome? window.cache["Home-Name"] : window.cache["Away-Name"]
+
+                updateColor("Background", color)
+                updateImage("Team-Logo", logo)
+                updateText("Title", `${name} STARTING FIVE`)
+            })
+
+            alignImage = (num) => {
+                // Get the elements
+                var useElement = document.getElementById(`Player-${num}-BG`);
+                var imageElement = document.getElementById(`P${num}-Image`);
+
+                // Get the heights
+                var useHeight = useElement.getBBox().height;
+                var imageHeight = imageElement.getBBox().height;
+
+                // Calculate the difference
+                var diff = useHeight - imageHeight;
+
+                // Set the y attribute of the image
+                imageElement.setAttribute('y', diff);
+            }
+
+            setHandler("Players", async (v) => {
+                players = v.split(" ")
+                _.range(1, 6).forEach(async (x) => {
+                    console.log(x)
+                    key = `player${x}Num`
+                    playerNum = players[x - 1]
+                    teamKey = window.cache["Team"] == "Home" ? window.cache["Home-Roster-Dir"] : window.cache["Away-Roster-Dir"]
+                    imageUrl = `https://dtv.gurleen.dev/media/roster-images/${teamKey}/${playerNum}.png`
+                    imageKey = `P${x}-Image`
+                    updateImage(imageKey, imageUrl)
+                    updateText(`P${x}-Number`, playerNum)
+                    sport = window.cache["Sport"]
+                    teamId = window.cache["Team"] == "Home" ? window.cache["Home-ID"] : window.cache["Away-ID"]
+                    let playerRaw = await fetch(`/teams/${sport}/${teamId}/players/${playerNum}`)
+                    let player = await playerRaw.json()
+                    updateText(`P${x}-First-Name`, player.firstName)
+                    updateText(`P${x}-Last-Name`, player.lastName)
+                    updateText(`P${x}-Position`, player.position)
+                    var imageElement = document.getElementById(`P${x}-Image`);
+                    imageElement.setAttribute('y', 50);
+                })
+            })
         }
 
+        /*
         window.handleExtra = async (k, v) => {
             if (k === "team") {
                 const resp = await fetch(v);
@@ -301,7 +357,7 @@
                     updateText(`P${x}-Position`, playerObj.position)
                 })
             }
-        }
+        }*/
     </script>
 </body>
 

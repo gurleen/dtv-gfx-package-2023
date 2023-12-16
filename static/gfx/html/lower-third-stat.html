@@ -228,7 +228,7 @@
         }
       })
 
-      setHandler("Player", (v)=> {
+      setHandler("Player", (v) => {
         sport = window.cache["Sport"]
         teamId = window.cache["Team"] == "Home" ? window.cache["Home-ID"] : window.cache["Away-ID"]
         let player = get(`/teams/${sport}/${teamId}/players/${v}`)

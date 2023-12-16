@@ -64,7 +64,7 @@ setVisibility = (k, v) => {
 }
 updateColor = (k, v) => document.getElementById(k).setAttribute("fill", v)
 updateImage = (k, v) => document.getElementById(k).setAttribute("xlink:href", v)
-update = (data) => {
+update = (data, delay=false) => {
     parsed = JSON.parse(data);
     if (!window.svgLoaded) {
         window.addEventListener("loaded", () => { doUpdate(parsed) }, { once: true });
@@ -92,7 +92,8 @@ doUpdate = (data) => {
 handleKeyValue = (prefix, key, value) => {
     try {
         if (key in handlers) {
-            handlers[key](value);
+            let func = handlers[key]
+            func(value)
         }
         else if (prefix == "extra") {
             window.handleExtra(key, value)
@@ -228,13 +229,5 @@ sock.on("connect", () => {
         payload[key] = value
         console.log(payload)
         window.doUpdate(payload)
-    }
-
-    window.setRunning = () => {
-        sock.emit("setRendererRunning")
-    }
-
-    window.setStopped = () => {
-        sock.emit("setRendererStopped")
     }
 });

@@ -18,7 +18,7 @@ function getMapperFunc(prefix) {
 function parsePayload(rawKey, value) {
     [prefix, key] = rawKey.split(":");
     mapper = getMapperFunc(prefix);
-    if(key in window.handlers) { mapper = window.handlers[key](value); }
+    if(key in (window.handlers || {})) { mapper = window.handlers[key](value); }
     try {
         console.log(prefix, key, value);
         mapper(key, value);
@@ -28,6 +28,7 @@ function parsePayload(rawKey, value) {
 }
 
 function handlePayload(payload) {
+    console.log(payload)
     if(payload.key.includes(":")) { parsePayload(payload.key, payload.value) }
     else { window.updateText(payload.key, payload.value) }
 }

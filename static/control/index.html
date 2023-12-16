@@ -199,6 +199,7 @@
                     <button @click="preview(graphic)">Preview</button>
                     <button :disabled="$store.g.stopped || ($store.g.id != graphic.id && $store.g.gfxLoaded)"
                         @click="updateGraphicVars(graphic)">Update</button>
+                    <button :disabled="$store.g.hideStop" @click="next()">Next</button>
                     <button :disabled="idx == 0" @click="moveUp(idx)">↑</button>
                     <button :disabled="idx == (graphics.length - 1)" @click="moveDown(idx)">↓</button>
                     <details>
@@ -342,6 +343,9 @@
                 },
                 blank() {
                     sock.emit("requestRendererBlank")
+                },
+                next() {
+                    sock.emit("requestRendererNext")
                 },
                 preview(graphic) {
                     this.currentPreview = graphic.name
