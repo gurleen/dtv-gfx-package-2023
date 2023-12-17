@@ -13,7 +13,7 @@ ROSTER_API_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gend
 TEAM_API_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gender}-college-basketball/teams/{team_id}"
 EVENT_API_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gender}-college-basketball/summary?event={event_id}"
 
-Gender = Literal["womens", "mens"]
+
 
 
 class Team(BaseModel):
@@ -95,7 +95,7 @@ async def get_teams_short() -> list[dict]:
     return [dict(id=team.team_id, name=team.display_name) for team in TEAMS.values()]
 
 @cache
-def get_roster_for_team(gender: Gender, team_id: int) -> list[Player]:
+def get_roster_for_team(gender: str, team_id: int) -> list[Player]:
     logger.info(f"Cache miss for {gender} team {team_id}, getting from ESPN...")
     players = []
     api_url = ROSTER_API_URL.format(gender=gender, team_id=team_id)
@@ -107,18 +107,20 @@ def get_roster_for_team(gender: Gender, team_id: int) -> list[Player]:
     return players
 
 @router.get("/teams/{gender}/{team_id}")
-def get_team(gender: Gender, team_id: int) -> Team:
+def get_team(gender: str, team_id: int) -> Team:
     team = TEAMS[team_id]
     team.players = get_roster_for_team(gender, team_id)
     return team
 
 @router.get("/teams/{gender}/{team_id}/players")
-def get_players_for_team(gender: Gender, team_id: int) -> list[Player]:
+def get_players_for_team(gender: str, team_id: int) -> list[Player]:
     return get_roster_for_team(gender, team_id)
 
 @router.get("/teams/{gender}/{team_id}/players/{jersey}")
-def get_player(gender: Literal["womens", "mens"], team_id: int, jersey: str) -> Player:
-    player = next((x for x in get_roster_for_team(gender, team_id) if x.jersey == jersey), None)
+def get_player(gender: str, team_id: int, jersey: str) -> Player:
+    roster = get_roster_for_team(gender, team_id)
+    print(roster)
+    player = next((x for x in roster if x.jersey == jersey), None)
     if player is None:
         raise HTTPException(status_code=404, detail="Player not found")
     return player
@@ -127,11 +129,11 @@ def get_team_by_id(id: int) -> Team:
     id = int(id)
     return TEAMS[id]
 
-def get_team_json(gender: Gender, id: int) -> dict:
+def get_team_json(gender: str, id: int) -> dict:
     url = TEAM_API_URL.format(gender=gender, team_id=id)
     return requests.get(url).json()
 
-def get_live_game_id(gender: Gender, id: int) -> str:
+def get_live_game_id(gender: str, id: int) -> str:
     team = get_team_json(gender, id)
     return team["team"]["nextEvent"][0]["id"]
 
@@ -142,7 +144,7 @@ def parse_team_stats(stats: list[dict]) -> Boxscore:
     
 
 @router.get("/live/{gender}/{game_id}")
-def get_espn_live_stats(gender: Gender, game_id, home_id: int = None) -> FullBox:
+def get_espn_live_stats(gender: str, game_id, home_id: int = None) -> FullBox:
     url = EVENT_API_URL.format(gender=gender, event_id=game_id)
     response = requests.get(url).json()
     teams = response["boxscore"]["teams"]

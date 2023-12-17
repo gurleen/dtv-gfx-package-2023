@@ -12,6 +12,7 @@ class TemplateVarType(StrEnum):
     COLOR = auto()
     OPTION = auto()
     BOOLEAN = auto()
+    BUTTON = auto()
 
 
 class TemplateVar(BaseModel):

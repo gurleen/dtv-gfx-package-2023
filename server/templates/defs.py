@@ -41,6 +41,10 @@ TEMPLATES = [
         TemplateVar(name="Home Bonus", key="show:Home-Bonus", type=TemplateVarType.BOOLEAN, default=False),
         TemplateVar(name="Away Bonus", key="show:Away-Bonus", type=TemplateVarType.BOOLEAN, default=False),
         TemplateVar(name="Period", key="Period", type=TemplateVarType.OPTION, default="1st", choices=["1st", "2nd", "3rd", "4th", "OT", "2OT", "3OT", "Final"]),
+        TemplateVar(name="Slider Color", key="sliderColor", type=TemplateVarType.OPTION, default="neutral", choices=["neutral", "home", "away"]),
+        TemplateVar(name="Info-Bar-Title", key="Info-Bar-Title", type=TemplateVarType.STRING, default=""),
+        TemplateVar(name="Info-Bar-Caption", key="Info-Bar-Caption", type=TemplateVarType.STRING, default=""),
+        TemplateVar(name="Info Bar Trigger", key="scorebugSlider", type=TemplateVarType.BUTTON, default=""),
     ]),
     Template(name="Matchup", template_file="/static/gfx/html/Matchup/Matchup.html", vars=[]),
     Template(name="Big Scoreboard", template_file="/static/gfx/html/Big Scoreboard/Big Scoreboard.html", vars=[

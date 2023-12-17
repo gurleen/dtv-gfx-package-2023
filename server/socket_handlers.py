@@ -142,6 +142,11 @@ async def update_graphic_vars(sid: str, vars: dict):
     renderer.graphic.vars = vars
     await sio.emit("graphicVarsUpdated", renderer.graphic.vars)
 
+@sio.on("signal")
+async def signal(sid: str, signal: str):
+    logger.info(f"{sid} sent signal {signal}")
+    await sio.emit("signal", signal)
+
 @sio.on("updateGlobalVar")
 async def updated_global_var(sid: str, key: str, value: str):
     await renderer.update_global_var(key, value)
