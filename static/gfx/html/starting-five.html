@@ -88,7 +88,7 @@
                 </text>
                 <text id="P4-Last-Name" font-family="Zuume-BoldItalic, Zuume" font-size="113" font-style="italic"
                     font-weight="bold" fill="#FFD74C">
-                    <tspan x="108.972" y="843.524346">O’NEILL</tspan>
+                    <tspan x="108.972" y="843.524346">O'NEILL</tspan>
                 </text>
                 <text id="P4-Number" font-family="Zuume-Bold, Zuume" font-size="134" font-weight="bold" fill="#FFD74C">
                     <tspan x="247.93" y="748.524346">12</tspan>
@@ -298,22 +298,6 @@
                 updateText("Title", `${name} STARTING FIVE`)
             })
 
-            alignImage = (num) => {
-                // Get the elements
-                var useElement = document.getElementById(`Player-${num}-BG`);
-                var imageElement = document.getElementById(`P${num}-Image`);
-
-                // Get the heights
-                var useHeight = useElement.getBBox().height;
-                var imageHeight = imageElement.getBBox().height;
-
-                // Calculate the difference
-                var diff = useHeight - imageHeight;
-
-                // Set the y attribute of the image
-                imageElement.setAttribute('y', diff);
-            }
-
             setHandler("Players", async (v) => {
                 players = v.split(" ")
                 _.range(1, 6).forEach(async (x) => {
@@ -337,27 +321,6 @@
                 })
             })
         }
-
-        /*
-        window.handleExtra = async (k, v) => {
-            if (k === "team") {
-                const resp = await fetch(v);
-                const roster = await resp.json();
-                teamKey = v.replace(".json", "").replace("/templates/dtv-gfx-package-2023/rosters/", "")
-                _.range(1, 6).forEach((x) => {
-                    key = `player${x}Num`
-                    playerNum = window.cache[key]
-                    imageUrl = `/media/roster-images/${teamKey}/${playerNum}.png`
-                    imageKey = `P${x}-Image`
-                    updateImage(imageKey, imageUrl)
-                    playerObj = _.find(roster, (p) => p.jersey_num == playerNum)
-                    updateText(`P${x}-First-Name`, playerObj.first_name)
-                    updateText(`P${x}-Last-Name`, playerObj.last_name)
-                    updateText(`P${x}-Number`, playerObj.jersey_num)
-                    updateText(`P${x}-Position`, playerObj.position)
-                })
-            }
-        }*/
     </script>
 </body>
 
