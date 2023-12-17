@@ -66,4 +66,8 @@ sock.on("connect", () => {
         getFrame().onload = null;
         getFrame().src = "about:blank";
     })
+
+    sock.on("signal", (v) => {
+        getFrame().contentWindow.signals[v]();
+    })
 });

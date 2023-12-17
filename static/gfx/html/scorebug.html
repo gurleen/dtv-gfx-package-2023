@@ -481,6 +481,20 @@
 
             signal("scorebugSlider", () => infoBarTl.resume())
 
+            setHandler("sliderColor", (v) => {
+                console.log("SLIDER COLOR", v)
+                console.log(window.cache["Home-Color"], window.cache["Away-Color"])
+                if(v == "home") { updateColor("Info-Bar-Background", window.cache["Home-Color"]) }
+                else if(v == "away") { updateColor("Info-Bar-Background", window.cache["Away-Color"]) }
+                else { updateColor("Info-Bar-Background", "#131313") }
+            })
+
+            setHandler("Info-Bar-Caption", (v) => {
+                let title = window.cache["Info-Bar-Title"]
+                console.log([title, v])
+                editSpanText("Info-Bar-Text", [title, v])
+            })
+
             showBody()
         }
     </script>

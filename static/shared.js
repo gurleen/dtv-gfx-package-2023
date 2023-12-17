@@ -209,7 +209,7 @@ sock.on("connect", () => {
 
     sock.on("update", (payload) => {
         parsed = parseKey(payload.key)
-        console.log(parsed.prefix, parsed.key, payload.value)
+        //console.log(parsed.prefix, parsed.key, payload.value)
         handleKeyValue(parsed.prefix, parsed.key, payload.value)
     })
 

@@ -190,6 +190,17 @@
                                     </div>
                                 </div>
                             </template>
+                            <!--BUTTON VARS-->
+                            <template x-if="v.type == 'BUTTON'">
+                                <div class="row">
+                                    <div class="col">
+                                        <p></p>
+                                    </div>
+                                    <div class="col">
+                                        <button @click="signal(v.key)" x-text="v.name"></button>
+                                    </div>
+                                </div>
+                            </template>
                         </div>
                     </template>
                     <button :disabled="$store.g.hideStop || ($store.g.id != graphic.id && $store.g.gfxLoaded)"
@@ -346,6 +357,9 @@
                 },
                 next() {
                     sock.emit("requestRendererNext")
+                },
+                signal(s) {
+                    sock.emit("signal", s)
                 },
                 preview(graphic) {
                     this.currentPreview = graphic.name
