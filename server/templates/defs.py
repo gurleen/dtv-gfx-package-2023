@@ -57,5 +57,7 @@ TEMPLATES = [
     Template(name="Halftime Stats", template_file="/static/gfx/html/halftime-stats.html", vars=[
         TemplateVar(name="Home Stats (csv)", key="Home-Stats", type=TemplateVarType.STRING, default=""),
         TemplateVar(name="Away Stats (csv)", key="Away-Stats", type=TemplateVarType.STRING, default=""),
+        TemplateVar(name="Home Score", key="Home-Score", type=TemplateVarType.STRING, default=""),
+        TemplateVar(name="Away Score", key="Away-Score", type=TemplateVarType.STRING, default=""),
     ])
 ]
