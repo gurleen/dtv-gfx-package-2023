@@ -49,5 +49,9 @@ TEMPLATES = [
     Template(name="Starting Five", template_file="/static/gfx/html/starting-five.html", vars=[
         TemplateVar(name="Team", key="Team", type=TemplateVarType.OPTION, default="Home", choices=["Home", "Away"]),
         TemplateVar(name="Players", key="Players", type=TemplateVarType.STRING, default=""),
+    ]),
+    Template(name="Halftime Stats", template_file="/static/gfx/html/halftime-stats.html", vars=[
+        TemplateVar(name="Home Stats (csv)", key="Home-Stats", type=TemplateVarType.STRING, default=""),
+        TemplateVar(name="Away Stats (csv)", key="Away-Stats", type=TemplateVarType.STRING, default=""),
     ])
 ]
