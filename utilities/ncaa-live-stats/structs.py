@@ -1,9 +1,13 @@
 from typing import Literal
-import msgspec
 from strenum import StrEnum
 from enum import auto
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel as PydanticBaseModel
+
+
+class BaseModel(PydanticBaseModel):
+    class Config:
+        arbitrary_types_allowed = True
 
 
 class MessageType(StrEnum):
@@ -17,13 +21,14 @@ class MessageType(StrEnum):
     PLAYBYPLAY = auto()
 
 class ConnectionParams(BaseModel):
+    type: str = "parameters"
     types: str = "se,ac,mi,te,box,pbp"
-    playbyplayOnConnect: bool = False
+    playbyplayOnConnect: int = 0
     fromMessageId: int = 0
 
 
 class Ping(BaseModel):
-    timestamp: datetime
+    timestamp: str
 
 
 class MatchStatus(StrEnum):
@@ -80,7 +85,7 @@ class TeamRecordDetail(BaseModel):
     team_code: str
     team_code_long: str
 
-class Player:
+class Player(BaseModel):
     pno: int
     person_id: int
     family_name: str
@@ -166,7 +171,6 @@ class TeamBox(BaseModel):
     fouls_personal: int
     fouls_team: int
     fouls_technical: int
-    fouls_total: int
     free_throws_attempted: int
     free_throws_made: int
     free_throws_percentage: float
@@ -192,7 +196,6 @@ class TeamBox(BaseModel):
     three_pointers_made: int
     three_pointers_percentage: float
     time_leading: float
-    times_score_level: int
     turnovers: int
     turnovers_team: int
     two_pointers_attempted: int
@@ -209,10 +212,15 @@ class BoxscorePeriod(BaseModel):
     players: list[PlayerBox]
     team: TeamBox
 
-class Boxscore(BaseModel):
-    teams: list
+class BoxscoreTeam(BaseModel):
+    team_number: int
     total: BoxscoreTotal
     periods: list[BoxscorePeriod]
+
+class Boxscore(BaseModel):
+    teams: list[BoxscoreTeam]
+    # total: BoxscoreTotal
+    # periods: list[BoxscorePeriod]
 
 # --- ACTION ---
 class ActionType(StrEnum):
