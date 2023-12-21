@@ -12,7 +12,7 @@ cache = Cache()
 ROSTER_API_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gender}-college-basketball/teams/{team_id}/roster"
 TEAM_API_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gender}-college-basketball/teams/{team_id}"
 EVENT_API_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gender}-college-basketball/summary?event={event_id}"
-
+NCAA_BOXSCORE_URL = "https://data.ncaa.com/casablanca/game/{game_id}/boxscore.json"
 
 
 
@@ -58,22 +58,22 @@ class Player(BaseModel):
 
 
 class Boxscore(BaseModel):
-    fg: str
-    fg_pct: str = Field(alias="field goal %")
-    three_pt: str = Field(alias="3pt")
-    three_pt_pct: str = Field(alias="three point %")
-    ft: str
-    ft_pct: str = Field(alias="free throw %")
-    reb: str = Field(alias="rebounds")
-    off_reb: str = Field(alias="offensive rebounds")
-    def_reb: str = Field(alias="defensive rebounds")
-    ast: str = Field(alias="assists")
-    stl: str = Field(alias="steals")
-    blk: str = Field(alias="blocks")
-    to: str = Field(alias="turnovers")
-    pip: str = Field(alias="points in paint")
-    fouls: str = Field(alias="fouls")
-    ll: str = Field(alias="largest lead")
+    fg: Optional[str] = None
+    fg_pct: Optional[str] = Field(None, alias="field goal %")
+    three_pt: Optional[str] = Field(None, alias="3pt")
+    three_pt_pct: Optional[str] = Field(None, alias="three point %")
+    ft: Optional[str] = None
+    ft_pct: Optional[str] = Field(None, alias="free throw %")
+    reb: Optional[str] = Field(None, alias="rebounds")
+    off_reb: Optional[str] = Field(None, alias="offensive rebounds")
+    def_reb: Optional[str] = Field(None, alias="defensive rebounds")
+    ast: Optional[str] = Field(None, alias="assists")
+    stl: Optional[str] = Field(None, alias="steals")
+    blk: Optional[str] = Field(None, alias="blocks")
+    to: Optional[str] = Field(None, alias="turnovers")
+    pip: Optional[str] = Field(None, alias="points in paint")
+    fouls: Optional[str] = Field(None, alias="fouls")
+    ll: Optional[str] = Field(None, alias="largest lead")
 
 
 class FullBox(BaseModel):
@@ -141,11 +141,10 @@ def parse_team_stats(stats: list[dict]) -> Boxscore:
     stats_pivot = {s["label"].lower() : s["displayValue"] for s in stats}
     print(stats_pivot)
     return Boxscore(**stats_pivot)
-    
 
-@router.get("/live/{gender}/{game_id}")
-def get_espn_live_stats(gender: str, game_id, home_id: int = None) -> FullBox:
-    url = EVENT_API_URL.format(gender=gender, event_id=game_id)
+
+def get_mens_live_stats(game_id: str, home_id: int = None) -> FullBox:
+    url = EVENT_API_URL.format(gender="mens", event_id=game_id)
     response = requests.get(url).json()
     teams = response["boxscore"]["teams"]
     if home_id is None:
@@ -157,3 +156,48 @@ def get_espn_live_stats(gender: str, game_id, home_id: int = None) -> FullBox:
     home_stats = parse_team_stats(home_team["statistics"])
     away_stats = parse_team_stats(away_team["statistics"])
     return FullBox(home=home_stats, away=away_stats)
+    
+
+def get_womens_live_stats(game_id: str) -> FullBox:
+    url = NCAA_BOXSCORE_URL.format(game_id=game_id)
+    response = requests.get(url).json()
+    first_home = response["meta"]["teams"][0]["homeTeam"]
+    first_box_raw = response["teams"][0]["playerTotals"]
+    first_box = Boxscore(
+        fg=first_box_raw["fieldGoalsMade"],
+        three_fg=first_box_raw["threePointsMade"],
+        ft=first_box_raw["freeThrowsMade"],
+        reb=first_box_raw["totalRebounds"],
+        off_reb=first_box_raw["offensiveRebounds"],
+        ast=first_box_raw["assists"],
+        stl=first_box_raw["steals"],
+        to=first_box_raw["turnovers"],
+        blk=first_box_raw["blockedShots"],
+        fg_pct=first_box_raw["fieldGoalPercentage"].replace("-", "0%"),
+        three_pt_pct=first_box_raw["threePointPercentage"].replace("-", "0%"),
+        ft_pct=first_box_raw["freeThrowPercentage"].replace("-", "0%"),
+    )
+    second_box_raw = response["teams"][1]["playerTotals"]
+    second_box = Boxscore(
+        fg=second_box_raw["fieldGoalsMade"],
+        three_fg=second_box_raw["threePointsMade"],
+        ft=second_box_raw["freeThrowsMade"],
+        reb=second_box_raw["totalRebounds"],
+        off_reb=second_box_raw["offensiveRebounds"],
+        ast=second_box_raw["assists"],
+        stl=second_box_raw["steals"],
+        to=second_box_raw["turnovers"],
+        blk=second_box_raw["blockedShots"],
+        fg_pct=second_box_raw["fieldGoalPercentage"].replace("-", "0%"),
+        three_pt_pct=second_box_raw["threePointPercentage"].replace("-", "0%"),
+        ft_pct=second_box_raw["freeThrowPercentage"].replace("-", "0%"),
+    )
+    return FullBox(home=first_box, away=second_box) if first_home else FullBox(home=second_box, away=first_box)
+
+
+@router.get("/live/{gender}/{game_id}")
+def get_live_stats(gender: str, game_id, home_id: int = None) -> FullBox:
+    if gender == "mens":
+        return get_mens_live_stats(game_id, home_id)
+    elif gender == "womens":
+        return get_womens_live_stats(game_id)
