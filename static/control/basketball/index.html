@@ -4,13 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wrestling Control</title>
-
-    <!-- Alpine Plugins -->
-    <script src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-
-    <!-- Alpine Core -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <title>Basketball Control</title>
 
     <!-- Socket IO -->
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
@@ -24,6 +18,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.2.7.nomodule.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ui@0.10.0/dist/van-ui.nomodule.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ext@0.2.0/dist/van-x.nomodule.min.js"></script>
+    <script type="module" src="./app.js" defer></script>
+
 
     <style>
         [x-cloak] { display: none !important; }
@@ -57,93 +59,6 @@
 </head>
 
 <body>
-    <div id="app" class="row" x-data="app">
-
-    </div>
+    <div id="app"></div>
 </body>
-
-<script>
-    // const LIVESTATS_URL = "https://livestats.gurleen.dev/";
-    const LIVESTATS_URL = "http://localhost:8000/"
-    const sock = io(LIVESTATS_URL);
-
-    sock.on("connect", () => {
-        console.log("Connected to livestats.");
-        sock.emit("get_store", (store) => {
-            console.log(store)
-        })
-    
-        sock.on("update", (payload) => {
-            console.log(payload)
-        })
-    
-        sock.on("signal", (payload) => {
-            console.log("SIGNAL: ", payload)
-        })
-    
-        window.emitSignal = (key) => {
-            sock.emit("send_signal", {signal: key})
-        }
-    
-        window.updateKey = (key, value) => {
-            sock.emit("do_update", { "key": key, "value": value });
-            payload = {}
-            payload[key] = value
-            console.log(payload)
-        }
-    });
-
-    get = (url) => {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, false);
-        xhr.send();
-        return JSON.parse(xhr.responseText);
-    }
-
-    let alpineInit = false;
-    let files;
-    let rosters = {};
-
-    let text = fetch('../../../rosters').then(res => res.text()).then(text => {
-        files = text.match(/href="([^"]+)/g).map((x) => x.replace('href="', ''));
-        files.forEach((file) => {
-            if (file.includes('bb')) {
-                roster = get(`../../../rosters/${file}`);
-                rosters[file.replace(".json", "")] = roster;
-            }
-        });
-        document.dispatchEvent(new Event('loaded'));
-    });
-    
-
-    document.addEventListener(("alpine:init"), () => {
-        alpineInit = true;
-        Alpine.store("g", {
-            rosters: [],
-            get rosterIds() {
-                return Object.keys(this.rosters);
-            },
-        })
-
-        Alpine.data("app", () => {
-            return {
-
-            }
-        })
-    })
-
-    update = () => {
-        console.log("Update done")
-        Alpine.store("g").rosters = rosters;
-    }
-
-    document.addEventListener('loaded', () => {
-        if (!alpineInit) {
-            document.addEventListener("alpine:init", update)
-        } else {
-            update();
-        }
-    })
-</script>
-
 </html>

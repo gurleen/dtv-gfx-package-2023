@@ -22,7 +22,7 @@ const tl = gsap.timeline({ paused: true });
 tl.from("body", { opacity: 0, duration: 1 })
 tl.eventCallback("onComplete", () => { 
     tl.seek(0).pause(); shouldBeStopped = false; 
-    window.parent.setRendererStopped();
+    doSetStopped();
 })
 showBody = () => document.querySelector("body").style.visibility = "visible";
 play = () => tl.resume();
@@ -32,13 +32,22 @@ checkForStop = () => { if(shouldBeStopped) { play(); } }
 setHandler = (key, callback) => handlers[key] = callback
 signal = (key, callback) => signals[key] = callback
 getTextElement = (k) => {
-    element = document.querySelector(`#${k} > *`)
+    if(!k.startsWith("#")) { k = "#" + k }
+    element = document.querySelector(`${k} > *`)
     if (element != null) {
         if (element.tagName == "use") { k = element.getAttribute("xlink:href"); element = document.querySelector(`${k} > tspan`) }
         return element
     }
 }
 updateText = (k, v) => { getTextElement(k).innerHTML = v; }
+qGetTextElement = (k) => {
+    element = document.querySelector(`${k} > *`)
+    if (element != null) {
+        if (element.tagName == "use") { k = element.getAttribute("xlink:href"); element = document.querySelector(`${k} > tspan`) }
+        return element
+    }
+}
+qUpdateText = (k, v) => { qGetTextElement(k).innerHTML = v; }
 fadeText = (k, v) => {
     element = getTextElement(k)
     if (element.innerHTML == v) { return; }
@@ -64,6 +73,8 @@ setVisibility = (k, v) => {
 }
 updateColor = (k, v) => document.getElementById(k).setAttribute("fill", v)
 updateImage = (k, v) => document.getElementById(k).setAttribute("xlink:href", v)
+qUpdateColor = (k, v) => document.querySelector(k).setAttribute("fill", v)
+qUpdateImage = (k, v) => document.querySelector(k).setAttribute("xlink:href", v)
 update = (data, delay=false) => {
     parsed = JSON.parse(data);
     if (!window.svgLoaded) {
@@ -135,6 +146,15 @@ middleAlignText = (k, x) => {
     tspan = getTextElement(k)
     tspan.setAttribute("x", x)
 }
+middleAlignTextElement = (k) => {
+    console.log(k)
+    elem = document.querySelector(k)
+    elem.style.textAnchor = "middle"
+    tspan = getTextElement(k)
+    shift = parseFloat(tspan.getBBox().width / 4)
+    current = parseFloat(tspan.getAttribute("x"))
+    tspan.setAttribute("x", current + shift)
+}
 editSpanText = (textElementId, newTextArray) => {
     const textElement = document.getElementById(textElementId);
     if (!textElement) return;
@@ -194,7 +214,30 @@ createTemplateDefinition = (svg) => {
     window.SPXGCTemplateDefinition = def
 }
 
+doSetPlaying = () => {
+    try {
+        setPlaying()
+    } catch(err) {
+        console.error("Error trying to set playing: ", err)
+    }
+}
+doSetStopped = () => {
+    try {
+        window.parent.setRendererStopped()
+    } catch(err) {
+        console.error("Error trying to set stopped: ", err)
+    }
+}
 
+loadSVG = (fname) => {
+    fetch("/static/gfx/svg/" + fname)
+    .then(response => response.status === 200 ? response.text() : "")
+    .then(svg => {
+        document.getElementById("svg").innerHTML = svg;
+        window.svgLoaded = true;
+        window.dispatchEvent(new Event("loaded"));
+    })
+}
 
 const LIVESTATS_URL = "https://livestats.gurleen.dev/";
 // const LIVESTATS_URL = "http://localhost:8000/";

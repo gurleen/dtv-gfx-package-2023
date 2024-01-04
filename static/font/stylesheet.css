@@ -5,6 +5,8 @@ svg {
 body {
     margin: 0;
     background: transparent;
+    height: 1080px;
+    width: 1920px;
 }
 
 @font-face {

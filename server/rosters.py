@@ -13,6 +13,8 @@ ROSTER_API_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gend
 TEAM_API_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gender}-college-basketball/teams/{team_id}"
 EVENT_API_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gender}-college-basketball/summary?event={event_id}"
 NCAA_BOXSCORE_URL = "https://data.ncaa.com/casablanca/game/{game_id}/boxscore.json"
+CAA_STANDINGS_URL = "https://site.web.api.espn.com/apis/v2/sports/basketball/{gender}-college-basketball/standings?group=10"
+ESPN_SCOREBOARD_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gender}-college-basketball/scoreboard?groups=10"
 
 
 
@@ -201,3 +203,42 @@ def get_live_stats(gender: str, game_id, home_id: int = None) -> FullBox:
         return get_mens_live_stats(game_id, home_id)
     elif gender == "womens":
         return get_womens_live_stats(game_id)
+    
+
+@router.get("/standings/{gender}")
+def get_caa_standings(gender: str):
+    url = CAA_STANDINGS_URL.format(gender=gender)
+    response = requests.get(url).json()
+    teams = []
+    for team in response["standings"]["entries"]:
+        team_id = int(team["team"]["id"])
+        item = dict(
+            team=TEAMS[team_id],
+            overall=next(x for x in team["stats"] if x["name"] == "overall")["displayValue"],
+            overall_pct=next(x for x in team["stats"] if x["name"] == "winPercent")["value"],
+            conf=next(x for x in team["stats"] if x["name"] == "vs. Conf.")["displayValue"],
+            conf_pct=next(x for x in team["stats"] if x["name"] == "leagueWinPercent")["value"],
+        )
+        teams.append(item)
+    return sorted(teams, key=lambda x: (x["conf_pct"], x["overall_pct"]), reverse=True)
+
+
+@router.get("/scoreboard/{gender}")
+def get_scoreboard(gender: str):
+    url = ESPN_SCOREBOARD_URL.format(gender=gender)
+    response = requests.get(url).json()
+    games = []
+    for game in response["events"]:
+        status = game["status"]["type"]["shortDetail"]
+        if " - " in status:
+            status = status.split(" - ")[1]
+        this_game = dict(
+            id=game["id"],
+            away=get_team_by_id(game["competitions"][0]["competitors"][0]["team"]["id"]),
+            home=get_team_by_id(game["competitions"][0]["competitors"][1]["team"]["id"]),
+            awayScore=game["competitions"][0]["competitors"][0]["score"],
+            homeScore=game["competitions"][0]["competitors"][1]["score"],
+            status=status
+        )
+        games.append(this_game)
+    return games

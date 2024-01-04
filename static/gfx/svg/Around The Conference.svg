@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920px" height="1080px" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Export</title>
+    <defs>
+        <text id="text-1" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="10.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-3" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="182.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-5" font-family="Zuume-ExtraBold, Zuume" font-size="25" font-weight="700" fill="#FFFFFF">
+            <tspan x="218.25" y="200">10:00 1ST</tspan>
+        </text>
+        <filter x="-10.9%" y="-18.5%" width="121.9%" height="151.9%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-7" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="10.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-8">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-9" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="182.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-10">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-11" font-family="Zuume-ExtraBold, Zuume" font-size="25" font-weight="700" fill="#FFFFFF">
+            <tspan x="218.25" y="200">10:00 1ST</tspan>
+        </text>
+        <filter x="-10.9%" y="-18.5%" width="121.9%" height="151.9%" filterUnits="objectBoundingBox" id="filter-12">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-13" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="10.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-14">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-15" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="182.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-16">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-17" font-family="Zuume-ExtraBold, Zuume" font-size="25" font-weight="700" fill="#FFFFFF">
+            <tspan x="218.25" y="200">10:00 1ST</tspan>
+        </text>
+        <filter x="-10.9%" y="-18.5%" width="121.9%" height="151.9%" filterUnits="objectBoundingBox" id="filter-18">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-19" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="10.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-20">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-21" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="182.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-22">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-23" font-family="Zuume-ExtraBold, Zuume" font-size="25" font-weight="700" fill="#FFFFFF">
+            <tspan x="218.25" y="221.7175">10:00 1ST</tspan>
+        </text>
+        <filter x="-10.9%" y="-18.5%" width="121.9%" height="151.9%" filterUnits="objectBoundingBox" id="filter-24">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-25" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="10.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-26">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-27" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="182.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-28">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-29" font-family="Zuume-ExtraBold, Zuume" font-size="25" font-weight="700" fill="#FFFFFF">
+            <tspan x="218.25" y="200">10:00 1ST</tspan>
+        </text>
+        <filter x="-10.9%" y="-18.5%" width="121.9%" height="151.9%" filterUnits="objectBoundingBox" id="filter-30">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-31" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="10.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-32">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-33" font-family="Zuume-ExtraBold, Zuume" font-size="77" font-weight="700" fill="#FFFFFF">
+            <tspan x="182.433" y="265">99</tspan>
+        </text>
+        <filter x="-12.1%" y="-5.9%" width="124.1%" height="116.5%" filterUnits="objectBoundingBox" id="filter-34">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <text id="text-35" font-family="Zuume-ExtraBold, Zuume" font-size="25" font-weight="700" fill="#FFFFFF">
+            <tspan x="218.25" y="200">10:00 1ST</tspan>
+        </text>
+        <filter x="-10.9%" y="-18.5%" width="121.9%" height="151.9%" filterUnits="objectBoundingBox" id="filter-36">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="1">
+        <g id="Game-1-Box" transform="translate(59, 209)" fill="#FFFFFF">
+            <g id="Home-Score" transform="translate(250, 0)">
+                <use filter="url(#filter-2)" xlink:href="#text-1"></use>
+                <use xlink:href="#text-1"></use>
+            </g>
+            <g id="Away-Score">
+                <use filter="url(#filter-4)" xlink:href="#text-3"></use>
+                <use xlink:href="#text-3"></use>
+            </g>
+            <g id="Status">
+                <use filter="url(#filter-6)" xlink:href="#text-5"></use>
+                <use xlink:href="#text-5"></use>
+            </g>
+        </g>
+        <g id="Game-4-Box" transform="translate(59, 590)" fill="#FFFFFF">
+            <g id="Home-Score" transform="translate(250, 0)">
+                <use filter="url(#filter-8)" xlink:href="#text-7"></use>
+                <use xlink:href="#text-7"></use>
+            </g>
+            <g id="Away-Score">
+                <use filter="url(#filter-10)" xlink:href="#text-9"></use>
+                <use xlink:href="#text-9"></use>
+            </g>
+            <g id="Status">
+                <use filter="url(#filter-12)" xlink:href="#text-11"></use>
+                <use xlink:href="#text-11"></use>
+            </g>
+        </g>
+        <g id="Game-5-Box" transform="translate(717, 590)" fill="#FFFFFF">
+            <g id="Home-Score" transform="translate(250, 0)">
+                <use filter="url(#filter-14)" xlink:href="#text-13"></use>
+                <use xlink:href="#text-13"></use>
+            </g>
+            <g id="Away-Score">
+                <use filter="url(#filter-16)" xlink:href="#text-15"></use>
+                <use xlink:href="#text-15"></use>
+            </g>
+            <g id="Status">
+                <use filter="url(#filter-18)" xlink:href="#text-17"></use>
+                <use xlink:href="#text-17"></use>
+            </g>
+        </g>
+        <g id="Game-6-Box" transform="translate(1374, 568.2825)" fill="#FFFFFF">
+            <g id="Home-Score" transform="translate(250, 21.7175)">
+                <use filter="url(#filter-20)" xlink:href="#text-19"></use>
+                <use xlink:href="#text-19"></use>
+            </g>
+            <g id="Away-Score" transform="translate(0, 21.7175)">
+                <use filter="url(#filter-22)" xlink:href="#text-21"></use>
+                <use xlink:href="#text-21"></use>
+            </g>
+            <g id="Status">
+                <use filter="url(#filter-24)" xlink:href="#text-23"></use>
+                <use xlink:href="#text-23"></use>
+            </g>
+        </g>
+        <g id="Game-2-Box" transform="translate(716, 209)" fill="#FFFFFF">
+            <g id="Home-Score" transform="translate(250, 0)">
+                <use filter="url(#filter-26)" xlink:href="#text-25"></use>
+                <use xlink:href="#text-25"></use>
+            </g>
+            <g id="Away-Score">
+                <use filter="url(#filter-28)" xlink:href="#text-27"></use>
+                <use xlink:href="#text-27"></use>
+            </g>
+            <g id="Status">
+                <use filter="url(#filter-30)" xlink:href="#text-29"></use>
+                <use xlink:href="#text-29"></use>
+            </g>
+        </g>
+        <g id="Game-3-Box" transform="translate(1374, 209)" fill="#FFFFFF">
+            <g id="Home-Score" transform="translate(250, 0)">
+                <use filter="url(#filter-32)" xlink:href="#text-31"></use>
+                <use xlink:href="#text-31"></use>
+            </g>
+            <g id="Away-Score">
+                <use filter="url(#filter-34)" xlink:href="#text-33"></use>
+                <use xlink:href="#text-33"></use>
+            </g>
+            <g id="Status">
+                <use filter="url(#filter-36)" xlink:href="#text-35"></use>
+                <use xlink:href="#text-35"></use>
+            </g>
+        </g>
+    </g>
+</svg>

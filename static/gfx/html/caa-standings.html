@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../../font/stylesheet.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@1.6.10/svg-loader.min.js" async></script>
+    <script type="text/javascript" src="../../shared.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+    <title>CAA Standings</title>
+</head>
+
+<body style="visibility: hidden">
+    <div id="svg"></div>
+    <script>
+        window.onerror = console.error
+
+        window.onload = () => {
+            loadSVG("CAA Standings.svg")
+
+            setHandler("gender", (gender) => {
+                let i = 1
+                let rows = get("/standings/" + gender)
+                console.log(rows)
+                rows.forEach((row) => {
+                    try {
+                        console.log(i, row)
+                        let prefix = `#Team-${i} > `;
+                        qUpdateText(prefix + "#NAME", row.team.team)
+                        qUpdateColor(prefix + "#LOGO-AND-BG > #OUTLINE", "#" + row.team.color)
+                        qUpdateText(prefix + "#OVERALL-RECORD", row.overall)
+                        qUpdateText(prefix + "#CONF-RECORD", row.conf)
+                        qUpdateImage(prefix + "#LOGO-AND-BG > #TEAM-LOGO", `/media/logos-white/${row.team.logo_name}`)
+                        i++
+                    } catch (e) {
+                        console.error(e)
+                    }
+                })
+            })
+        }
+
+        window.addEventListener("loaded", () => {
+            tl.from("#Page-1", { duration: 0.5, x: "-=100", opacity: 0, ease: "power3.out" });
+            tl.from("text", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "-=0.4")
+            tl.call(() => doSetPlaying())
+            tl.addPause("+=0", checkForStop)
+            tl.to("#Page-1", { duration: 0.3, opacity: 0, ease: "power3.out" })
+
+            showBody();
+        })
+
+        window.handleExtra = async (k, v) => { }
+    </script>
+</body>
+
+</html>
