@@ -6,9 +6,6 @@ from urllib.parse import urljoin, urlparse, urlunparse
 import requests
 from bs4 import BeautifulSoup
 from os import listdir
-import torch
-from carvekit.api.high import HiInterface
-from loguru import logger
 
 
 HEADERS = {
@@ -81,7 +78,7 @@ def download_images(images: list[tuple[str, str]], folder: str) -> list[str]:
             print(f"Error downloading {url}")
     return files
 
-
+"""
 def remove_background(files: list[str], base_dir: str):
     logger.info("Removing backgrounds...")
     interface = HiInterface(
@@ -102,6 +99,7 @@ def remove_background(files: list[str], base_dir: str):
         name = Path(fname.replace("-raw", "")).with_suffix(".png")
         img.save(name)
     logger.info("Images saved.")
+"""
 
 def cache_images_for_team(team: Team, gender: Literal["mens", "womens"]):
     team_dir = ensure_team_dirs(team, gender)
