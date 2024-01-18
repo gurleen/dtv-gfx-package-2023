@@ -1,18 +1,20 @@
 from typing import Optional
 from structs import *
 from inflection import underscore
-from datetime import datetime
+from first import first
 import json
 from socketio import SimpleClient
 
+DEBUG = False
+
 MESSAGE_TYPE_MAPPING: dict[MessageType, BaseModel] = {
-    MessageType.PING: Ping,
-    MessageType.STATUS: Status,
-    MessageType.TEAMS: Teams,
-    MessageType.OFFICIALS: Officials,
-    MessageType.BOXSCORE: Boxscore,
-    # MessageType.ACTION: Action,
-    # MessageType.PLAYBYPLAY: PlayByPlay
+    MessageType.PING.value: Ping,
+    MessageType.STATUS.value: Status,
+    MessageType.TEAMS.value: Teams,
+    MessageType.OFFICIALS.value: Officials,
+    MessageType.BOXSCORE.value: Boxscore,
+    MessageType.ACTION.value: Action,
+    MessageType.PLAYBYPLAY.value: PlayByPlay
 }
 
 def format_key(key: str):
@@ -31,9 +33,23 @@ def underscore_keys(obj):
 
 class NCAALiveStats:
 
-    _boxscore: Boxscore
+    _boxscore: Boxscore = None
     _live: SimpleClient = None
+    _home_id: int = -1
+    _away_id: int = -1
+    _shirt_map: dict[str, dict[str, str]]   # side -> { shirt -> pno }
+    _pno_map: dict[str, dict[str, str]]   # side -> { pno -> shirt }
+    _pbp: list[Action]
 
+
+    def __init__(self):
+        self._shirt_map = dict(home={}, away={})
+        self._pno_map = dict(home={}, away={})
+        self._pbp = []
+
+    def is_home(self, team_number: str) -> bool:
+        return team_number == self._home_id
+    
     def add_live_connection(self, live: SimpleClient):
         print("Adding live connection")
         self._live = live
@@ -47,22 +63,93 @@ class NCAALiveStats:
         else:
             self._live.emit(event, data)
 
+    def handle_boxscore(self, message: Boxscore):
+        self._boxscore = message
+        self.emit("send_signal", dict(signal="newBoxscoreAvailable"))
+
+    def handle_teams(self, message: Teams):
+        for team in message.teams:
+            if team.detail.is_home_competitor:
+                self._home_id = team.team_number
+            else:
+                self._away_id = team.team_number
+
+            side = "home" if team.detail.is_home_competitor else "away"
+            for player in team.players:
+                self._shirt_map[side][player.shirt_number] = player.pno
+                self._pno_map[side][player.pno] = player.shirt_number
+
+    def handle_playbyplay(self, message: PlayByPlay):
+        print(f"Got play by play, {len(message.actions)} actions")
+        self._pbp.extend(message.actions)
+        self.calculate_scoring_drought("home")
+        self.calculate_scoring_drought("away")
+
+    def handle_action(self, message: Action):
+        self._pbp.append(message)
+        self.calculate_scoring_drought("home")
+        self.calculate_scoring_drought("away")
+
     def process_message(self, message: dict):
         message_type = message.get("type").upper()
         message = underscore_keys(message)
+        if DEBUG:
+            print(message_type)
         with open(f"msg/{message_type}.json", "w") as f:
             f.write(json.dumps(message))
         if message_type in MESSAGE_TYPE_MAPPING:
             Struct = MESSAGE_TYPE_MAPPING[message_type]
             parsed = Struct(**message)
-            if message_type == MessageType.BOXSCORE:
-                self._boxscore = parsed
-                self.emit("send_signal", dict(signal="newBoxscoreAvailable"))
-            print("Got message of type", message_type)
+            mtype = MessageType(message_type)
+            if mtype == MessageType.BOXSCORE:
+                self.handle_boxscore(parsed)
+            elif mtype == MessageType.TEAMS:
+                self.handle_teams(parsed)
+            elif mtype == MessageType.PLAYBYPLAY:
+                self.handle_playbyplay(parsed)
+            elif mtype == MessageType.ACTION:
+                self.handle_action(parsed)
 
     def command(self, command: dict):
         if command["type"] == "get_player_stats":
             self.get_player_stats(command["shirt"])
 
-    def get_player_stats(self, shirt: str):
-        pass
+    def get_home_stats(self) -> BoxscoreTotal:
+        return first(self._boxscore.teams, key=lambda t: t.team_number == self._home_id).total
+    
+    def get_away_stats(self) -> BoxscoreTotal:
+        return first(self._boxscore.teams, key=lambda t: t.team_number == self._away_id).total
+
+    def get_boxscore(self):
+        home_stats: BoxscoreTotal = self.get_home_stats()
+        away_stats: BoxscoreTotal = self.get_away_stats()
+        return dict(
+            home=dict(
+                team=home_stats.team.model_dump(),
+                players={self._pno_map["home"][pbox.pno]: pbox.model_dump() for pbox in home_stats.players}
+            ),
+            away=dict(
+                team=away_stats.team.model_dump(),
+                players={self._pno_map["away"][pbox.pno]: pbox.model_dump() for pbox in away_stats.players}
+            )
+        )
+    
+    def get_stats_for_halftime(self):
+        home_stats = self.get_home_stats().team
+        away_stats = self.get_away_stats().team
+        stats = ["field_goals", "three_pointers", "free_throws", "rebounds_total", "turnovers"]
+
+        return dict(
+            home=[getattr(home_stats, k) for k in stats],
+            away=[getattr(away_stats, k) for k in stats]
+        )
+    
+    def get_play_by_play(self):
+        print(self._pbp)
+        return [action.model_dump() for action in self._pbp]
+    
+    def calculate_scoring_drought(self, side: Literal["home", "away"]):
+        team_id = self._home_id if side == "home" else self._away_id
+        for action in reversed(self._pbp):
+            if action.team_number == team_id and action.action_type in SCORING_ACTION_TYPES and action.success:
+                print(side, "last score", action.clock)

@@ -1,13 +1,32 @@
-from typing import Literal
-from strenum import StrEnum
-from enum import auto
+from typing import Any, Literal, Optional
+from enum import auto, Enum
 from datetime import datetime
 from pydantic import BaseModel as PydanticBaseModel
+from pydantic import computed_field
+from strenum.mixins import Comparable
+from strenum import StrEnum
 
 
 class BaseModel(PydanticBaseModel):
     class Config:
         arbitrary_types_allowed = True
+
+
+class ComputedStatMixin:
+    @computed_field
+    @property
+    def field_goals(self) -> str:
+        return f"{self.field_goals_made}-{self.field_goals_attempted}"
+
+    @computed_field
+    @property
+    def three_pointers(self) -> str:
+        return f"{self.three_pointers_made}-{self.three_pointers_attempted}"
+    
+    @computed_field
+    @property
+    def free_throws(self) -> str:
+        return f"{self.free_throws_made}-{self.free_throws_attempted}"
 
 
 class MessageType(StrEnum):
@@ -49,8 +68,8 @@ class MatchStatus(StrEnum):
     DELAYED = auto()
 
 class PeriodType(StrEnum):
-    REGULAR = auto()
-    OVERTIME = auto()
+    REGULAR = "REGULAR"
+    OVERTIME = "OVERTIME"
 
 class PeriodStatus(StrEnum):
     PENDING = auto()
@@ -84,6 +103,7 @@ class TeamRecordDetail(BaseModel):
     team_id: int
     team_code: str
     team_code_long: str
+    is_home_competitor: bool
 
 class Player(BaseModel):
     pno: int
@@ -117,7 +137,7 @@ class Officials(BaseModel):
 
 # --- BOXSCORE ---
 
-class PlayerBox(BaseModel):
+class PlayerBox(BaseModel, ComputedStatMixin):
     pno: int
     assists: int
     blocks: int
@@ -154,7 +174,7 @@ class PlayerBox(BaseModel):
     two_pointers_made: int
     two_pointers_percentage: float
 
-class TeamBox(BaseModel):
+class TeamBox(BaseModel, ComputedStatMixin):
     assists: int
     bench_points: int
     biggest_lead: int
@@ -200,7 +220,7 @@ class TeamBox(BaseModel):
     turnovers_team: int
     two_pointers_attempted: int
     two_pointers_made: int
-    two_pointers_percentage: int
+    two_pointers_percentage: float
 
 class BoxscoreTotal(BaseModel):
     players: list[PlayerBox]
@@ -224,122 +244,133 @@ class Boxscore(BaseModel):
 
 # --- ACTION ---
 class ActionType(StrEnum):
-    GAME = auto()
-    PERIOD = auto()
-    TWO_PT = "2PT"
-    THREE_PT = "3PT"
-    FREETHROW = auto()
-    JUMPBALL = auto()
-    ASSIST = auto()
-    BLOCK = auto()
-    REBOUND = auto()
-    FOUL = auto()
-    FOULON = auto()
-    TIMEOUT = auto()
-    STEAL = auto()
-    TURNOVER = auto()
-    SUBSTITUTION = auto()
-    HEADCOACHCHALLENGE = auto()
+    game = auto()
+    period = auto()
+    two_pt = "2pt"
+    three_pt = "3pt"
+    freethrow = auto()
+    jumpball = auto()
+    assist = auto()
+    block = auto()
+    rebound = auto()
+    foul = auto()
+    foulon = auto()
+    timeout = auto()
+    steal = auto()
+    turnover = auto()
+    substitution = auto()
+    headcoachchallenge = auto()
+    other = auto()
 
-class ActionSubType:
-    START = auto()
-    END = auto()
-    DUNK = auto()
-    LAYUP = auto()
-    FADEAWAY = auto()
-    TIPIN = auto()
-    JUMPSHOT = auto()
-    ALLEYOOP = auto()
-    DRIVINGLAYUP = auto()
-    HOOKSHOT = auto()
-    FLOATINGJUMPSHOT = auto()
-    STEPBACKJUMPSHOT = auto()
-    PULLUPJUMPSHOT = auto()
-    TURNAROUNDJUMPSHOT = auto()
-    WRONGBASKET = auto()
-    ONEOFONE = "1of1"
-    ONEOFTWO = "1of2"
-    ONEOFTHREE = "1of3"
-    TWOOFTWO = "2of2"
-    TWOOFTHREE = "2of3"
-    THREEOFTHREE = "3of3"
-    STARTPERIOD = auto()
-    UNCLEARPOSS = auto()
-    LODGEDBALL = auto()
-    HELDBALL = auto()
-    BLOCKTIEUP = auto()
-    OUTOFBOUNDS = auto()
-    OUTOFBOUNDSREBOUND = auto()
-    DOUBLEVIOLATION = auto()
-    WON = auto()
-    LOST = auto()
-    OFFENSIVE = auto()
-    PERSONAL = auto()
-    TECHNICAL = auto()
-    UNSPORTSMANLIKE = auto()
-    DISQUALIFYING = auto()
-    BENCHTECHNICAL = auto()
-    COACHTECHNICAL = auto()
-    ADMINTECHNICAL = auto()
-    COACHDISQUALIFYING = auto()
-    FULL = auto()
-    SHORT = auto()
-    OFFICIALS = auto()
-    COMMERCIAL = auto()
-    OFFENSIVEGOALTENDING = auto()
-    LANEVIOLATION = auto()
-    BALLHANDLING = auto()
-    DRIBBLING = auto()
-    BADPASS = auto()
-    LOSTBALL = auto()
-    OVERANDBACK = auto()
-    BACKCOURT = auto()
-    DOUBLEDRIBBLE = auto()
-    TRAVEL = auto()
-    SHOTCLOCK = auto()
-    THREE_SEC = "3sec"
-    FIVE_SEC = "5sec"
-    EIGHT_SEC = "8sec"
-    TEN_SEC = "10sec"
-    TWENTY_FOUR_SEC = "24sec"
-    OTHER = auto()
-    IN = auto()
-    OUT = auto()
-    GAMEORSHOTCLOCK = auto()
-    TWOPT = "2pt"
-    THREEPT = "3pt"
-    FREETHROW = auto()
-    GOALORINTERFERENCE = auto()
-    FOUL = auto()
-    VIOLENCE = auto()
+    @classmethod
+    def _missing_(cls, value: object) -> Any:
+        return cls.other
+    
+SCORING_ACTION_TYPES = [ActionType.two_pt, ActionType.three_pt, ActionType.freethrow]
+
+class ActionSubType(StrEnum):
+    start = auto()
+    end = auto()
+    dunk = auto()
+    layup = auto()
+    fadeaway = auto()
+    tipin = auto()
+    jumpshot = auto()
+    alleyoop = auto()
+    drivinglayup = auto()
+    hookshot = auto()
+    floatingjumpshot = auto()
+    stepbackjumpshot = auto()
+    pullupjumpshot = auto()
+    turnaroundjumpshot = auto()
+    wrongbasket = auto()
+    oneofone = "1of1"
+    oneoftwo = "1of2"
+    oneofthree = "1of3"
+    twooftwo = "2of2"
+    twoofthree = "2of3"
+    threeofthree = "3of3"
+    startperiod = auto()
+    unclearposs = auto()
+    lodgedball = auto()
+    heldball = auto()
+    blocktieup = auto()
+    outofbounds = auto()
+    outofboundsrebound = auto()
+    doubleviolation = auto()
+    won = auto()
+    lost = auto()
+    offensive = auto()
+    personal = auto()
+    technical = auto()
+    unsportsmanlike = auto()
+    disqualifying = auto()
+    benchtechnical = auto()
+    coachtechnical = auto()
+    admintechnical = auto()
+    coachdisqualifying = auto()
+    full = auto()
+    short = auto()
+    officials = auto()
+    commercial = auto()
+    offensivegoaltending = auto()
+    laneviolation = auto()
+    ballhandling = auto()
+    dribbling = auto()
+    badpass = auto()
+    lostball = auto()
+    overandback = auto()
+    backcourt = auto()
+    doubledribble = auto()
+    travel = auto()
+    shotclock = auto()
+    three_sec = "3sec"
+    five_sec = "5sec"
+    eight_sec = "8sec"
+    ten_sec = "10sec"
+    twenty_four_sec = "24sec"
+    other = auto()
+    _in = "in"
+    out = auto()
+    gameorshotclock = auto()
+    twopt = "2pt"
+    threept = "3pt"
+    freethrow = auto()
+    goalorinterference = auto()
+    foul = auto()
+    violence = auto()
+
+    @classmethod
+    def _missing_(cls, value: object) -> Any:
+        return cls.other
+
 
 class Action(BaseModel):
-    message_id: int
     action_number: int
-    team_number: int
-    pno: int
+    team_number: Optional[int] = None
+    pno: Optional[int] = None
     clock: str
-    shot_clock: str
-    time_actual: datetime
-    period: int
-    period_type: PeriodType
+    shot_clock: Optional[str] = None
+    time_actual: Optional[datetime] = None
+    period: Optional[int] = None
+    period_type: Optional[PeriodType] = None
     action_type: ActionType
-    success: bool
-    sub_type: ActionSubType
-    qualifiers: list[str]
-    value: str
-    previous_action: int
-    official_id: int
-    x: float
-    y: float
-    area: str
-    side: Literal["", "left", "right"]
-    score1: str
-    score2: str
-    edited: datetime
-    inserted: datetime
-    deleted: datetime
-    orig_message_id: int
+    success: Optional[bool] = None
+    sub_type: Optional[ActionSubType] = None
+    qualifiers: list[str] = None
+    value: Optional[str] = None
+    previous_action: Optional[int] = None
+    official_id: Optional[int] = None
+    x: Optional[float] = None
+    y: Optional[float] = None
+    area: Optional[str] = None
+    side: Literal["", "left", "right"] #
+    score1: int #
+    score2: int #
+    edited: Optional[datetime] = None
+    inserted: Optional[datetime] = None
+    deleted: Optional[datetime] = None
+    orig_message_id: Optional[int] = None
 
 class PlayByPlay(BaseModel):
     actions: list[Action]

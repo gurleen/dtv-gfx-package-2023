@@ -8,6 +8,7 @@ from queue import Queue
 import json
 from pydantic import BaseModel
 from boltons.socketutils import BufferedSocket
+from flask import Flask
 
 from stats import NCAALiveStats
 from structs import ConnectionParams
@@ -59,6 +60,23 @@ def listen_thread(sock: BufferedSocket, nls: NCAALiveStats, queue: Queue):
             nls.command(command)
         read_from_socket(sock, nls)
 
+def run_http_server(nls: NCAALiveStats):
+    app = Flask(__name__)
+
+    @app.route("/box")
+    def boxscore():
+        return nls.get_boxscore()
+    
+    @app.route("/half")
+    def half():
+        return nls.get_stats_for_halftime()
+    
+    @app.route("/pbp")
+    def pbp():
+        return nls.get_play_by_play()
+    
+    app.run(port=8081)
+
 
 def main():
     config = read_config()
@@ -67,6 +85,10 @@ def main():
     params = ConnectionParams()
     write_struct_to_sock(sock, params)
     nls = NCAALiveStats()
+
+    http_server_thread = Thread(target=run_http_server, args=(nls,))
+    http_server_thread.start()
+    
     listener = Thread(target=listen_thread, args=(sock, nls, msg_queue))
     listener.start()
     with socketio.SimpleClient() as sio:

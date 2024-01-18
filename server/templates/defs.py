@@ -60,9 +60,7 @@ TEMPLATES = [
         TemplateVar(name="Home Score", key="Home-Score", type=TemplateVarType.STRING, default=""),
         TemplateVar(name="Away Score", key="Away-Score", type=TemplateVarType.STRING, default=""),
     ]),
-    Template(name="Halftime Stats - Auto", template_file="/static/gfx/html/halftime-stats.html", vars=[
-        TemplateVar(name="ESPN (mbb) or NCAA (wbb) Game ID", key="Game-ID", type=TemplateVarType.STRING, default=""),
-    ]),
+    Template(name="Halftime Stats - Auto", template_file="/static/gfx/html/halftime-stats.html?livestats=true", vars=[]),
     Template(name="CAA Standings", template_file="/static/gfx/html/caa-standings.html", vars=[
         TemplateVar(name="Gender", key="gender", type=TemplateVarType.OPTION, choices=["mens", "womens"], default="mens")]
     )

@@ -1,10 +1,14 @@
 import csv
-from typing import Literal, Optional
+from pathlib import Path
+from typing import Literal
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field, AliasPath
+from fastapi.responses import FileResponse
 import requests
 from perscache import Cache
 from loguru import logger
+from team_models import Player, Team, Boxscore, FullBox
+from images import ensure_team_dirs
+from app import DATA_PATH
 
 
 router = APIRouter()
@@ -15,72 +19,6 @@ EVENT_API_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gende
 NCAA_BOXSCORE_URL = "https://data.ncaa.com/casablanca/game/{game_id}/boxscore.json"
 CAA_STANDINGS_URL = "https://site.web.api.espn.com/apis/v2/sports/basketball/{gender}-college-basketball/standings?group=10"
 ESPN_SCOREBOARD_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/{gender}-college-basketball/scoreboard?groups=10"
-
-
-
-class Team(BaseModel):
-    team_id: int
-    abbreviation: str
-    display_name: str
-    short_name: str
-    mascot: str
-    nickname: str
-    team: str
-    color: str
-    alternate_color: str
-    logo: str
-    logo_dark: str
-    href: str
-    conference_url: str
-    group_id: int
-    conference_short_name: str
-    conference_uid: str
-    conference_name: str
-    conference_logo: str
-    parent_group_id: int
-    conference_id: int
-    logo_name: str
-    players: Optional[list["Player"]] = None
-
-    @property
-    def white_logo(self) -> str:
-        return f"/media/logos-white/{self.logo_name}"
-
-class Player(BaseModel):
-    first_name: str = Field(alias="firstName")
-    last_name: str = Field(alias="lastName")
-    display_height: str = Field(alias="displayHeight")
-    birth_city: str = Field(alias=AliasPath("birthPlace", "city"))
-    birth_country: str = Field(alias=AliasPath("birthPlace", "country"))
-    jersey: str
-    slug: str
-    position: str = Field(alias=AliasPath("position", "abbreviation"))
-    year_full: str = Field(alias=AliasPath("experience", "displayValue"))
-    year: str = Field(alias=AliasPath("experience", "abbreviation"))
-
-
-class Boxscore(BaseModel):
-    fg: Optional[str] = None
-    fg_pct: Optional[str] = Field(None, alias="field goal %")
-    three_pt: Optional[str] = Field(None, alias="3pt")
-    three_pt_pct: Optional[str] = Field(None, alias="three point %")
-    ft: Optional[str] = None
-    ft_pct: Optional[str] = Field(None, alias="free throw %")
-    reb: Optional[str] = Field(None, alias="rebounds")
-    off_reb: Optional[str] = Field(None, alias="offensive rebounds")
-    def_reb: Optional[str] = Field(None, alias="defensive rebounds")
-    ast: Optional[str] = Field(None, alias="assists")
-    stl: Optional[str] = Field(None, alias="steals")
-    blk: Optional[str] = Field(None, alias="blocks")
-    to: Optional[str] = Field(None, alias="turnovers")
-    pip: Optional[str] = Field(None, alias="points in paint")
-    fouls: Optional[str] = Field(None, alias="fouls")
-    ll: Optional[str] = Field(None, alias="largest lead")
-
-
-class FullBox(BaseModel):
-    home: Boxscore
-    away: Boxscore
 
 
 with open("espn_mbb_teams.csv", "r") as f:
@@ -121,7 +59,6 @@ def get_players_for_team(gender: str, team_id: int) -> list[Player]:
 @router.get("/teams/{gender}/{team_id}/players/{jersey}")
 def get_player(gender: str, team_id: int, jersey: str) -> Player:
     roster = get_roster_for_team(gender, team_id)
-    print(roster)
     player = next((x for x in roster if x.jersey == jersey), None)
     if player is None:
         raise HTTPException(status_code=404, detail="Player not found")
@@ -242,3 +179,18 @@ def get_scoreboard(gender: str):
         )
         games.append(this_game)
     return games
+
+
+@router.get("/headshot/{team_id}/{gender}/{shirt}")
+def get_roster_image(team_id: int, gender: Literal["mens", "womens"], shirt: str):
+    team = get_team_by_id(team_id)
+    dir = ensure_team_dirs(team, gender)
+    filename = f"{shirt}.png"
+    return FileResponse(Path(dir, filename), media_type="image/png")
+
+
+@router.get("/video/{fname}")
+def get_media(fname: str):
+    path = Path(DATA_PATH, "media", fname)
+    print(path)
+    return FileResponse(path)

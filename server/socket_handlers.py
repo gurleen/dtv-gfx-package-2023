@@ -8,6 +8,7 @@ from pydantic import BaseModel
 
 from templates.template import Template
 from rosters import get_team_by_id, get_roster_for_team
+from images import cache_images_for_team
 
 
 executor = ThreadPoolExecutor(max_workers=3)
@@ -72,7 +73,7 @@ class Renderer:
         return False
 
     async def stopped(self) -> bool:
-        if self.state in [RendererState.OutAnimation, RendererState.MiddleAnimation]:
+        if self.state in [RendererState.OutAnimation, RendererState.MiddleAnimation, RendererState.Playing]:
             renderer.graphic = None
             await self.set_state(RendererState.NotPlaying)
             return True
@@ -186,6 +187,8 @@ async def set_teams(sid: str, home_id: int, away_id: int, sport: str):
     loop = asyncio.get_running_loop()
     loop.run_in_executor(executor, get_roster_for_team, sport, home_id)
     loop.run_in_executor(executor, get_roster_for_team, sport, away_id)
+    loop.run_in_executor(executor, cache_images_for_team, home, sport)
+    loop.run_in_executor(executor, cache_images_for_team, away, sport)
 
 @sio.on("getTeams")
 async def get_teams(sid: str):

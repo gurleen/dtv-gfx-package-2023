@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../../font/stylesheet.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@1.6.10/svg-loader.min.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+    <title>Generic Graphic</title>
+</head>
+
+<body>
+    <video id="video-player" muted autoplay playsinline>
+        <source src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <script>
+        window.onerror = console.error
+
+        window.onload = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const filePath = urlParams.get('file');
+
+            let video = document.getElementById("video-player");
+            video.src = "/video/" + filePath;
+            video.load();
+
+            video.addEventListener("loadeddata", () => {
+                doSetPlaying()
+            })
+
+            video.addEventListener("ended", () => {
+                console.log("ended")
+                doSetStopped()
+            })
+        }
+
+        play = () => {}
+
+        update = (data) => {
+            console.log("update", data)
+        }
+
+        doSetPlaying = () => {
+            try {
+                setPlaying()
+            } catch(err) {
+                console.error("Error trying to set playing: ", err)
+            }
+        }
+        doSetStopped = () => {
+            try {
+                window.parent.setRendererStopped()
+            } catch(err) {
+                console.error("Error trying to set stopped: ", err)
+            }
+        }
+    </script>
+</body>
+
+</html>
