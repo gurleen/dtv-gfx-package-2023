@@ -459,7 +459,8 @@
                     preview.contentWindow.next()
                 },
                 addGraphic(template) {
-                    let newGraphic = { ...template, templateName: template.name }
+                    let newGraphic = structuredClone(template)
+                    newGraphic.templateName = `${template.name}`
                     newGraphic.id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
                     newGraphic.vars.forEach((v) => v.value = v.default)
                     this.graphics.push(newGraphic)
