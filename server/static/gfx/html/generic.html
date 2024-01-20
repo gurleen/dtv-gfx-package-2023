@@ -27,7 +27,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const filePath = urlParams.get('file');
 
-            fetch("/" + filePath)
+            fetch("/graphics/" + filePath)
             .then(response => response.status === 200 ? response.text() : "")
             .then(svg => {
                 console.log(svg)
