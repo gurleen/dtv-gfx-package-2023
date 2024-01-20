@@ -17,7 +17,7 @@ def get_all_videos() -> list[str]:
     for root, dirs, files in os.walk(Path(DATA_PATH, "media")):
         for name in files:
             if name.endswith(".webm"):
-                yield str(Path(root, name).relative_to(DATA_PATH))
+                yield name
 
 def get_generic_template(fname: str) -> Template:
     without_ext = fname.split(".")[0]
@@ -27,7 +27,7 @@ def get_all_generics() -> list[str]:
     for root, dirs, files in os.walk(Path(DATA_PATH, "graphics")):
         for name in files:
             if name.endswith(".svg"):
-                yield str(Path(root, name).relative_to(DATA_PATH))
+                yield name
 
 @router.get("/templates")
 def get_templates() -> list[Template]:
