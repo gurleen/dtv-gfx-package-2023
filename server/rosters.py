@@ -192,5 +192,10 @@ def get_roster_image(team_id: int, gender: Literal["mens", "womens"], shirt: str
 @router.get("/video/{fname}")
 def get_media(fname: str):
     path = Path(DATA_PATH, "media", fname)
-    print(path)
+    return FileResponse(path)
+
+@router.get("/graphics/{fname}")
+def get_graphics(fname: str):
+    print(fname)
+    path = Path(DATA_PATH, "graphics", fname)
     return FileResponse(path)

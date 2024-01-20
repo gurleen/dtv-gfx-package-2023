@@ -27,13 +27,14 @@
             const urlParams = new URLSearchParams(window.location.search);
             const filePath = urlParams.get('file');
 
-            fetch("/static/gfx/svg/" + filePath)
-                .then(response => response.status === 200 ? response.text() : "")
-                .then(svg => {
-                    document.getElementById("svg").innerHTML = svg;
-                    window.svgLoaded = true;
-                    window.dispatchEvent(new Event("loaded"));
-                })
+            fetch("/" + filePath)
+            .then(response => response.status === 200 ? response.text() : "")
+            .then(svg => {
+                console.log(svg)
+                document.getElementById("svg").innerHTML = svg;
+                window.svgLoaded = true;
+                window.dispatchEvent(new Event("loaded"));
+            })
         }
 
         window.addEventListener("loaded", () => {

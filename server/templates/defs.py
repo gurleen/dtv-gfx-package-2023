@@ -63,5 +63,9 @@ TEMPLATES = [
     Template(name="Halftime Stats - Auto", template_file="/static/gfx/html/halftime-stats.html?livestats=true", vars=[]),
     Template(name="CAA Standings", template_file="/static/gfx/html/caa-standings.html", vars=[
         TemplateVar(name="Gender", key="gender", type=TemplateVarType.OPTION, choices=["mens", "womens"], default="mens")]
-    )
+    ),
+    Template(name="Starting Lineups", template_file="/static/gfx/html/starting-lineups.html", vars=[
+        TemplateVar(name="Home Players", key="Home-Players", type=TemplateVarType.STRING, default=""),
+        TemplateVar(name="Away Players", key="Away-Players", type=TemplateVarType.STRING, default=""),
+    ])
 ]

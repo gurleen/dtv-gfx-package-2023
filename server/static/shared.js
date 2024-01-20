@@ -19,7 +19,7 @@ get = (url) => {
     return JSON.parse(xhr.responseText);
 }
 const tl = gsap.timeline({ paused: true });
-tl.from("body", { opacity: 0, duration: 0.5 })
+tl.from("body", { opacity: 0, duration: 1 })
 tl.eventCallback("onComplete", () => { 
     tl.seek(0).pause(); shouldBeStopped = false; 
     doSetStopped();

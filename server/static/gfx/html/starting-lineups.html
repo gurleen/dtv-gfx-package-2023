@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../../font/stylesheet.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@1.6.10/svg-loader.min.js" async></script>
+    <script type="text/javascript" src="../../shared.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+    <title>Starting Lineup</title>
+</head>
+
+<body style="visibility: hidden">
+    <div id="svg"></div>
+    <script>
+        window.onload = () => {
+            loadSVG("Starting Lineups.svg")
+
+            setHandler("Home-Players", async (v) => {
+                players = v.split(" ")
+                _.range(1, 6).forEach(async (x) => {
+                    console.log(x)
+                    key = `player${x}Num`
+                    playerNum = players[x - 1]
+                    teamKey = "Home"
+                    teamId = window.cache["Home-ID"]
+                    sport = window.cache["Sport"]
+                    imageUrl = `/headshot/${teamId}/${sport}/${playerNum}`
+                    imageKey = `#${teamKey}-Player-${x} > #Headshot`
+                    console.log(imageKey)
+                    qUpdateImage(imageKey, imageUrl)
+                    qUpdateText(`#${teamKey}-Player-${x} > #Shirt`, playerNum)
+                    sport = window.cache["Sport"]
+                    teamId = window.cache["Team"] == "Home" ? window.cache["Home-ID"] : window.cache["Away-ID"]
+                    let playerRaw = await fetch(`/teams/${sport}/${teamId}/players/${playerNum}`)
+                    let player = await playerRaw.json()
+                    editSpanText(`#${teamKey}-Player-${x} > #Name`, [player.firstName, player.lastName])
+                    qUpdateText(`#${teamKey}-Player-${x} > #Position`, player.position)
+                })
+            })
+    
+            setHandler("Away-Players", async (v) => {
+                players = v.split(" ")
+                _.range(1, 6).forEach(async (x) => {
+                    console.log(x)
+                    key = `player${x}Num`
+                    playerNum = players[x - 1]
+                    teamKey = "Away"
+                    teamId = window.cache["Away-ID"]
+                    sport = window.cache["Sport"]
+                    imageUrl = `/headshot/${teamId}/${sport}/${playerNum}`
+                    imageKey = `#${teamKey}-Player-${x} > #Headshot`
+                    qUpdateImage(imageKey, imageUrl)
+                    qUpdateText(`#${teamKey}-Player-${x} > #Shirt`, playerNum)
+                    sport = window.cache["Sport"]
+                    teamId = window.cache["Team"] == "Home" ? window.cache["Home-ID"] : window.cache["Away-ID"]
+                    let playerRaw = await fetch(`/teams/${sport}/${teamId}/players/${playerNum}`)
+                    let player = await playerRaw.json()
+                    editSpanText(`#${teamKey}-Player-${x} > #Name`, [player.firstName, player.lastName])
+                    qUpdateText(`#${teamKey}-Player-${x} > #Position`, player.position)
+                })
+            })
+    
+            setHandler("Home-Logo", (v) => {
+                _.range(1, 6).forEach(x => updateImage(`#Home-Logo-${x}`, v))
+            })
+    
+            setHandler("Away-Logo", (v) => {
+                _.range(1, 6).forEach(x => updateImage(`#Away-Logo-${x}`, v))
+            })
+        }
+
+        
+
+        window.addEventListener("loaded", () => {
+            tl.from("#Rectangle", { duration: 0.5, x: "-=100", opacity: 0, ease: "power3.out" });
+            tl.from("#STARTING-LINEUPS", { duration: 0.5, x: "-=100", opacity: 0, ease: "power3.out" }, "<")
+            tl.from("#Home-Player-1", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "-=0.4")
+            tl.from("#Home-Player-2", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.from("#Home-Player-3", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.from("#Home-Player-4", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.from("#Home-Player-5", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.addPause(">", checkForStop)
+            tl.call(() => doSetPlaying())
+            tl.to("#Home-Player-1", { duration: 0.5, x: "+=50", opacity: 0, ease: "power3.out" })
+            tl.to("#Home-Player-2", { duration: 0.5, x: "+=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.to("#Home-Player-3", { duration: 0.5, x: "+=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.to("#Home-Player-4", { duration: 0.5, x: "+=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.to("#Home-Player-5", { duration: 0.5, x: "+=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.from("#Away-Player-1", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "-=0.4")
+            tl.from("#Away-Player-2", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.from("#Away-Player-3", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.from("#Away-Player-4", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.from("#Away-Player-5", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "<")
+            tl.addPause("+=0", checkForStop)
+            tl.call(() => doSetPlaying())
+            tl.to("#Page-1", { duration: 0.3, opacity: 0, ease: "power3.out" })
+
+            showBody();
+        })
+
+        window.handleExtra = async (k, v) => { }
+    </script>
+</body>
+
+</html>

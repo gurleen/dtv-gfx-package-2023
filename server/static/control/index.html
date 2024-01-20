@@ -332,6 +332,10 @@
         });
     }
 
+    clone = (obj) => {
+        return JSON.parse(JSON.stringify(obj))
+    }
+
     sock.on("connect", () => {
         console.log("Connected to livestats.");
 
@@ -459,7 +463,9 @@
                     preview.contentWindow.next()
                 },
                 addGraphic(template) {
-                    let newGraphic = structuredClone(template)
+                    console.log(template)
+                    let newGraphic = clone(template)
+                    console.log(newGraphic)
                     newGraphic.templateName = `${template.name}`
                     newGraphic.id = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
                     newGraphic.vars.forEach((v) => v.value = v.default)
