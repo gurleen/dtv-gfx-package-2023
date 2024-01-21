@@ -67,5 +67,6 @@ TEMPLATES = [
     Template(name="Starting Lineups", template_file="/static/gfx/html/starting-lineups.html", vars=[
         TemplateVar(name="Home Players", key="Home-Players", type=TemplateVarType.STRING, default=""),
         TemplateVar(name="Away Players", key="Away-Players", type=TemplateVarType.STRING, default=""),
-    ])
+    ]),
+    Template(name="Wrestling Scorebug", template_file="/static/gfx/html/wrestling-scorebug/wrestling-scorebug.html", vars=[])
 ]

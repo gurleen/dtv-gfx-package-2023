@@ -1,3 +1,4 @@
+import os
 import csv
 from pathlib import Path
 from typing import Literal
@@ -182,12 +183,11 @@ def get_scoreboard(gender: str):
 
 
 @router.get("/headshot/{team_id}/{gender}/{shirt}")
-def get_roster_image(team_id: int, gender: Literal["mens", "womens"], shirt: str):
+def get_roster_image(team_id: int, gender: Literal["mens", "womens", "wrest"], shirt: str):
     team = get_team_by_id(team_id)
     dir = ensure_team_dirs(team, gender)
     filename = f"{shirt}.png"
     return FileResponse(Path(dir, filename), media_type="image/png")
-
 
 @router.get("/video/{fname}")
 def get_media(fname: str):
@@ -199,3 +199,17 @@ def get_graphics(fname: str):
     print(fname)
     path = Path(DATA_PATH, "graphics", fname)
     return FileResponse(path)
+
+
+@router.get("/wrestling/{team_id}/roster")
+def get_wrestling_roster(team_id: int):
+    team = get_team_by_id(team_id)
+    dir = ensure_team_dirs(team, "wrest")
+    filename = "roster.json"
+    return FileResponse(Path(dir, filename), media_type="application/json")
+
+
+@router.get("/wrestling/rosters")
+def get_all_rosters():
+    files = os.listdir("static/control/wrestling/rosters")
+    return [f.replace(".json", "") for f in files]

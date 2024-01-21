@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+	<title>wrestling-scorebug</title>
+	<style>
+		html {
+			height:100%;
+		}
+		body {
+			margin:0;
+			height:100%;
+		}
+	</style>
+	<!-- copy these lines to your document head: -->
+
+	<meta name="viewport" content="user-scalable=yes, width=1920" />
+	<link href='https://fonts.googleapis.com/css?family=Barlow:700&subset=latin' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Barlow:800&subset=latin' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Barlow:700italic&subset=latin' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Barlow&subset=latin' rel='stylesheet' type='text/css'>
+	
+	<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+	<script src="https://dtv.gurleen.dev/templates/livestats.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/worldoptimizer/HypeClipPath/HypeClipPath.min.js"></script>
+	
+<script>
+    window.SPXGCTemplateDefinition = {
+        "description": "Wrestling Scorebug",
+        "playserver": "OVERLAY",
+        "playchannel": "1",
+        "playlayer": "8",
+        "webplayout": "8",
+        "steps" : "1",
+        "out": "manual",
+        "uicolor": "2",
+        "dataformat": "json",
+        "DataFields": [
+            {
+                "field" : "color:homeColor",
+                "ftype" : "color",
+                "title" : "Home Color",
+                "value" : ""
+            },
+            {
+                "field" : "color:homeScoreColor",
+                "ftype" : "color",
+                "title" : "Home Score Color",
+                "value" : ""
+            },
+            {
+                "field": "img:homeLogo",
+                "ftype": "filelist",
+                "title": "Home Team Logo",
+                "assetfolder" : "/media/logos-white/" ,
+                "extension" : "png",
+                "value": "",
+            },
+            {
+                "field" : "homeWrestler",
+                "ftype" : "textfield",
+                "title" : "Home Wrestler",
+                "value" : "F. LASTNAME"
+            },
+            {
+                "field" : "homeRank",
+                "ftype" : "textfield",
+                "title" : "Home Rank",
+                "value" : ""
+            },
+            {
+                "field" : "fade:homeScore",
+                "ftype" : "textfield",
+                "title" : "Home Score",
+                "value" : "0"
+            },
+            {
+                "field" : "color:awayColor",
+                "ftype" : "color",
+                "title" : "Away Color",
+                "value" : ""
+            },
+            {
+                "field" : "color:awayScoreColor",
+                "ftype" : "color",
+                "title" : "Away Score Color",
+                "value" : ""
+            },
+            {
+                "field": "img:awayLogo",
+                "ftype": "filelist",
+                "title": "Away Team Logo",
+                "assetfolder" : "/media/logos-white/" ,
+                "extension" : "png",
+                "value": "",
+            },
+            {
+                "field" : "awayWrestler",
+                "ftype" : "textfield",
+                "title" : "Away Wrestler",
+                "value" : "F. LASTNAME"
+            },
+            {
+                "field" : "awayRank",
+                "ftype" : "textfield",
+                "title" : "Away Rank",
+                "value" : ""
+            },
+            {
+                "field" : "fade:awayScore",
+                "ftype" : "textfield",
+                "title" : "Away Score",
+                "value" : "0"
+            },
+            {
+                "field" : "fade:period",
+                "ftype" : "textfield",
+                "title" : "Period",
+                "value" : "1st"
+            },
+            {
+                "field" : "fade:weight",
+                "ftype" : "textfield",
+                "title" : "Weight",
+                "value" : "165lbs"
+            },
+            {
+                "field" : "homeWinText",
+                "ftype" : "dropdown",
+                "title" : "Home Win Text",
+                "value" : "WIN - DECISION",
+                "items": [
+                	{
+                		"text": "FALL",
+                		"value": "WIN - FALL",
+                	},
+                	{
+                		"text": "TECH FALL",
+                		"value": "WIN - TECHNICAL FALL",
+                	},
+                	{
+                		"text": "MAJOR DECISION",
+                		"value": "WIN - MAJOR DECISION",
+                	},
+                	{
+                		"text": "DECISION",
+                		"value": "WIN - DECISION",
+                	},
+                	{
+                		"text": "DEFAULT",
+                		"value": "WIN - DEFAULT",
+                	},
+                	{
+                		"text": "DQ",
+                		"value": "WIN - DISQUALIFICATION",
+                	},
+                	{
+                		"text": "FORFEIT",
+                		"value": "WIN - FORFEIT",
+                	}
+                ]
+            },
+            {
+                "field" : "awayWinText",
+                "ftype" : "dropdown",
+                "title" : "Away Win Text",
+                "value" : "WIN - DECISION",
+                "items": [
+                	{
+                		"text": "FALL",
+                		"value": "WIN - FALL",
+                	},
+                	{
+                		"text": "TECH FALL",
+                		"value": "WIN - TECHNICAL FALL",
+                	},
+                	{
+                		"text": "MAJOR DECISION",
+                		"value": "WIN - MAJOR DECISION",
+                	},
+                	{
+                		"text": "DECISION",
+                		"value": "WIN - DECISION",
+                	},
+                	{
+                		"text": "DEFAULT",
+                		"value": "WIN - DEFAULT",
+                	},
+                	{
+                		"text": "DQ",
+                		"value": "WIN - DISQUALIFICATION",
+                	},
+                	{
+                		"text": "FORFEIT",
+                		"value": "WIN - FORFEIT",
+                	}
+                ]
+            }
+
+        ]
+    };
+</script>
+	
+
+	<!-- end copy -->
+  </head>
+  <body>
+	<!-- copy these lines to your document: -->
+
+	<div id="wrestlingscorebug_hype_container" class="HYPE_document" style="margin:auto;position:relative;width:1920px;height:1080px;overflow:hidden;">
+		<script type="text/javascript" charset="utf-8" src="wrestling-scorebug.hyperesources/wrestlingscorebug_hype_generated_script.js?43071"></script>
+	</div>
+
+	<!-- end copy -->
+  </body>
+</html>

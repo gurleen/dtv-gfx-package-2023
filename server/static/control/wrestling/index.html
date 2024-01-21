@@ -152,16 +152,15 @@
                         <select name="away-player" x-model="awayPlayerId">
                             <option></option>
                             <template x-for="(player, idx) in awayRoster">
-                                <option x-text="player.first_name + ' ' + player.last_name" :value="idx"></option>
+                                <option x-text="player.name" :value="idx"></option>
                             </template>
                         </select>
                         <template x-if="playersSelected">
                             <div class="card">
-                                <p><span x-text="awayPlayer.first_name"></span> <strong
-                                        x-text="awayPlayer.last_name"></strong></p>
+                                <p><span x-text="awayPlayer.name"></span></p>
                                 <p x-text="awayPlayer.weight + 'lbs'"></p>
                                 <p x-text="awayPlayer.year"></p>
-                                <img class="roster-img" :src="awayPlayer.image_url">
+                                <img class="roster-img" :src="awayPlayer.image">
                                 <label for="awayHasRank">Has Rank?</label>
                                 <input name="awayHasRank" type="checkbox" x-model="awayPlayerHasRank">
                                 <div x-cloak x-show="awayPlayerHasRank">
@@ -188,16 +187,15 @@
                         <select name="home-player" x-model="homePlayerId">
                             <option></option>
                             <template x-for="(player, idx) in homeRoster">
-                                <option x-text="player.first_name + ' ' + player.last_name" :value="idx"></option>
+                                <option x-text="player.name" :value="idx"></option>
                             </template>
                         </select>
                         <template x-if="playersSelected">
                             <div class="card">
-                                <p><span x-text="homePlayer.first_name"></span> <strong
-                                        x-text="homePlayer.last_name"></strong></p>
+                                <p><span x-text="homePlayer.name"></span></p>
                                 <p x-text="homePlayer.weight + 'lbs'"></p>
                                 <p x-text="homePlayer.year"></p>
-                                <img class="roster-img" :src="homePlayer.image_url">
+                                <img class="roster-img" :src="homePlayer.image">
                                 <label for="homeHasRank">Has Rank?</label>
                                 <input name="homeHasRank" type="checkbox" x-model="homePlayerHasRank">
                                 <div x-cloak x-show="homePlayerHasRank">
@@ -229,8 +227,8 @@
 </body>
 
 <script>
-    // const LIVESTATS_URL = "https://livestats.gurleen.dev/";
-    const LIVESTATS_URL = "http://localhost:8000/"
+    const LIVESTATS_URL = "https://livestats.gurleen.dev/";
+    //const LIVESTATS_URL = "http://localhost:8000/"
     const sock = io(LIVESTATS_URL);
 
     sock.on("connect", () => {
@@ -270,16 +268,31 @@
     let files;
     let rosters = {};
 
-    let text = fetch('../../../rosters').then(res => res.text()).then(text => {
+    /*
+    let text = fetch('./rosters').then(res => res.text()).then(text => {
         files = text.match(/href="([^"]+)/g).map((x) => x.replace('href="', ''));
         files.forEach((file) => {
             if (file.includes('wrest')) {
-                roster = get(`../../../rosters/${file}`);
+                roster = get(`./rosters/${file}`);
                 rosters[file.replace(".json", "")] = roster;
             }
         });
         document.dispatchEvent(new Event('loaded'));
-    });
+    });*/
+
+    let rosterList = fetch("/wrestling/rosters").then(res => res.json()).then(json => {
+        json.forEach((roster) => {
+            rosters[roster] = get(`./rosters/${roster}.json`)
+        })
+        document.dispatchEvent(new Event('loaded'));
+    })
+
+    function abbreviateFirstName(fullName) {
+        let nameParts = fullName.split(' ');
+        let firstName = nameParts[0];
+        let lastName = nameParts.slice(1).join(' ');
+        return firstName.charAt(0) + ". " + lastName;
+    }
     
 
     document.addEventListener(("alpine:init"), () => {
@@ -303,14 +316,14 @@
                     return this.homeRoster[this.homePlayerId];
                 },
                 get homePlayerImgUrl() {
-                    let code = (this.homePlayer.first_name.toLowerCase() + this.homePlayer.last_name.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '');
+                    let code = (this.homePlayer.name.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '');
                     return `/media/roster-images/${this.homeRosterId}/${code}.png`;
                 },
                 get homeNameSplit() {
                     if(this.homePlayerHasRank) {
-                        return "#" + this.homeRank + " " + this.homePlayer.first_name + "$" + this.homePlayer.last_name;
+                        return "#" + this.homeRank + " " + this.homePlayer.name;
                     } else {
-                        return this.homePlayer.first_name + "$" + this.homePlayer.last_name;
+                        return this.homePlayer.name;
                     }
                 },
                 homePlayerHasRank: false,
@@ -325,14 +338,14 @@
                     return this.awayRoster[this.awayPlayerId];
                 },
                 get awayPlayerImgUrl() {
-                    let code = (this.awayPlayer.first_name.toLowerCase() + this.awayPlayer.last_name.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '');
+                    let code = (this.awayPlayer.name).replace(/[^a-zA-Z0-9]/g, '');
                     return `/media/roster-images/${this.awayRosterId}/${code}.png`;
                 },
                 get awayNameSplit() {
                     if(this.awayPlayerHasRank) {
-                        return "#" + this.awayRank + " " + this.awayPlayer.first_name + "$" + this.awayPlayer.last_name;
+                        return "#" + this.awayRank + " " + this.awayPlayer.name
                     } else {
-                        return this.awayPlayer.first_name + "$" + this.awayPlayer.last_name;
+                        return this.awayPlayer.name
                     }
                 },
                 awayPlayerHasRank: false,
@@ -345,10 +358,10 @@
                     return this.homeRosterId != null && this.awayRosterId != null;
                 },
                 get homeCleanName() {
-                    return this.homePlayer.first_name.charAt(0) + ". " + this.homePlayer.last_name;
+                    return abbreviateFirstName(this.homePlayer.name)
                 },
                 get awayCleanName() {
-                    return this.awayPlayer.first_name.charAt(0) + ". " + this.awayPlayer.last_name;
+                    return abbreviateFirstName(this.awayPlayer.name)
                 },
                 weight: null,
                 showUpdated: false,

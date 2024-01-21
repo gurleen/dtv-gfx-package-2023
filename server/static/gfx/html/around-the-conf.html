@@ -24,13 +24,12 @@
             loadSVG("Around The Conference.svg")
 
             let gameIds = [
-                "401600622",
-                "401600625",
-                "401600621",
-                "401600624",
-                "401600619",
-                "401600619",
-                "401600620"
+                "401603580",
+                "401603581",
+                "401603579",
+                "401603578",
+                "401603582",
+                "401603576"
             ];
 
             tl.seek(tl.totalDuration())
@@ -47,19 +46,20 @@
         })
 
         updateScores = () => {
-            let games = get("/scoreboard/mens")
+            let games = get("/scoreboard/womens")
             let i = 1
-            games.forEach((game) => {
+            for(i = 0; i < 7; i++) {
                 try {
+                    let game = games[i]
                     let prefix = `#Game-${i}-Box > `;
-                    qUpdateText(prefix + "#Home-Score", game.homeScore)
-                    qUpdateText(prefix + "#Away-Score", game.awayScore)
+                    qUpdateText(prefix + "#Home-Score", game.awayScore)
+                    qUpdateText(prefix + "#Away-Score", game.homeScore)
                     qUpdateText(prefix + "#Status", game.status)
                     i++
                 } catch (e) {
                     console.error(e)
                 }
-            })
+            }
         }
 
         window.handleExtra = async (k, v) => { }
