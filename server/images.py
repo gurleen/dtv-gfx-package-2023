@@ -13,7 +13,7 @@ HEADERS = {
 }
 
 
-def ensure_team_dirs(team: Team, gender: Literal["mens", "womens"]):
+def ensure_team_dirs(team: Team, gender: Literal["mens", "womens", "wrest"]):
     team_dir = f"{team.abbreviation.lower()}"
     team_dir_path = Path(DATA_PATH, "headshots", team_dir, gender)
     team_dir_path.mkdir(parents=True, exist_ok=True)
@@ -78,6 +78,7 @@ def download_images(images: list[tuple[str, str]], folder: str) -> list[str]:
             print(f"Error downloading {url}")
     return files
 
+
 """
 def remove_background(files: list[str], base_dir: str):
     logger.info("Removing backgrounds...")
@@ -100,6 +101,7 @@ def remove_background(files: list[str], base_dir: str):
         img.save(name)
     logger.info("Images saved.")
 """
+
 
 def cache_images_for_team(team: Team, gender: Literal["mens", "womens"]):
     team_dir = ensure_team_dirs(team, gender)

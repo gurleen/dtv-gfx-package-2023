@@ -2,6 +2,7 @@ import os
 import csv
 from pathlib import Path
 from typing import Literal
+from typing_extensions import Optional
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 import requests
@@ -31,7 +32,7 @@ with open("espn_mbb_teams.csv", "r") as f:
 async def get_teams() -> dict[int, Team]:
     return TEAMS
 
-@router.get("/teams/short") 
+@router.get("/teams/short")
 async def get_teams_short() -> list[dict]:
     return [dict(id=team.team_id, name=team.display_name) for team in TEAMS.values()]
 
@@ -96,52 +97,13 @@ def get_mens_live_stats(game_id: str, home_id: int = None) -> FullBox:
     home_stats = parse_team_stats(home_team["statistics"])
     away_stats = parse_team_stats(away_team["statistics"])
     return FullBox(home=home_stats, away=away_stats)
-    
-
-def get_womens_live_stats(game_id: str) -> FullBox:
-    url = NCAA_BOXSCORE_URL.format(game_id=game_id)
-    response = requests.get(url).json()
-    first_home = response["meta"]["teams"][0]["homeTeam"]
-    first_box_raw = response["teams"][0]["playerTotals"]
-    first_box = Boxscore(
-        fg=first_box_raw["fieldGoalsMade"],
-        three_fg=first_box_raw["threePointsMade"],
-        ft=first_box_raw["freeThrowsMade"],
-        reb=first_box_raw["totalRebounds"],
-        off_reb=first_box_raw["offensiveRebounds"],
-        ast=first_box_raw["assists"],
-        stl=first_box_raw["steals"],
-        to=first_box_raw["turnovers"],
-        blk=first_box_raw["blockedShots"],
-        fg_pct=first_box_raw["fieldGoalPercentage"].replace("-", "0%"),
-        three_pt_pct=first_box_raw["threePointPercentage"].replace("-", "0%"),
-        ft_pct=first_box_raw["freeThrowPercentage"].replace("-", "0%"),
-    )
-    second_box_raw = response["teams"][1]["playerTotals"]
-    second_box = Boxscore(
-        fg=second_box_raw["fieldGoalsMade"],
-        three_fg=second_box_raw["threePointsMade"],
-        ft=second_box_raw["freeThrowsMade"],
-        reb=second_box_raw["totalRebounds"],
-        off_reb=second_box_raw["offensiveRebounds"],
-        ast=second_box_raw["assists"],
-        stl=second_box_raw["steals"],
-        to=second_box_raw["turnovers"],
-        blk=second_box_raw["blockedShots"],
-        fg_pct=second_box_raw["fieldGoalPercentage"].replace("-", "0%"),
-        three_pt_pct=second_box_raw["threePointPercentage"].replace("-", "0%"),
-        ft_pct=second_box_raw["freeThrowPercentage"].replace("-", "0%"),
-    )
-    return FullBox(home=first_box, away=second_box) if first_home else FullBox(home=second_box, away=first_box)
 
 
 @router.get("/live/{gender}/{game_id}")
-def get_live_stats(gender: str, game_id, home_id: int = None) -> FullBox:
+def get_live_stats(gender: str, game_id, home_id: int) -> Optional[FullBox]:
     if gender == "mens":
         return get_mens_live_stats(game_id, home_id)
-    elif gender == "womens":
-        return get_womens_live_stats(game_id)
-    
+
 
 @router.get("/standings/{gender}")
 def get_caa_standings(gender: str):
