@@ -1,50 +1,73 @@
-import van from "./van-1.2.7.min.js";
-import { Panel, Row, Col } from "./components.js";
-import { updateKey } from "./socket.js";
-
-const { div, select, option, button, p, input } = van.tags;
-
-
-const InfoBarControl = () => {
-    const state = vanX.reactive({
-        items: [{title: "Venue", subtitle: "Daskalakis Athletic Center"}, {title: "Date", subtitle: "2021-01-01"}],
-        selected: 0,
-        get selectedItem() { return this.items[this.selected] },
-        showUpdated: false
+document.addEventListener('alpine:init', () => {
+    Alpine.data("infoBarControl", () => {
+        return {
+            items: [{ title: "VENUE", subtitle: "DASKALAKIS ATHLETIC CENTER", color: "neutral" }],
+            inputItem: { title: "", subtitle: "", color: "neutral" },
+            selected: 0,
+            fullText: (item) => item.title + " - " + item.subtitle + " - " + item.color,
+            init() {
+                this.items = get("infoBarItems") || this.items
+            },
+            update() {
+                let item = this.items[this.selected];
+                updateKey("Info-Bar-Title", item.title)
+                updateKey("Info-Bar-Caption", item.subtitle)
+                updateKey("sliderColor", item.color)
+            },
+            add() {
+                this.items = [...this.items, this.inputItem]
+                this.selected = this.items.length - 1
+                cache("infoBarItems", this.items)
+            },
+            remove() {
+                if(confirm("Are you sure you want to remove this item?")) {
+                    this.items.splice(this.selected, 1)
+                    this.selected = 0
+                    cache("infoBarItems", this.items)
+                }
+            }
+        }
     })
 
-    const titleInput = input({type: "text"})
-    const subtitleInput = input({type: "text"})
+    Alpine.data("playerSliderControl", () => {
+        return {
+            side: "home",
+            shirt: "0",
+            update: () => {
+                console.log(shirt, side)
+            }
+        }
+    })
+})
 
-    return div(
-        select(
-            {onchange: e => { state.selected = e.target.value; }},
-            ...state.items.map((item, idx) => option({value: idx}, `${item.title} - ${item.subtitle}`)),
-        ),
-        button({onclick: () => { 
-            updateKey("sliderColor", "neutral")
-            updateKey("Info-Bar-Title", state.selectedItem.title)
-            updateKey("Info-Bar-Caption", state.selectedItem.subtitle)
-            state.showUpdated = true;
-            setTimeout(() => { state.showUpdated = false; }, 1000);
-        }}, "Update"),
-        state.showUpdated ? p("Updated") : null,
-        Row(
-            titleInput,
-            subtitleInput,
-            button({onclick: () => {
-                state.items = [...state.items, ({title: titleInput.value, subtitle: subtitleInput.value})]
-                console.log(state.items)
-            }}, "Add")
-        )
-    )
-}
+cache = (key, val) => localStorage.setItem(key, JSON.stringify(val))
+get = (key) => JSON.parse(localStorage.getItem(key))
 
+const LIVESTATS_URL = "https://livestats.gurleen.dev/";
+const sock = io(LIVESTATS_URL);
 
-const BasketballControl = () => {
-    return Panel("Info Bar", 
-        InfoBarControl()
-    )
-}
+sock.on("connect", () => {
+    console.log("Connected to livestats.");
+    sock.emit("get_store", (store) => {
+        console.log(store)
+    })
 
-van.add(document.body, BasketballControl());
+    sock.on("update", (payload) => {
+        console.log(payload)
+    })
+
+    sock.on("signal", (payload) => {
+        console.log("SIGNAL: ", payload)
+    })
+
+    window.emitSignal = (key) => {
+        sock.emit("send_signal", { signal: key })
+    }
+
+    window.updateKey = (key, value) => {
+        sock.emit("do_update", { "key": key, "value": value });
+        payload = {}
+        payload[key] = value
+        console.log(payload)
+    }
+});

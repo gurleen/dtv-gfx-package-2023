@@ -1,69 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link href="../../font/stylesheet.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <script
+            type="text/javascript"
+            src="https://unpkg.com/external-svg-loader@1.6.10/svg-loader.min.js"
+            async
+        ></script>
+        <script type="text/javascript" src="../../shared.js" defer></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+            integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <title>Around The Conference</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="../../font/stylesheet.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@1.6.10/svg-loader.min.js" async></script>
-    <script type="text/javascript" src="../../shared.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
-        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <title>Around The Conference</title>
-</head>
+    <body style="opacity: 1 !important">
+        <div id="svg"></div>
+        <script>
+            window.onerror = console.error;
 
-<body style="opacity: 1 !important;">
-    <div id="svg"></div>
-    <script>
-        window.onerror = console.error
+            window.onload = () => {
+                loadSVG("Around The Conference.svg");
 
-        window.onload = () => {
-            loadSVG("Around The Conference.svg")
+                tl.seek(tl.totalDuration());
+                updateScores(true);
+                setInterval(() => updateScores(true), 5000);
+            };
 
-            let gameIds = [
-                "401603580",
-                "401603581",
-                "401603579",
-                "401603578",
-                "401603582",
-                "401603576"
-            ];
-
-            tl.seek(tl.totalDuration())
-            setInterval(updateScores, 5000)
-        }
-
-        window.addEventListener("loaded", () => {
-            for(var i = 1; i < 7; i++) {
-                let prefix = `#Game-${i}-Box > `;
-                middleAlignTextElement(prefix + "#Status")
-                middleAlignTextElement(prefix + "#Home-Score")
-                middleAlignTextElement(prefix + "#Away-Score")
-            }
-        })
-
-        updateScores = () => {
-            let games = get("/scoreboard/womens")
-            let i = 1
-            for(i = 0; i < 7; i++) {
-                try {
-                    let game = games[i]
+            window.addEventListener("loaded", () => {
+                for (var i = 1; i < 7; i++) {
+                    console.log("Doing alignment");
                     let prefix = `#Game-${i}-Box > `;
-                    qUpdateText(prefix + "#Home-Score", game.awayScore)
-                    qUpdateText(prefix + "#Away-Score", game.homeScore)
-                    qUpdateText(prefix + "#Status", game.status)
-                    i++
-                } catch (e) {
-                    console.error(e)
+                    middleAlignTextElement(prefix + "#Status");
+                    middleAlignTextElement(prefix + "#Home > #Home-Score");
+                    middleAlignTextElement(prefix + "#Away > #Away-Score");
                 }
-            }
-        }
+            });
 
-        window.handleExtra = async (k, v) => { }
-    </script>
-</body>
+            logoForTeam = (team) => {
+                return `/logo/${team.team_id}`;
+            };
 
+            updateScores = (first) => {
+                let games = get("/around-the-caa/mens");
+                let i = 1;
+                for (i = 0; i < 7; i++) {
+                    try {
+                        let game = games[i];
+                        console.log(game);
+                        let prefix = `#Game-${i}-Box > `;
+                        qUpdateText(
+                            prefix + "#Home > #Home-Score",
+                            game.homeScore,
+                        );
+                        qUpdateText(
+                            prefix + "#Away > #Away-Score",
+                            game.awayScore,
+                        );
+                        qUpdateText(prefix + "#Status", game.status);
+                        if (first) {
+                            let identPrefix = `#Game-${i}-Ident > `;
+                            qUpdateText(
+                                identPrefix + "#Home-Team > #Name",
+                                game.home.short_name,
+                            );
+                            qUpdateText(
+                                identPrefix + "#Away-Team > #Name",
+                                game.away.short_name,
+                            );
+                            qUpdateImage(
+                                identPrefix + "#Home-Team > #Logo",
+                                logoForTeam(game.home),
+                            );
+                            qUpdateImage(
+                                identPrefix + "#Away-Team > #Logo",
+                                logoForTeam(game.away),
+                            );
+                            qUpdateColor(
+                                identPrefix + "#Home-Team > #Home-Team-Color",
+                                "#" + game.home.color,
+                            );
+                            qUpdateColor(
+                                identPrefix + "#Away-Team > #Away-Team-Color",
+                                "#" + game.away.color,
+                            );
+                            qUpdateColor(
+                                prefix + "#Home > #Home-Team-Color",
+                                "#" + game.home.color,
+                            );
+                            qUpdateColor(
+                                prefix + "#Away > #Away-Team-Color",
+                                "#" + game.away.color,
+                            );
+                        }
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+            };
+
+            window.handleExtra = async (k, v) => {};
+        </script>
+    </body>
 </html>
