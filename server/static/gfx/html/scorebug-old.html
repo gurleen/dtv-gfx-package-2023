@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../../font/stylesheet.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="text/javascript" src="../../shared.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+        <!--
+    <script src="../../livestats.js" defer></script>-->
+    <title>Basketball Scorebug</title>
+</head>
+
+<body style="visibility: hidden; padding-top: 20px;">
+    <?xml version="1.0" encoding="UTF-8"?>
+    <svg width="1920px" height="1080px" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <title>Basketball Scorebug</title>
+        <defs>
+            <rect id="path-1" x="0" y="0" width="247" height="80"></rect>
+            <text id="text-3" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#FFFFFF">
+                <tspan x="188.125" y="62">99</tspan>
+            </text>
+            <filter x="-11.6%" y="-5.6%" width="123.2%" height="122.2%" filterUnits="objectBoundingBox" id="filter-4">
+                <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+            </filter>
+            <rect id="path-5" x="0" y="0" width="247" height="80"></rect>
+            <text id="text-7" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#FFFFFF">
+                <tspan x="13" y="62">99</tspan>
+            </text>
+            <filter x="-16.3%" y="-5.6%" width="132.7%" height="122.2%" filterUnits="objectBoundingBox" id="filter-8">
+                <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+            </filter>
+            <polygon id="path-9" points="0 0 0 80 426 80 426 0"></polygon>
+            <rect id="path-11" x="0" y="0" width="426" height="80"></rect>
+            <text id="text-13" font-family="Zuume-Bold, Zuume" font-size="53" font-weight="bold" fill="#FFFFFF">
+                <tspan x="23.2335" y="58">NORFOLK STATE SPARTANS</tspan>
+            </text>
+            <filter x="-2.0%" y="-7.8%" width="104.0%" height="131.0%" filterUnits="objectBoundingBox" id="filter-14">
+                <feOffset dx="0" dy="5" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+            </filter>
+            <polygon id="path-15" points="0 0 0 80 426 80 426 0"></polygon>
+            <rect id="path-17" x="0" y="0" width="426" height="80"></rect>
+            <text id="text-19" font-family="Zuume-Bold, Zuume" font-size="53" font-weight="bold" fill="#FFFFFF">
+                <tspan x="86.5685" y="58">DREXEL DRAGONS</tspan>
+            </text>
+            <filter x="-2.0%" y="-7.8%" width="104.0%" height="131.0%" filterUnits="objectBoundingBox" id="filter-20">
+                <feOffset dx="0" dy="5" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+            </filter>
+            <rect id="path-21" x="0" y="0" width="357" height="80"></rect>
+        </defs>
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Bottom-Bar" transform="translate(534, 945)">
+                <rect id="Rectangle" fill="#131313" opacity="0.9" x="0" y="0" width="851" height="53"></rect>
+                <g id="Away-Timeouts" transform="translate(14, 17)" fill="#FFFFFF">
+                    <circle id="Away-Timeout-4" cx="9.5" cy="9.5" r="9.5"></circle>
+                    <circle id="Away-Timeout-3" cx="38.5" cy="9.5" r="9.5"></circle>
+                    <circle id="Away-Timeout-2" cx="68.5" cy="9.5" r="9.5"></circle>
+                    <circle id="Away-Timeout-1" cx="98.5" cy="9.5" r="9.5"></circle>
+                </g>
+                <g id="Home-Timeouts" transform="translate(731, 17)" fill="#FFFFFF">
+                    <circle id="Home-Timeout-1" cx="9.5" cy="9.5" r="9.5"></circle>
+                    <circle id="Home-Timeout-2" cx="38.5" cy="9.5" r="9.5"></circle>
+                    <circle id="Home-Timeout-3" cx="68.5" cy="9.5" r="9.5"></circle>
+                    <circle id="Home-Timeout-4" cx="98.5" cy="9.5" r="9.5"></circle>
+                </g>
+                <text id="Away-Bonus" font-family="Zuume-Bold, Zuume" font-size="25" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="188.1" y="35">BONUS</tspan>
+                </text>
+                <text id="Home-Bonus" font-family="Zuume-Bold, Zuume" font-size="25" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="617" y="35">BONUS</tspan>
+                </text>
+                <g id="IBX" transform="translate(325, 12)" fill-rule="nonzero">
+                    <path d="M0,1.61308677 L4.4245142,1.61308677 L4.4245142,22.1251778 L0,22.1251778 L0,1.61308677 Z M7.5058723,6.39260313 L11.5155883,6.39260313 L11.7131113,8.20483642 C12.8389921,7.00995733 14.4981849,6.01422475 16.4536622,6.01422475 C19.9498185,6.01422475 21.4312407,8.18492176 21.4312407,11.7297297 L21.4312407,22.1450925 L17.1647448,22.1450925 L17.1647448,11.6102418 C17.1647448,10.1963016 16.5919283,9.24039829 15.1302584,9.24039829 C13.8266069,9.24039829 12.6809737,9.91749644 11.7526158,11.0924609 L11.7526158,22.1450925 L7.5058723,22.1450925 L7.5058723,6.39260313 Z M23.524984,14.0796586 C23.524984,8.78236131 25.9742686,6.05405405 29.608691,6.05405405 C31.3271407,6.05405405 32.9270767,6.87055477 34.0924621,8.16500711 L34.0924621,0 L38.3589579,0 L38.3589579,22.1450925 L34.5862695,22.1450925 L34.3294896,20.2930299 C33.1048473,21.5874822 31.6036729,22.4836415 29.5296818,22.4836415 C26.0137732,22.4836415 23.524984,19.6159317 23.524984,14.0796586 M34.0924621,17.6443812 L34.0924621,10.972973 C33.1641042,9.91749644 32.1172325,9.3200569 30.8728379,9.3200569 C28.7988469,9.3200569 27.8112321,10.9928876 27.8112321,14.0995733 C27.8112321,17.1863442 28.7988469,19.197724 30.8728379,19.197724 C32.1369848,19.197724 33.1245996,18.7396871 34.0924621,17.6443812 M48.2943626,6.01422475 C52.7781337,6.01422475 55.2471706,8.98150782 55.2471706,13.2034139 C55.2471706,13.8207681 55.1879137,14.6372688 55.1089045,15.1152205 L44.8179586,15.1152205 C45.0549861,17.7837838 46.2993807,19.0981508 48.6499039,19.0981508 C50.2300876,19.0981508 51.6720051,18.5604552 52.9756566,17.7439545 L54.7533632,20.4722617 C52.8373906,21.826458 50.6448858,22.5234708 48.3338672,22.5234708 C43.7315823,22.5234708 40.4921226,19.4366999 40.4921226,14.1593172 C40.4724536,9.12091038 43.9686099,6.01422475 48.2943626,6.01422475 M44.8969678,12.6458037 L51.2177023,12.6458037 C51.2177023,10.6543385 50.4671151,9.12091038 48.4326287,9.12091038 C46.6746744,9.12091038 45.2920137,10.3556188 44.8969678,12.6458037 M61.6666667,28 L57.4396754,28 L57.4396754,6.39260313 L61.2716208,6.39260313 L61.5876575,8.30440967 C62.7727952,6.93029872 64.3529789,6.05405405 66.1504378,6.05405405 C69.7651078,6.05405405 72.1946402,8.78236131 72.1946402,14.0796586 C72.1946402,19.6159317 69.7256032,22.4836415 66.2294469,22.4836415 C64.2739697,22.4836415 62.7925475,21.6273115 61.6271621,20.4523471 L61.6271621,28 L61.6666667,28 Z M64.8862908,19.197724 C66.9602819,19.197724 67.9676489,17.1863442 67.9676489,14.0995733 C67.9676489,10.9928876 66.9602819,9.3200569 64.8862908,9.3200569 C63.6418962,9.3200569 62.5950246,9.91749644 61.6666667,10.972973 L61.6666667,17.6642959 C62.6542814,18.7396871 63.6023916,19.197724 64.8862908,19.197724 M81.4782191,6.01422475 C85.9619902,6.01422475 88.4310271,8.98150782 88.4310271,13.2034139 C88.4310271,13.8207681 88.3717702,14.6372688 88.2927611,15.1152205 L78.0018151,15.1152205 C78.2388426,17.7837838 79.4832372,19.0981508 81.8337604,19.0981508 C83.3941918,19.0981508 84.8558616,18.5604552 86.1595131,17.7439545 L87.9372197,20.4722617 C86.0212471,21.826458 83.8287423,22.5234708 81.5177237,22.5234708 C76.9154388,22.5234708 73.6563101,19.4366999 73.6563101,14.1593172 C73.6563101,9.12091038 77.1524664,6.01422475 81.4782191,6.01422475 M78.0808243,12.6458037 L84.4015588,12.6458037 C84.4015588,10.6543385 83.6509716,9.12091038 81.6164852,9.12091038 C79.8585309,9.12091038 78.4956225,10.3556188 78.0808243,12.6458037 M90.6235319,6.39260313 L94.6332479,6.39260313 L94.8307709,8.20483642 C95.9566517,7.00995733 97.6158445,6.01422475 99.5713218,6.01422475 C103.067478,6.01422475 104.5489,8.18492176 104.5489,11.7297297 L104.5489,22.1450925 L100.282404,22.1450925 L100.282404,11.6102418 C100.282404,10.1963016 99.6898356,9.24039829 98.247918,9.24039829 C96.9442665,9.24039829 95.7986334,9.91749644 94.8702755,11.0924609 L94.8702755,22.1450925 L90.6235319,22.1450925 L90.6235319,6.39260313 Z M106.642644,14.0796586 C106.642644,8.78236131 109.091928,6.05405405 112.726351,6.05405405 C114.4448,6.05405405 116.044736,6.87055477 117.210122,8.16500711 L117.210122,0 L121.476618,0 L121.476618,22.1450925 L117.703929,22.1450925 L117.447149,20.2930299 C116.222507,21.5874822 114.721332,22.4836415 112.647341,22.4836415 C109.131433,22.4836415 106.642644,19.6159317 106.642644,14.0796586 M117.210122,17.6443812 L117.210122,10.972973 C116.281764,9.91749644 115.234892,9.3200569 113.990498,9.3200569 C111.916507,9.3200569 110.928892,10.9928876 110.928892,14.0995733 C110.928892,17.1863442 111.916507,19.197724 113.990498,19.197724 C115.254644,19.197724 116.242259,18.7396871 117.210122,17.6443812 M131.412022,6.01422475 C135.895793,6.01422475 138.36483,8.98150782 138.36483,13.2034139 C138.36483,13.8207681 138.305573,14.6372688 138.226564,15.1152205 L127.935618,15.1152205 C128.172646,17.7837838 129.41704,19.0981508 131.767564,19.0981508 C133.347747,19.0981508 134.789665,18.5604552 136.093316,17.7439545 L137.871023,20.4722617 C135.95505,21.826458 133.762545,22.5234708 131.451527,22.5234708 C126.849242,22.5234708 123.590113,19.4366999 123.590113,14.1593172 C123.590113,9.12091038 127.086269,6.01422475 131.412022,6.01422475 M128.014627,12.6458037 L134.31561,12.6458037 C134.31561,10.6543385 133.565022,9.12091038 131.530536,9.12091038 C129.772582,9.12091038 128.409673,10.3556188 128.014627,12.6458037 M140.537583,6.39260313 L144.547299,6.39260313 L144.744822,8.20483642 C145.870703,7.00995733 147.529895,6.01422475 149.485373,6.01422475 C152.981529,6.01422475 154.462951,8.18492176 154.462951,11.7297297 L154.462951,22.1450925 L150.196455,22.1450925 L150.196455,11.6102418 C150.196455,10.1963016 149.603886,9.24039829 148.161969,9.24039829 C146.858317,9.24039829 145.712684,9.91749644 144.784326,11.0924609 L144.784326,22.1450925 L140.537583,22.1450925 L140.537583,6.39260313 L140.537583,6.39260313 Z M164.398356,6.0341394 C166.294576,6.0341394 168.210549,6.6116643 169.928999,7.9658606 L167.775998,10.7539118 C166.867393,10.056899 165.820521,9.51920341 164.51687,9.51920341 C162.442878,9.51920341 160.763933,11.1522048 160.763933,14.1394026 C160.763933,17.2859175 162.423126,18.9985775 164.51687,18.9985775 C165.919283,18.9985775 166.84764,18.5007112 167.795751,17.7041252 L170.126521,20.1934566 C168.408072,21.7268848 166.610613,22.4438122 164.398356,22.4438122 C159.855328,22.4438122 156.457933,19.3570413 156.457933,14.1194879 C156.457933,9.12091038 159.835575,6.0341394 164.398356,6.0341394 M178.047192,6.01422475 C182.530963,6.01422475 185,8.98150782 185,13.2034139 C185,13.8207681 184.940743,14.6372688 184.861734,15.1152205 L174.570788,15.1152205 C174.807816,17.7837838 176.05221,19.0981508 178.402733,19.0981508 C179.963165,19.0981508 181.424835,18.5604552 182.728486,17.7439545 L184.506193,20.4722617 C182.59022,21.826458 180.397715,22.5234708 178.086697,22.5234708 C173.484412,22.5234708 170.244951,19.4366999 170.244951,14.1593172 C170.225283,9.12091038 173.701687,6.01422475 178.047192,6.01422475 M174.630045,12.6458037 L180.950779,12.6458037 C180.950779,10.6543385 180.200192,9.12091038 178.165706,9.12091038 C176.407751,9.12091038 175.044843,10.3556188 174.630045,12.6458037" id="Shape" fill="#FFFFFF"></path>
+                    <g id="Group" transform="translate(198, 5)" fill="#FFFFFF">
+                        <rect id="Rectangle" x="4.44551282" y="0" width="11.3066239" height="17"></rect>
+                        <rect id="Rectangle" x="0" y="3.09438202" width="19" height="10.7157303"></rect>
+                    </g>
+                    <g id="Group" transform="translate(194, 0)" fill="#008CCC">
+                        <path d="M13.5,16.002847 C13.5385714,16.002847 13.5771429,16.0227758 13.5964286,16.0626335 C13.5771429,16.0227758 13.5385714,16.002847 13.5,16.002847 Z" id="Path"></path>
+                        <path d="M15.0235714,9.68540925 L18.36,9.68540925 C17.55,8.72882562 16.4892857,7.99145907 15.2742857,7.63274021 C15.6407143,8.27046263 15.3514286,9.12740214 14.985,9.52597865 L15.0235714,9.68540925 Z" id="Path"></path>
+                        <path d="M11.7257143,7.63274021 C10.5107143,7.99145907 9.45,8.7088968 8.64,9.68540925 L11.9764286,9.68540925 L11.9957143,9.52597865 C11.6678571,9.12740214 11.3592857,8.29039146 11.7257143,7.63274021 Z" id="Path"></path>
+                        <path d="M13.4035714,16.0626335 C13.4421429,16.0227758 13.4807143,16.002847 13.5,16.002847 C13.4614286,16.002847 13.4421429,16.0227758 13.4035714,16.0626335 Z" id="Path"></path>
+                        <path d="M23.1621429,25.5288256 C22.5064286,25.5288256 21.9664286,26.0469751 21.9664286,26.7644128 C21.9664286,27.4818505 22.5064286,28 23.1621429,28 C23.7985714,28 24.3578571,27.4818505 24.3578571,26.7644128 C24.3578571,26.0469751 23.7985714,25.5288256 23.1621429,25.5288256 Z M23.1621429,27.8007117 C22.6221429,27.8007117 22.1978571,27.3622776 22.1978571,26.7644128 C22.1978571,26.1864769 22.6221429,25.7281139 23.1621429,25.7281139 C23.7021429,25.7281139 24.1264286,26.166548 24.1264286,26.7644128 C24.1264286,27.3622776 23.7021429,27.8007117 23.1621429,27.8007117 Z" id="Shape"></path>
+                        <path d="M19.4785714,7.75231317 L19.4785714,0 L7.50214286,0 L7.50214286,7.75231317 L0,7.75231317 L0,20.1679715 L7.50214286,20.1679715 L7.50214286,27.9402135 L19.4785714,27.9402135 L19.4785714,20.1679715 L27,20.1679715 L27,7.75231317 L19.4785714,7.75231317 L19.4785714,7.75231317 Z M13.5,6.31743772 C16.47,6.31743772 19.035,8.13096085 20.2307143,10.741637 L14.9464286,10.741637 C14.1942857,10.7217082 13.8664286,10.2633452 13.8471429,9.90462633 C13.8278571,9.46619217 13.905,9.32669039 14.2521429,8.84839858 C14.6378571,8.33024911 14.3678571,7.313879 13.5,7.29395018 C12.6321429,7.313879 12.3814286,8.33024911 12.7478571,8.84839858 C13.095,9.32669039 13.1721429,9.44626335 13.1528571,9.90462633 C13.1335714,10.283274 12.8057143,10.7217082 12.0535714,10.741637 L6.78857143,10.741637 C7.965,8.13096085 10.53,6.31743772 13.5,6.31743772 Z M6.09428571,13.9900356 C6.09428571,13.033452 6.26785714,12.116726 6.57642857,11.2797153 L6.57642857,11.2797153 L11.5521429,11.7779359 C12.4778571,11.9174377 12.5935714,12.8540925 12.3428571,13.4120996 L8.92928571,20.0284698 L8.92928571,20.0284698 C7.19357143,18.6135231 6.09428571,16.4412811 6.09428571,13.9900356 Z M17.5885714,20.3871886 L17.5885714,20.3871886 C16.4121429,21.1843416 15.0235714,21.6427046 13.5,21.6427046 C11.9957143,21.6427046 10.5878571,21.1843416 9.41142857,20.3871886 L9.41142857,20.3871886 L9.41142857,20.3871886 L9.41142857,20.3871886 L13.0371429,14.8071174 C13.3071429,14.4284698 13.7121429,14.4483986 13.9628571,14.8071174 L17.5885714,20.3871886 L17.5885714,20.3871886 L17.5885714,20.3871886 Z M18.09,20.0284698 L18.09,20.0284698 L18.09,20.0284698 L18.09,20.0284698 L14.6764286,13.4120996 C14.4257143,12.8540925 14.5414286,11.9174377 15.4671429,11.7779359 L20.4428571,11.2797153 L20.4428571,11.2797153 L20.4428571,11.2797153 L20.4428571,11.2797153 C20.7514286,12.116726 20.9057143,13.033452 20.9057143,13.9900356 C20.925,16.4412811 19.8257143,18.6135231 18.09,20.0284698 Z" id="Shape"></path>
+                        <path d="M23.7021429,26.4654804 C23.7021429,26.1864769 23.5478571,26.0669039 23.22,26.0669039 L22.6992857,26.0669039 L22.6992857,27.4818505 L22.9114286,27.4818505 L22.9114286,26.8640569 L23.1428571,26.8640569 L23.5092857,27.4818505 L23.7407143,27.4818505 L23.355,26.8441281 C23.5478571,26.8241993 23.7021429,26.7245552 23.7021429,26.4654804 Z M22.9114286,26.6846975 L22.9114286,26.2462633 L23.2007143,26.2462633 C23.3357143,26.2462633 23.49,26.286121 23.49,26.4654804 C23.49,26.6846975 23.3357143,26.7046263 23.1621429,26.7046263 L22.9114286,26.7046263 L22.9114286,26.6846975 Z" id="Shape"></path>
+                        <path d="M19.71,12.4156584 L15.93,12.7743772 C15.66,12.794306 15.6407143,12.913879 15.6985714,13.0733096 L18.3407143,18.2747331 C19.305,17.1188612 19.8835714,15.6241993 19.8835714,13.9701068 C19.9028571,13.4519573 19.8257143,12.913879 19.71,12.4156584 Z" id="Path"></path>
+                        <path d="M13.4035714,16.0626335 L10.9157143,20.0085409 C11.7064286,20.3672598 12.5935714,20.5864769 13.5192857,20.5864769 C14.445,20.5864769 15.3321429,20.3871886 16.1228571,20.0085409 L13.635,16.0626335 C13.635,16.0626335 13.4035714,16.0626335 13.4035714,16.0626335 Z" id="Path"></path>
+                        <path d="M11.07,12.7743772 L7.30928571,12.4156584 C7.19357143,12.913879 7.13571429,13.4519573 7.13571429,13.9900356 C7.13571429,15.6241993 7.71428571,17.13879 8.67857143,18.2946619 L11.3207143,13.0932384 C11.3592857,12.913879 11.34,12.794306 11.07,12.7743772 Z" id="Path"></path>
+                    </g>
+                </g>
+            </g>
+            <g id="Info-Bar" transform="translate(534, 892)">
+                <rect id="Info-Bar-Background" fill="#131313" x="0" y="0" width="851" height="53"></rect>
+                <text id="Info-Bar-Text" font-family="Zuume-Bold, Zuume" font-size="35" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="182.67" y="38">THE QUICK BROWN FOX </tspan>
+                    <tspan x="406.145" y="38" font-family="Zuume-Light, Zuume" font-weight="300">JUMPS OVER THE LAZY DOG</tspan>
+                </text>
+            </g>
+            <g id="Away" transform="translate(534, 865)">
+                <g id="Away-Ident">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Away-Background" fill="#007A53" xlink:href="#path-1"></use>
+                    <image id="Away-Logo" opacity="0.2" mask="url(#mask-2)" x="-44" y="-127" width="334" height="334" xlink:href=""></image>
+                </g>
+                <text id="Away-Abbr" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="14" y="62">NSU</tspan>
+                </text>
+                <g id="Away-Score" fill="#FFFFFF" fill-opacity="1">
+                    <use filter="url(#filter-4)" xlink:href="#text-3"></use>
+                    <use xlink:href="#text-3"></use>
+                </g>
+            </g>
+            <g id="Home" transform="translate(1138, 865)">
+                <g id="Home-Ident">
+                    <mask id="mask-6" fill="white">
+                        <use xlink:href="#path-5"></use>
+                    </mask>
+                    <use id="Home-Background" fill="#07294D" xlink:href="#path-5"></use>
+                    <image id="Home-Logo" opacity="0.2" mask="url(#mask-6)" x="-43" y="-127" width="334" height="334" xlink:href=""></image>
+                </g>
+                <text id="Home-Abbr" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="143.025" y="62">DREX</tspan>
+                </text>
+                <g id="Home-Score" fill="#FFFFFF" fill-opacity="1">
+                    <use filter="url(#filter-8)" xlink:href="#text-7"></use>
+                    <use xlink:href="#text-7"></use>
+                </g>
+            </g>
+            <g id="Info" transform="translate(781, 865)">
+                <rect id="Info-Background" fill="#131313" x="0" y="0" width="357" height="80"></rect>
+                <rect id="Clock-Background" fill="#FFFFFF" x="100" y="12" width="159" height="56" rx="22"></rect>
+                <text id="Clock" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#000000">
+                    <tspan x="130.2625" y="62">10:00</tspan>
+                </text>
+                <text id="Period" font-family="Zuume-Regular, Zuume" font-size="48" font-weight="regular" fill="#FFFFFF">
+                    <tspan x="25.078" y="58">1st</tspan>
+                </text>
+                <text id="Shot-Clock" font-family="Zuume-Regular, Zuume" font-size="48" font-weight="regular" fill="#FFFFFF">
+                    <tspan x="287.966" y="58">30</tspan>
+                </text>
+            </g>
+            <g id="Away-Intro-and-Mask" transform="translate(534, 865)">
+                <mask id="mask-10" fill="white">
+                    <use xlink:href="#path-9"></use>
+                </mask>
+                <g id="Away-Mask"></g>
+                <g id="Away-Intro" mask="url(#mask-10)">
+                    <mask id="mask-12" fill="white">
+                        <use xlink:href="#path-11"></use>
+                    </mask>
+                    <use id="Away-Intro-BG" fill="#007A53" xlink:href="#path-11"></use>
+                    <image id="Away-Intro-Logo" opacity="0.5" mask="url(#mask-12)" x="46" y="-127" width="334" height="334" xlink:href=""></image>
+                    <g id="Away-Full-Name" mask="url(#mask-12)" fill="#FFFFFF" fill-opacity="1">
+                        <use filter="url(#filter-14)" xlink:href="#text-13"></use>
+                        <use xlink:href="#text-13"></use>
+                    </g>
+                </g>
+            </g>
+            <g id="Home-Intro-and-Mask" transform="translate(960, 865)">
+                <mask id="mask-16" fill="white">
+                    <use xlink:href="#path-15"></use>
+                </mask>
+                <g id="Home-Mask"></g>
+                <g id="Home-Intro" mask="url(#mask-16)">
+                    <mask id="mask-18" fill="white">
+                        <use xlink:href="#path-17"></use>
+                    </mask>
+                    <use id="Home-Intro-BG" fill="#07294D" xlink:href="#path-17"></use>
+                    <image id="Home-Intro-Logo" opacity="0.2" mask="url(#mask-18)" x="46" y="-127" width="334" height="334" xlink:href=""></image>
+                    <g id="Home-Full-Name" mask="url(#mask-18)" fill="#FFFFFF" fill-opacity="1">
+                        <use filter="url(#filter-20)" xlink:href="#text-19"></use>
+                        <use xlink:href="#text-19"></use>
+                    </g>
+                </g>
+            </g>
+            <g id="Final-Slate---Loss" transform="translate(781, 865)">
+                <rect id="Rectangle" fill="#131313" x="0" y="0" width="357" height="80"></rect>
+                <text id="FINAL" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="129.6325" y="62">FINAL</tspan>
+                </text>
+            </g>
+            <g id="Final-Slate---Win-and-Mask" transform="translate(781, 865)">
+                <mask id="mask-22" fill="white">
+                    <use xlink:href="#path-21"></use>
+                </mask>
+                <g id="Rectangle"></g>
+                <g id="Final-Slate---Win" mask="url(#mask-22)">
+                    <rect id="Final-Slate-Win-BG" fill="#FFC600" x="0" y="0" width="357" height="80"></rect>
+                    <text id="DRAGONS-WIN!" font-family="Zuume-Bold, Zuume" font-size="65" font-weight="bold" fill="#07284C">
+                        <tspan x="42.695" y="62">DRAGONS WIN!</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </svg>
+
+    <script>
+        window.SPXGCTemplateDefinition = {
+            "description": "Basketball Scorebug",
+            "playserver": "OVERLAY",
+            "playchannel": "1",
+            "playlayer": "7",
+            "webplayout": "7",
+            "steps": "1",
+            "out": "manual",
+            "uicolor": "2",
+            "dataformat": "json",
+            "DataFields": [
+                {
+                    "field": "Home-Full-Name",
+                    "ftype": "textfield",
+                    "title": "Home Full Name",
+                    "value": "DREXEL DRAGONS"
+                },
+                {
+                    "field": "Home-Name",
+                    "ftype": "textfield",
+                    "title": "Home Abbreviation",
+                    "value": "DREX"
+                },
+                {
+                    "field": "extra:Home-Color",
+                    "ftype": "color",
+                    "title": "Home Color",
+                    "value": "rgba(0,47,108,1.00)"
+                },
+                {
+                    "field": "extra:Home-Logo",
+                    "ftype": "filelist",
+                    "title": "Home Logo",
+                    "assetfolder": "/media/logos-white/",
+                    "extension": "png",
+                    "value": "/media/logos-white/DREXEL.PNG"
+                },
+                {
+                    "field": "Home-Timeouts",
+                    "ftype": "number",
+                    "title": "Home TOs Remaining",
+                    "value": "4"
+                },
+                {
+                    "field": "show:Home-Bonus",
+                    "ftype": "checkbox",
+                    "title": "Home Bonus",
+                    "value": "0"
+                },
+                {
+                    "field": "Away-Full-Name",
+                    "ftype": "textfield",
+                    "title": "Away Full Name",
+                    "value": "NORFOLK STATE SPARTANS"
+                },
+                {
+                    "field": "Away-Name",
+                    "ftype": "textfield",
+                    "title": "Away Abbreviation",
+                    "value": "NSU"
+                },
+                {
+                    "field": "extra:Away-Color",
+                    "ftype": "color",
+                    "title": "Away Color",
+                    "value": "rgba(0,47,108,1.00)"
+                },
+                {
+                    "field": "extra:Away-Logo",
+                    "ftype": "filelist",
+                    "title": "Away Logo",
+                    "assetfolder": "/media/logos-white/",
+                    "extension": "png",
+                    "value": "/media/logos-white/NORFOLK_STATE.PNG"
+                },
+                {
+                    "field": "Away-Timeouts",
+                    "ftype": "number",
+                    "title": "Away TOs Remaining",
+                    "value": "4"
+                },
+                {
+                    "field": "show:Away-Bonus",
+                    "ftype": "checkbox",
+                    "title": "Away Bonus",
+                    "value": "0"
+                },
+                {
+                    "field": "Period",
+                    "ftype": "textfield",
+                    "title": "Period",
+                    "value": "1st"
+                },
+                {
+                    "ftype": "spacer"
+                },
+                {
+                    "field": "Info-Bar-BG",
+                    "ftype": "dropdown",
+                    "title": "Select info bar background color",
+                    "value": "neutral",
+                    "items": [
+                        {
+                            "text": "Home color",
+                            "value": "home"
+                        },
+                        {
+                            "text": "Away color",
+                            "value": "away"
+                        },
+                        {
+                            "text": "Neutral color",
+                            "value": "neutral"
+                        },
+                    ]
+                },
+                {
+                    "field": "fade:Info-Bar-Text",
+                    "ftype": "textfield",
+                    "title": "Info Bar Text",
+                    "value": "FIRSTNAME LASTNAME"
+                },
+                {
+                    "field": "Info-Bar-Subtext",
+                    "ftype": "textfield",
+                    "title": "Info Bar Subtext",
+                    "value": "LINE OF STATISTICS"
+                },
+                {
+                    "field": "Slider-Button",
+                    "ftype": "button",
+                    "title": "TOGGLE SLIDER",
+                    "descr": "",
+                    "fcall": "window.emitSignal('scorebugSlider')"
+                }
+            ]
+        }
+
+        window.onload = () => {
+            window.svgLoaded = true;
+            window.dispatchEvent(new Event("loaded"));
+            tl.from("#path-15", { duration: 1.5, x: "+=426", ease: "power3.out" })
+            tl.from("#path-11", { duration: 1.5, x: "-=426", ease: "power3.out" }, "<")
+            tl.from("#Home", { duration: 0.01, opacity: 0 })
+            tl.from("#Away", { duration: 0.01, opacity: 0 })
+            tl.from("#Info", { duration: 0.01, opacity: 0 })
+            tl.to("#Away-Full-Name", { duration: 0.2, opacity: 0 }, "+=1")
+            tl.to("#Home-Full-Name", { duration: 0.2, opacity: 0 }, "<")
+            tl.to("#path-11", { duration: 1, x: "-=179", ease: "power3.out" }, "<")
+            tl.to("#path-15", { duration: 1, x: "+=179", ease: "power3.out" }, "<")
+            tl.to("#Away-Intro-Logo", { duration: 1.5, x: "-=90" }, "<")
+            tl.to("#Home-Intro-Logo", { duration: 1.5, x: "+=90" }, "<")
+            tl.to("#Away-Intro", { duration: 0.3, opacity: 0 }, "+=0.3")
+            tl.to("#Home-Intro", { duration: 0.3, opacity: 0 }, "<")
+            tl.from("#Bottom-Bar", { duration: 0.01, opacity: 0 })
+            tl.from("#Bottom-Bar", { duration: 0.5, y: "-=53", ease: "power3.out" })
+            tl.call(() => setPlaying())
+            tl.addPause("+=0", checkForStop)
+            tl.to("#Page-1", { opacity: 0.5, opacity: 0, ease: "power3.out" })
+
+            window.infoBarTl = gsap.timeline({ paused: true });
+            infoBarTl.from("#Info-Bar", { duration: 0.01, opacity: 0 })
+                .to("#Info-Bar", { duration: 1, y: "+=53", ease: "power3.out" })
+                .addPause()
+                .to("#Info-Bar", { duration: 1, y: "-=53", ease: "power3.out" })
+                .to("#Info-Bar", { duration: 0.01, opacity: 0 })
+                .eventCallback("onComplete", () => infoBarTl.seek(0).pause())
+
+            window.lossSlateTl = gsap.timeline({ paused: true })
+            lossSlateTl.from("#Final-Slate---Loss", { duration: 0.5, opacity: 0 })
+                       .addPause()
+                       .to("#Final-Slate---Loss", { duration: 0.5, opacity: 0 })
+                       .eventCallback("onComplete", () => lossSlateTl.seek(0).pause())
+            
+            window.winSlateTl = gsap.timeline({ paused: true })
+            winSlateTl.from("#Final-Slate---Win", { duration: 0.5, opacity: 0 })
+                      .addPause()
+                      .to("#Final-Slate---Win", { duration: 0.5, opacity: 0 })
+                      .eventCallback("onComplete", () => winSlateTl.seek(0).pause())
+
+            endAlignText("Away-Score", 234)
+            middleAlignText("Clock", 182)
+            middleAlignText("Period", 50)
+            middleAlignText("Shot-Clock", 310)
+
+            document.querySelector("#Info-Bar-Text :nth-child(1)").setAttribute("x", 20)
+
+            setVisibility("Home-Bonus", false)
+            setVisibility("Away-Bonus", false)
+
+            setHandler("Shot-Clock", (v) => {
+                val = Number(v)
+                if (val > 10) { updateColor("Shot-Clock", "#FFC600") }
+                else { updateColor("Shot-Clock", "rgb(220,65,59)") }
+                updateText("Shot-Clock", v)
+            })
+    
+            setHandler("Period", (v) => {
+                homeWin = Number(cache["Home-Score"]) > Number(cache["Away-Score"])
+                if(v.toUpperCase() == "FINAL") {
+                    if(homeWin) {
+                        winSlateTl.play()
+                    } else {
+                        lossSlateTl.play()
+                    }
+                } else {
+                    if(winSlateTl.time() > 0) { winSlateTl.play() }
+                    if(lossSlateTl.time() > 0) { lossSlateTl.play() }
+                    updateText("Period", v)
+                }
+            })
+
+            setHandler("Home-Timeouts", (v) => {
+                timeoutsUsed = 4 - Number(v)
+                _.range(1, timeoutsUsed + 1).forEach((x) => {
+                    setVisibility(`Home-Timeout-${x}`, false)
+                })
+                _.range(timeoutsUsed + 1, 5).forEach((x) => {
+                    setVisibility(`Home-Timeout-${x}`, true)
+                })
+            })
+
+            setHandler("Away-Timeouts", (v) => {
+                timeoutsUsed = 4 - Number(v)
+                _.range(1, timeoutsUsed + 1).forEach((x) => {
+                    setVisibility(`Away-Timeout-${x}`, false)
+                })
+                _.range(timeoutsUsed + 1, 5).forEach((x) => {
+                    setVisibility(`Away-Timeout-${x}`, true)
+                })
+            })
+
+            setHandler("Home-Logo", (v) => {
+                updateImage("Home-Intro-Logo", v)
+                updateImage("Home-Logo", v)
+            })
+
+            setHandler("Away-Logo", (v) => {
+                updateImage("Away-Intro-Logo", v)
+                updateImage("Away-Logo", v)
+            })
+
+            setHandler("Info-Bar-Subtext", (v) => {
+                main = document.querySelector("#Info-Bar-Text :nth-child(1)")
+                tspan = document.querySelector("#Info-Bar-Text :nth-child(2)")
+                tspan.innerHTML = v
+                newx = 40 + main.getBBox().width
+                tspan.setAttribute("x", newx)
+            })
+
+            setHandler("Info-Bar-BG", (v) => {
+                if(v == "home") { updateColor("Info-Bar-Background", window.cache["Home-Color"]) }
+                else if(v == "away") { updateColor("Info-Bar-Background", window.cache["Away-Color"]) }
+                else { updateColor("Info-Bar-Background", "#131313") }
+            })
+
+            setHandler("Home-Color", (v) => {
+                updateColor("Home-Background", v)
+                updateColor("Home-Intro-BG", v)
+            })
+
+            setHandler("Away-Color", (v) => {
+                updateColor("Away-Background", v)
+                updateColor("Away-Intro-BG", v)
+            })
+
+            signal("scorebugSlider", () => infoBarTl.resume())
+
+            setHandler("sliderColor", (v) => {
+                console.log("SLIDER COLOR", v)
+                console.log(window.cache["Home-Color"], window.cache["Away-Color"])
+                if(v == "home") { updateColor("Info-Bar-Background", window.cache["Home-Color"]) }
+                else if(v == "away") { updateColor("Info-Bar-Background", window.cache["Away-Color"]) }
+                else { updateColor("Info-Bar-Background", "#131313") }
+            })
+
+            setHandler("Info-Bar-Caption", (v) => {
+                let title = window.cache["Info-Bar-Title"]
+                console.log([title, v])
+                editSpanText("Info-Bar-Text", [title, v])
+            })
+
+            showBody()
+        }
+    </script>
+</body>
+
+</html>
