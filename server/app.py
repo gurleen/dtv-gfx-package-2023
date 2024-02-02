@@ -4,6 +4,8 @@ from socketio import AsyncServer
 from platformdirs import *
 from pathlib import Path, PurePath
 
+StaticFiles.is_not_modified = lambda *args, **kwargs: False
+
 sio = AsyncServer(async_mode="asgi")
 fastapi_app = FastAPI()
 fastapi_app.mount("/static", StaticFiles(directory="./static", html=True, check_dir=True), name="static")
