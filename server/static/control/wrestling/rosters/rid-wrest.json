@@ -1,0 +1,230 @@
+[
+    {
+        "name": "Lucas Ainbinder",
+        "weight": 197.0,
+        "year": "Fr.",
+        "image": "/images/2023/11/9/ainbinder__lucas-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Giovanni Alejandro",
+        "weight": 149.0,
+        "year": "Freshman",
+        "image": "/images/2023/11/9/alejandro__giovanni-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "D'Amani  Almodovar",
+        "weight": 133.0,
+        "year": "Fr.",
+        "image": "/images/2023/11/9/almodovar__damani-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Azeem Bell",
+        "weight": 197.0,
+        "year": "Freshman",
+        "image": "/images/2023/11/9/bell__azeem-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "McKenzie Bell",
+        "weight": 141.0,
+        "year": "So.",
+        "image": "/images/2023/11/9/bell__mckenzie-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Will Betancourt",
+        "weight": 125.0,
+        "year": "Sophomore",
+        "image": "/images/2023/11/9/broadie__eric-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Eric Broadie",
+        "weight": 141.0,
+        "year": "Sr.",
+        "image": "/images/2023/11/9/cifrodelli__cole-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Cole Cifrodelli",
+        "weight": 157.0,
+        "year": "Senior",
+        "image": "/images/2023/11/9/collins__quinn-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Quinn  Collins",
+        "weight": 184.0,
+        "year": "Sr.",
+        "image": "/images/2023/11/9/de_lange__steyn-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Brady Conlin",
+        "weight": 157.0,
+        "year": "Senior",
+        "image": "/images/2023/11/9/dean__isaac-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Steyn  De Lange",
+        "weight": 197.0,
+        "year": "Jr.",
+        "image": "/images/2023/11/9/esposito__angelo-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Isaac Dean",
+        "weight": 184.0,
+        "year": "Junior",
+        "image": "/images/2022/10/28/hammond_blaine_hs2223.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Angelo  Esposito",
+        "weight": 165.0,
+        "year": "Fr.",
+        "image": "/images/2023/11/9/hill__kyle-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Blaine  Hammond",
+        "weight": 157.0,
+        "year": "Freshman",
+        "image": "/images/2023/11/9/hoelke__matt-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Kyle  Hill, Jr.",
+        "weight": 125.0,
+        "year": "Fr.",
+        "image": "/images/2023/11/9/horsey__hayden-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Matt Hoelke",
+        "weight": 149.0,
+        "year": "Freshman",
+        "image": "/images/2023/11/9/horsey__hogan-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Hayden Horsey",
+        "weight": 125.0,
+        "year": "So.",
+        "image": "/images/2023/11/9/horsey__hunter-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Hogan  Horsey",
+        "weight": 141.0,
+        "year": "Sophomore",
+        "image": "/images/2022/10/28/kinner_quinn_hs2223.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Hunter  Horsey",
+        "weight": 141.0,
+        "year": "Fr.",
+        "image": "/images/2023/11/9/klinsky__tyler-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Quinn Kinner",
+        "weight": 141.0,
+        "year": "Freshman",
+        "image": "/images/2023/11/9/koehler__richie-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Tyler Klinsky",
+        "weight": 125.0,
+        "year": "So.",
+        "image": "/images/2023/11/9/lynch__mason-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Richie Koehler",
+        "weight": 133.0,
+        "year": "Sophomore",
+        "image": "/images/2023/11/9/malone__nieko-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Mason Lynch",
+        "weight": 141.0,
+        "year": "Jr.",
+        "image": "/images/2023/11/9/mcbride__kevin-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Nieko Malone",
+        "weight": 133.0,
+        "year": "Junior",
+        "image": "/images/2023/11/9/mccomas__cole-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Kevin McBride",
+        "weight": 157.0,
+        "year": "So.",
+        "image": "/images/2022/10/28/mcneary_frankie_hs2223.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Cole McComas",
+        "weight": 157.0,
+        "year": "Sophomore",
+        "image": "/images/2023/11/9/naame__kaden-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Frankie  McNeary",
+        "weight": 157.0,
+        "year": "So.",
+        "image": "/images/2023/11/9/palcko__branden-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Kaden Naame",
+        "weight": 125.0,
+        "year": "Sophomore",
+        "image": "/images/2023/11/9/reitsma__shane-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Branden Palcko",
+        "weight": 141.0,
+        "year": "So.",
+        "image": "/images/2023/11/9/scrivanich__liam-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Shane Reitsma",
+        "weight": 174.0,
+        "year": "Sophomore",
+        "image": "/images/2023/11/9/silverstein__jake-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Liam Scrivanich",
+        "weight": 174.0,
+        "year": "Jr.",
+        "image": "/images/2023/11/9/szuba__david-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Jake Silverstein",
+        "weight": 165.0,
+        "year": "Junior",
+        "image": "/images/2023/11/9/terrell__asa-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "David Szuba",
+        "weight": 285.0,
+        "year": "Sr.",
+        "image": "/images/2022/10/28/titus_ethan_hs2223.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Asa Terrell",
+        "weight": 174.0,
+        "year": "Senior",
+        "image": "/images/2023/11/9/washleski__colton-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Ethan  Titus",
+        "weight": 125.0,
+        "year": "So.",
+        "image": "/images/2023/11/9/wilson__michael-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Colton Washleski",
+        "weight": 149.0,
+        "year": "Sophomore",
+        "image": "/images/2023/11/9/zurawski__brock-hs2324.jpg?width=80&quality=90"
+    },
+    {
+        "name": "Michael Wilson",
+        "weight": 157.0,
+        "year": "So.",
+        "image": "/images/2021/10/19/hangey_john_hs2122.jpg?width=80"
+    },
+    {
+        "name": "Brock Zurawski",
+        "weight": 197.0,
+        "year": "Sophomore",
+        "image": "/images/2015/10/28/DKVVEIWCNGJXWNQ.20151028155114.jpg?width=80"
+    }
+]

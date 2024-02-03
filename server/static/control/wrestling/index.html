@@ -447,15 +447,16 @@
                 update() {
                     console.log("Updating...")
                     window.updateKey("homePlayerName", this.homeNameSplit)
-                    window.updateKey("homeWrestler", this.homeCleanName)
-                    window.updateKey("homeRank", this.homeRank)
+                    window.updateKey("Home-Wrestler-Name", this.homeCleanName)
+                    window.updateKey("Home-Rank", this.homeRank)
                     window.updateKey("img:Home-Wrestler-Image", this.homePlayerImgUrl)
                     window.updateKey("awayPlayerName", this.awayNameSplit)
-                    window.updateKey("awayWrestler", this.awayCleanName)
+                    window.updateKey("Away-Wrestler-Name", this.awayCleanName)
                     window.updateKey("img:Away-Wrestler-Image", this.awayPlayerImgUrl)
+                    window.updateKey("Weight", this.weight)
+                    /*
                     window.updateKey("awayRank", this.awayRank)
                     window.updateKey("fade:weight", this.weight)
-                    window.updateKey("Weight", this.weight)
                     window.updateKey("Home-Score", this.gameInfo.homeScore)
                     window.updateKey("Away-Score", this.gameInfo.awayScore)
                     window.updateKey("Home-Stat-1", this.homeStats.record)
@@ -469,6 +470,7 @@
                     window.updateKey("fade:homeScore", this.gameInfo.homeScore)
                     window.updateKey("fade:awayScore", this.gameInfo.awayScore)
                     window.updateKey("fade:period", this.gameInfo.period)
+                    */
                     this.showUpdated = true;
                     setTimeout(() => { this.showUpdated = false }, 3000)
                 },

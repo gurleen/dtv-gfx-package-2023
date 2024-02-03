@@ -148,6 +148,11 @@ class NCAALiveStats:
         print(self._pbp)
         return [action.model_dump() for action in self._pbp]
     
+    def get_player_stats(self, side: str, shirt: str):
+        pno = self._shirt_map[side][shirt]
+        stats = first(self.get_home_stats().players, key=lambda p: p.pno == pno)
+        return stats.model_dump()
+    
     def calculate_scoring_drought(self, side: Literal["home", "away"]):
         team_id = self._home_id if side == "home" else self._away_id
         for action in reversed(self._pbp):

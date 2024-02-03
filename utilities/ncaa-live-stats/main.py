@@ -75,6 +75,10 @@ def run_http_server(nls: NCAALiveStats):
     def pbp():
         return nls.get_play_by_play()
     
+    @app.route("/player/<side>/<player_id>")
+    def player(side, player_id):
+        return nls.get_player_stats(side, player_id)
+    
     app.run(port=8081)
 
 
