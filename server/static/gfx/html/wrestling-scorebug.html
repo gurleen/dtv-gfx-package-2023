@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../../font/stylesheet.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@1.6.10/svg-loader.min.js" async></script>
+    <script type="text/javascript" src="../../shared.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+    <title>Wrestling Scorebug</title>
+</head>
+
+<body style="visibility: hidden">
+    <div id="svg"></div>
+    <script>
+        window.onload = () => {
+            loadSVG("Wrestling Scorebug.svg")
+        }
+
+        window.addEventListener("loaded", () => {
+            tl.from("#Scorebug", { duration: 0.5, x: "-=100", opacity: 0, ease: "power3.out" });
+            tl.from("#Scorebug > text", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "-=0.4")
+            tl.call(() => doSetPlaying())
+            tl.addPause("+=0", checkForStop)
+            tl.to("#Scorebug", { duration: 0.3, opacity: 0, ease: "power3.out" })
+
+            middleAlignText("Clock", 35)
+            middleAlignText("Period", 35)
+            endAlignText("Away-Riding-Time", 322)
+            endAlignText("Home-Riding-Time", 322)
+
+
+            showBody();
+        })
+
+        window.handleExtra = async (k, v) => { }
+    </script>
+</body>
+
+</html>

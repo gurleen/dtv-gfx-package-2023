@@ -77,6 +77,7 @@
                 </select>
             </fieldset>
 
+            <!--
             <template x-if="teamsSelected">
                 <fieldset>
                     <legend>Saved Matchups</legend>
@@ -94,6 +95,7 @@
                     </template>
                 </fieldset>
             </template>
+            -->
 
             <fieldset>
                 <legend>Bug Control</legend>
@@ -223,6 +225,36 @@
                 </div>
             </fieldset>
         </div>
+
+        <div class="col" x-data="probableStarters">
+            <fieldset>
+                <legend>Probable Starters</legend>
+                <template x-for="wt in weights">
+                    <details>
+                        <summary x-text="wt + 'lbs'"></summary>
+                        <label for="home-wrestler">Home</label>
+                        <select name="home-wrestler" x-model="homeProbables[wt]">
+                            <option></option>
+                            <template x-for="(player, idx) in $store.g.homeRoster">
+                                <option x-text="player.name" :value="idx"></option>
+                            </template>
+                        </select>
+                        <label for="home-rank">Rank</label>
+                        <input name="home-rank" type="number" x-model="homeRanks[wt]">
+                        <label for="away-wrestler">Away</label>
+                        <select name="away-wrestler" x-model="awayProbables[wt]">
+                            <option></option>
+                            <template x-for="(player, idx) in $store.g.awayRoster">
+                                <option x-text="player.name" :value="idx"></option>
+                            </template>
+                        </select>
+                        <label for="away-rank">Rank</label>
+                        <input name="away-rank" type="number" x-model="awayRanks[wt]">
+                    </details>
+                </template>
+                <button @click="update()">Update</button>
+            </fieldset>
+        </div>
     </div>
 </body>
 
@@ -302,6 +334,46 @@
             get rosterIds() {
                 return Object.keys(this.rosters);
             },
+            homeRoster: [],
+            awayRoster: []
+        })
+        const wrestlingWeights = ["125", "133", "141", "149", "157", "165", "174", "184", "197", "HWT"];
+
+        Alpine.data("probableStarters", () => {
+            return {
+                homeProbables: {"125": null, "133": null, "141": null, "149": null, "157": null, "165": null, "174": null, "184": null, "197": null, "HWT": null},
+                homeRanks: {"125": null, "133": null, "141": null, "149": null, "157": null, "165": null, "174": null, "184": null, "197": null, "HWT": null},
+                awayProbables: {"125": null, "133": null, "141": null, "149": null, "157": null, "165": null, "174": null, "184": null, "197": null, "HWT": null},
+                awayRanks: {"125": null, "133": null, "141": null, "149": null, "157": null, "165": null, "174": null, "184": null, "197": null, "HWT": null},
+                get weights() {
+                    return wrestlingWeights;
+                },
+                update() {
+                    for (let wt in this.homeProbables) {
+                        let player = this.homeRoster[parseInt(this.homeProbables[wt])];
+                        let rank = this.homeRanks[wt];
+                        if (rank) {
+                            window.updateKey(`Home-${wt}`, `#${rank} ${player.name}`);
+                        } else {
+                            window.updateKey(`Home-${wt}`, player.name);
+                        }
+                    }
+                    for (let wt in this.awayProbables) {
+                        let player = this.awayRoster[parseInt(this.awayProbables[wt])];
+                        let rank = this.awayRanks[wt];
+                        if (rank) {
+                            window.updateKey(`Away-${wt}`, `#${rank} ${player.name}`);
+                        } else {
+                            window.updateKey(`Away-${wt}`, player.name);
+                        }
+                    }
+                },
+                init() {
+                    window.getProbable = (team, weight) => {
+                        return this[team + "Probables"][weight];
+                    }
+                }
+            }
         })
 
         Alpine.data("app", () => {
@@ -309,6 +381,7 @@
                 savedMatchups: Alpine.$persist([]),
                 homeRosterId: null,
                 get homeRoster() {
+                    Alpine.store("g").homeRoster = rosters[this.homeRosterId];
                     return rosters[this.homeRosterId];
                 },
                 homePlayerId: null,
@@ -330,6 +403,7 @@
                 homeRank: null,
                 homeStats: {record: "", falls: "", techs: "", majors: ""},
                 get awayRoster() {
+                    Alpine.store("g").awayRoster = rosters[this.awayRosterId];
                     return rosters[this.awayRosterId];
                 },
                 awayRosterId: null,

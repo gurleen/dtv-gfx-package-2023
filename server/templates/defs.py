@@ -47,6 +47,7 @@ TEMPLATES = [
         TemplateVar(name="Info Bar Trigger", key="scorebugSlider", type=TemplateVarType.BUTTON, default=""),
     ]),
     Template(name="Matchup", template_file="/static/gfx/html/Matchup/Matchup.html", vars=[]),
+    Template(name="Wrestling Matchup", template_file="/static/gfx/html/Wrestling Matchup/Wrestling Matchup.html", vars=[]),
     Template(name="Big Scoreboard", template_file="/static/gfx/html/Big Scoreboard/Big Scoreboard.html", vars=[
         TemplateVar(name="Period", key="Period", type=TemplateVarType.STRING, default=""),
     ]),
@@ -68,5 +69,6 @@ TEMPLATES = [
         TemplateVar(name="Home Players", key="Home-Players", type=TemplateVarType.STRING, default=""),
         TemplateVar(name="Away Players", key="Away-Players", type=TemplateVarType.STRING, default=""),
     ]),
-    Template(name="Wrestling Scorebug", template_file="/static/gfx/html/wrestling-scorebug/wrestling-scorebug.html", vars=[])
+    Template(name="Wrestling Scorebug", template_file="/static/gfx/html/wrestling-scorebug.html", vars=[]),
+    Template(name="Wrestling Probables", template_file="/static/gfx/html/wrestling-probables.html", vars=[]),
 ]
