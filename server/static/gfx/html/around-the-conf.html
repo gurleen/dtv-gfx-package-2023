@@ -38,9 +38,10 @@
                 for (var i = 1; i < 7; i++) {
                     console.log("Doing alignment");
                     let prefix = `#Game-${i}-Box > `;
-                    middleAlignTextElement(prefix + "#Status");
-                    middleAlignTextElement(prefix + "#Home > #Home-Score");
-                    middleAlignTextElement(prefix + "#Away > #Away-Score");
+                    let ident = `#Game-${i}-Ident > `;
+                    endAlignTextElement(prefix + "#Status");
+                    endAlignTextElement(prefix + "#Away > #Away-Score");
+                    endAlignTextElement(ident + "#Home-Team > #Name");
                 }
             });
 
@@ -49,7 +50,7 @@
             };
 
             updateScores = (first) => {
-                let games = get("/around-the-caa/mens");
+                let games = get("/around-the-caa/womens");
                 let i = 1;
                 for (i = 0; i < 7; i++) {
                     try {

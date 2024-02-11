@@ -187,7 +187,6 @@ middleAlignText = (k, x) => {
   tspan.setAttribute("x", x);
 };
 middleAlignTextElement = (k) => {
-  console.log(k);
   elem = document.querySelector(k);
   elem.style.textAnchor = "middle";
   tspan = getTextElement(k);
@@ -195,6 +194,14 @@ middleAlignTextElement = (k) => {
   current = parseFloat(tspan.getAttribute("x"));
   tspan.setAttribute("x", current + shift);
 };
+endAlignTextElement = (k) => {
+  elem = document.querySelector(k);
+  elem.style.textAnchor = "end";
+  tspan = getTextElement(k);
+  shift = parseFloat(tspan.getBBox().width);
+  current = parseFloat(tspan.getAttribute("x"));
+  tspan.setAttribute("x", current + shift);
+}
 editSpanText = (textElementId, newTextArray) => {
   const textElement = document.getElementById(textElementId);
   if (!textElement) return;
