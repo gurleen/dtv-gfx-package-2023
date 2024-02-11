@@ -71,7 +71,7 @@
             tl.from("#Page-1", { duration: 0.5, x: "-=100", opacity: 0, ease: "power3.out" });
             tl.from("text", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "-=0.4")
             tl.from("#Drexel-PT-For-ANIMATION-QR", { opacity: 0, y: "-=100", duration: 0.5, ease: "power3.out" })
-            tl.call(() => setPlaying())
+            tl.call(() => doSetPlaying())
             tl.addPause("+=0", checkForStop)
             tl.to("#Page-1", { duration: 0.3, opacity: 0, ease: "power3.out" })
 
@@ -90,6 +90,7 @@
         updateFromBox = () => {
             try {
                 let box = get("http://localhost:8081/half");
+                if(!box) return;
                 _.range(1, 6).forEach((i) => {
                     updateText(`Home-Stat-${i}`, box.home[i - 1])
                     updateText(`Away-Stat-${i}`, box.away[i - 1])
