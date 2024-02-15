@@ -40,6 +40,7 @@ sock.on("connect", () => {
             graphic.vars.forEach((x) => {
                 data[x.key] = x.value;
             });
+            console.log(data)
             frame.contentWindow.update(JSON.stringify(data), delay=true);
             frame.contentWindow.play();
         }
