@@ -30,7 +30,7 @@ get = (url) => {
   return JSON.parse(xhr.responseText);
 };
 const tl = gsap.timeline({ paused: true });
-tl.from("body", { opacity: 0, duration: 0.25 });
+tl.from("body", { opacity: 0, duration: 2 });
 tl.eventCallback("onComplete", () => {
   tl.seek(0).pause();
   shouldBeStopped = false;
@@ -149,6 +149,7 @@ parseKey = (rawKey) => {
 };
 doUpdate = (data) => {
   for (const [rawKey, value] of Object.entries(data)) {
+    console.log(rawKey, value);
     parsed = parseKey(rawKey);
     window.cache[key] = value;
     if (key != "epochID") {
