@@ -9,9 +9,11 @@ from pydantic import BaseModel
 from templates.template import Template
 from rosters import get_team_by_id, get_roster_for_team
 from images import cache_images_for_team
+from fastapi import APIRouter
 
 
 executor = ThreadPoolExecutor(max_workers=3)
+router = APIRouter()
 
 
 class RendererState(Enum):
@@ -99,6 +101,10 @@ class Renderer:
 
 
 renderer = Renderer()
+
+@router.get("/team-info")
+async def get_teams_info():
+    return renderer.teams_info.dict()
 
 
 @sio.on("requestRendererPlay")

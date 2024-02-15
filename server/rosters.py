@@ -1,18 +1,18 @@
-import os
 import csv
+import os
 from pathlib import Path
 from typing import Literal
-from typing_extensions import Optional
-from fastapi import APIRouter, HTTPException
-from fastapi.responses import FileResponse
+
 import requests
-from perscache import Cache
-from loguru import logger
-from team_models import Player, Team, Boxscore, FullBox
-from images import ensure_team_dirs
 from app import DATA_PATH
 from dateutil import parser as dateutil
-
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import FileResponse
+from images import ensure_team_dirs
+from loguru import logger
+from perscache import Cache
+from team_models import Boxscore, FullBox, Player, Team
+from typing_extensions import Optional
 
 router = APIRouter()
 cache = Cache()

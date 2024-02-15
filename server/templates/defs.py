@@ -46,6 +46,14 @@ TEMPLATES = [
         TemplateVar(name="Info-Bar-Caption", key="Info-Bar-Caption", type=TemplateVarType.STRING, default=""),
         TemplateVar(name="Info Bar Trigger", key="scorebugSlider", type=TemplateVarType.BUTTON, default=""),
     ]),
+    Template(name="Scorebug v2", template_file="/static/gfx/html/scorebug-v2.html", vars=[
+        TemplateVar(name="Comparison Slider Toggle", key="Comparison-Slider:toggle", type=TemplateVarType.BUTTON, default=""),
+        TemplateVar(name="Home Timeouts", key="Home-Timeouts", type=TemplateVarType.INTEGER, default=4),
+        TemplateVar(name="Away Timeouts", key="Away-Timeouts", type=TemplateVarType.INTEGER, default=4),
+        TemplateVar(name="Home Bonus", key="show:Home-Bonus", type=TemplateVarType.BOOLEAN, default=False),
+        TemplateVar(name="Away Bonus", key="show:Away-Bonus", type=TemplateVarType.BOOLEAN, default=False),
+        TemplateVar(name="Period", key="Period", type=TemplateVarType.OPTION, default="1st", choices=["1st", "2nd", "3rd", "4th", "OT", "2OT", "3OT", "Final"]),
+    ]),
     Template(name="Matchup", template_file="/static/gfx/html/Matchup/Matchup.html", vars=[]),
     Template(name="Wrestling Matchup", template_file="/static/gfx/html/Wrestling Matchup/Wrestling Matchup.html", vars=[]),
     Template(name="Big Scoreboard", template_file="/static/gfx/html/Big Scoreboard/Big Scoreboard.html", vars=[

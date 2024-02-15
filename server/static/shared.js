@@ -1,4 +1,5 @@
 DEBUG = window.location.search.includes("debug=true");
+$ = (selector) => document.querySelector(selector);
 noraise = (f) => {
   try {
     f();
@@ -20,6 +21,7 @@ window.handlers = {};
 window.signals = {};
 window.svgLoaded = false;
 shouldBeStopped = false;
+initialPlayDone = false;
 indexedDB.deleteDatabase("keyval-store");
 get = (url) => {
   var xhr = new XMLHttpRequest();
@@ -28,14 +30,14 @@ get = (url) => {
   return JSON.parse(xhr.responseText);
 };
 const tl = gsap.timeline({ paused: true });
-tl.from("body", { opacity: 0, duration: 1 });
+tl.from("body", { opacity: 0, duration: 0.25 });
 tl.eventCallback("onComplete", () => {
   tl.seek(0).pause();
   shouldBeStopped = false;
   doSetStopped();
 });
 showBody = () => (document.querySelector("body").style.visibility = "visible");
-play = () => tl.resume();
+play = () => { tl.resume(); initialPlayDone = true; }
 stop = () => {
   tl.resume();
   shouldBeStopped = true;
@@ -76,6 +78,10 @@ qGetTextElement = (k) => {
 };
 qUpdateText = (k, v) => noraise(() => (qGetTextElement(k).innerHTML = v));
 fadeText = (k, v) => {
+  if (!initialPlayDone) {
+    updateText(k, v);
+    return;
+  }
   element = getTextElement(k);
   if (element.innerHTML == v) {
     return;
@@ -99,12 +105,15 @@ fadeGivenElementText = (element, v) => {
     .play();
 };
 fadeOn = (k) => {
-  gsap.to(`#${k}`, { opacity: 1, duration: 0.5 });
+  // gsap.to(`#${k}`, { opacity: 1, duration: 0.5 });
+  document.querySelector(`#${k}`).classList.replace('hide', 'show');
 };
 fadeOff = (k) => {
-  gsap.to(`#${k}`, { opacity: 0, duration: 0.5 });
+  //gsap.to(`#${k}`, { opacity: 0, duration: 0.5 });
+  document.querySelector(`#${k}`).classList.replace('show', 'hide');
 };
 setVisibility = (k, v) => {
+  console.log("Setting visibility", k, v);
   k = k.replace("show:", "");
   v ? fadeOn(k) : fadeOff(k);
 };
@@ -202,6 +211,34 @@ endAlignTextElement = (k) => {
   current = parseFloat(tspan.getAttribute("x"));
   tspan.setAttribute("x", current + shift);
 }
+function alignText(selector, desiredAlignment) {
+  const elem = qGetTextElement(selector);
+  const currentAlignment = 'start';
+  const bbox = elem.getBBox();
+  console.log(currentAlignment, bbox)
+  let adjustment = 0;
+  if (currentAlignment !== desiredAlignment) {
+    switch (desiredAlignment) {
+      case 'middle':
+        adjustment = bbox.width / 2;
+        break;
+      case 'end':
+        adjustment = bbox.width;
+        break;
+      case 'start':
+        adjustment = -bbox.width / 2;
+        break;
+    }
+    if (currentAlignment === 'middle') {
+      adjustment = (desiredAlignment === 'end') ? bbox.width / 2 : -bbox.width / 2;
+    } else if (currentAlignment === 'end') {
+      adjustment = (desiredAlignment === 'middle') ? -bbox.width / 2 : -bbox.width;
+    }
+    const currentX = parseFloat(elem.getAttribute('x') || 0);
+    elem.setAttribute('text-anchor', desiredAlignment);
+    elem.setAttribute('x', currentX + adjustment);
+  }
+}
 editSpanText = (textElementId, newTextArray) => {
   const textElement = document.getElementById(textElementId);
   if (!textElement) return;
@@ -266,18 +303,25 @@ createTemplateDefinition = (svg) => {
   window.SPXGCTemplateDefinition = def;
 };
 
+let triedSetState = false;
 doSetPlaying = () => {
   try {
     setPlaying();
   } catch (err) {
-    console.error("Error trying to set playing: ", err);
+    if (!triedSetState) {
+      console.warn("Error trying to set playing: ", err);
+      triedSetState = true;
+    }
   }
 };
 doSetStopped = () => {
   try {
     window.parent.setRendererStopped();
   } catch (err) {
-    console.error("Error trying to set stopped: ", err);
+    if (!triedSetState) {
+      console.warn("Error trying to set stopped: ", err);
+      triedSetState = true;
+    }
   }
 };
 

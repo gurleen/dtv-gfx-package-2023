@@ -9,6 +9,16 @@ body {
     width: 1920px;
 }
 
+.show {
+    opacity: 1 !important;
+    transition: opacity 200ms;
+}
+
+.hide {
+    opacity: 0 !important;
+    transition: opacity 200ms;
+}
+
 @font-face {
     font-family: 'Zuume';
     src: url('Zuume-BoldItalic.woff2') format('woff2'),

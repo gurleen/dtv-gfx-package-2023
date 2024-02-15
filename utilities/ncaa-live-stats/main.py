@@ -1,20 +1,24 @@
 import configparser
+import json
 import socket
+from pathlib import Path, PurePath
+from queue import Queue
 from threading import Thread
 from typing import Optional
-import socketio
-from queue import Queue
 
-import json
-from pydantic import BaseModel
+import socketio
 from boltons.socketutils import BufferedSocket
 from flask import Flask
-
+from flask_cors import CORS
+from platformdirs import *
+from pydantic import BaseModel
 from stats import NCAALiveStats
 from structs import ConnectionParams
 
+DATA_PATH: PurePath = Path(user_documents_dir(), "dragonstv-data")
+DATA_PATH.mkdir(parents=True, exist_ok=True)
 
-CONFIG_FILE_NAME = "livestats.config"
+CONFIG_FILE_NAME = DATA_PATH / "livestats.config"
 READ_LIMIT = 2097152
 LINE_DELIM = b"\r\n"
 
@@ -78,6 +82,10 @@ def run_http_server(nls: NCAALiveStats):
     @app.route("/player/<side>/<player_id>")
     def player(side, player_id):
         return nls.get_player_stats(side, player_id)
+    
+    @app.route("/player/<side>/<player_id>/line")
+    def team_line(side, player_id):
+        return nls.get_player_stat_line(side, player_id)
     
     app.run(port=8081)
 

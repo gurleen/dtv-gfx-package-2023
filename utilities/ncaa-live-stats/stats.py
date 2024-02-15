@@ -17,6 +17,14 @@ MESSAGE_TYPE_MAPPING: dict[MessageType, BaseModel] = {
     MessageType.PLAYBYPLAY.value: PlayByPlay
 }
 
+STAT_ABBR_MAP = {
+    "rebounds_total": "REB",
+    "assists": "AST",
+    "steals": "STL",
+    "blocks": "BLK",
+    "turnovers": "TO"
+}
+
 def format_key(key: str):
     key = underscore(key)
     if key.startswith("s_"):
@@ -145,7 +153,6 @@ class NCAALiveStats:
         )
     
     def get_play_by_play(self):
-        print(self._pbp)
         return [action.model_dump() for action in self._pbp]
     
     def get_player_stats(self, side: str, shirt: str):
@@ -158,3 +165,20 @@ class NCAALiveStats:
         for action in reversed(self._pbp):
             if action.team_number == team_id and action.action_type in SCORING_ACTION_TYPES and action.success:
                 print(side, "last score", action.clock)
+
+    def get_player_stat_line(self, side: str, shirt: str):
+        pno = self._shirt_map[side][shirt]
+        stats = first(self.get_home_stats().players, key=lambda p: p.pno == pno)
+        stat_names = ["rebounds_total", "assists", "steals", "blocks", "turnovers"]
+        stat_line = []
+        if stats.points > 0:
+            stat_line.append(f"{stats.points} PTS")
+        
+        top_n = 3 if not stat_line else 2
+        stat_names.sort(key=lambda s: getattr(stats, s), reverse=True)
+        for i in range(top_n):
+            value = getattr(stats, stat_names[i])
+            if value > 0:
+                stat_line.append(f"{value} {STAT_ABBR_MAP[stat_names[i]]}")
+
+        return " | ".join(stat_line)

@@ -194,7 +194,6 @@ class TeamBox(BaseModel, ComputedStatMixin):
     free_throws_attempted: int
     free_throws_made: int
     free_throws_percentage: float
-    lead_changes: int
     minutes: float
     points: int
     points_fast_break: int
@@ -215,7 +214,6 @@ class TeamBox(BaseModel, ComputedStatMixin):
     three_pointers_attempted: int
     three_pointers_made: int
     three_pointers_percentage: float
-    time_leading: float
     turnovers: int
     turnovers_team: int
     two_pointers_attempted: int

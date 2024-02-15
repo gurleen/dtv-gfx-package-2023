@@ -70,6 +70,7 @@
                     <button @click="update()">Update</button>
                     <button @click="remove()">Remove</button>
                 </div>
+                <button @click="window.emitSignal('Generic-Slider:toggle')">TOGGLE</button>
                 <details>
                     <summary>Add</summary>
                     <label for="title">Title</label>
@@ -87,15 +88,69 @@
             </fieldset>
         </div>
 
-        <div class="col-4" x-data="playerSliderControl">
+        <div class="col-4" x-data="playerSliderControl(1)">
             <fieldset>
-                <legend>Player Slider</legend>
-                <select x-model="side">
-                    <option>home</option>
-                    <option>away</option>
-                </select>
+                <legend>Home Player</legend>
                 <input type="number" x-model="shirt">
                 <button @click="update()">Update</button>
+                <button @click="toggle()">TOGGLE</button>
+                <template x-if="player">
+                    <div class="row">
+                        <div class="col">
+                            <img class="roster-img" :src="playerImage" alt="Player Image">
+                        </div>
+                        <div class="col">
+                            <p>
+                                <span x-text="player.firstName"></span>
+                                <strong><span x-text="player.lastName"></span></strong>
+                            </p>
+                            <p x-text="statLine"></p>
+                            <input type="text" x-model="customText">
+                        </div>
+                    </div>
+                </template>
+            </fieldset>
+        </div>
+
+        <div class="col-4" x-data="playerSliderControl(2)">
+            <fieldset>
+                <legend>Away Player</legend>
+                <input type="number" x-model="shirt">
+                <button @click="update()">Update</button>
+                <button @click="toggle()">TOGGLE</button>
+                <template x-if="player">
+                    <div class="row">
+                        <div class="col">
+                            <img class="roster-img" :src="playerImage" alt="Player Image">
+                        </div>
+                        <div class="col">
+                            <p>
+                                <span x-text="player.firstName"></span>
+                                <strong><span x-text="player.lastName"></span></strong>
+                            </p>
+                            <p x-text="statLine"></p>
+                            <input type="text" x-model="customText">
+                        </div>
+                    </div>
+                </template>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4" x-data="comparisonControl">
+            <fieldset>
+                <legend>Comparison Stat</legend>
+                <select x-model="selected">
+                    <template x-for="(item, idx) in items" :key="idx">
+                        <option :value="item" x-text="properName(item)"></option>
+                    </template>
+                </select>
+                <button @click="update()">Update</button>
+                <button @click="window.emitSignal('Comparison-Slider:toggle')">TOGGLE</button>
+                <p>Stat: <span x-text="selectedProperName"></span></p>
+                <p>Home: <span x-text="homeStat"></span></p>
+                <p>Away: <span x-text="awayStat"></span></p>
             </fieldset>
         </div>
     </div>

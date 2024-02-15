@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../../font/stylesheet.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@1.6.10/svg-loader.min.js" async></script>
+    <script type="text/javascript" src="../../shared.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+    <title>Scorebug v2</title>
+</head>
+
+<body style="visibility: hidden">
+    <div id="svg"></div>
+    <script>
+        window.onload = () => {
+            loadSVG("Basketball Scorebug v2.svg");
+        };
+
+        window.addEventListener("loaded", () => {
+            const HIDDEN = [
+                "#Home-Bonus",
+                "#Away-Bonus",
+            ]
+
+            HIDDEN.forEach((id) => {
+                $(id).classList.add("hide");
+            })
+
+            alignText("#Clock", "middle")
+            alignText("#Away-Score", "end")
+            alignText("#Period", "middle")
+            alignText("#Shot-Clock", "middle")
+            alignText("#Comparison-Slider-Stat", "middle")
+            alignText("#Home-Comp-Stat", "middle")
+            alignText("#Away-Comp-Stat", "middle")
+            alignText("#Away-Player-Text", "end")
+            alignText("#Away-Player-Name", "end")
+            alignText("#Home-Player-Number", "end")
+
+            setHandler("Shot-Clock", (v) => {
+                val = Number(v);
+                if (val > 10) {
+                    updateColor("Shot-Clock", "#FFC600");
+                } else {
+                    updateColor("Shot-Clock", "rgb(220,65,59)");
+                }
+                updateText("Shot-Clock", v);
+            });
+
+            hide = (k) => { console.log("hide", k); $(k).classList.add("hide"); $(k).classList.remove("show") } 
+            show = (k) => { console.log("show", k); $(k).classList.add("show"); $(k).classList.remove("hide") }
+
+            setHandler("Home-Timeouts", (v) => {
+                timeoutsUsed = 4 - Number(v);
+                _.range(1, timeoutsUsed + 1).forEach((x) => {
+                    hide(`#Home-Timeout-${x}`);
+                });
+                _.range(timeoutsUsed + 1, 5).forEach((x) => {
+                    show(`#Home-Timeout-${x}`);
+                });
+            });
+
+            setHandler("Away-Timeouts", (v) => {
+                timeoutsUsed = 4 - Number(v);
+                _.range(1, timeoutsUsed + 1).forEach((x) => {
+                    hide(`Away-Timeout-${x}`);
+                });
+                _.range(timeoutsUsed + 1, 5).forEach((x) => {
+                    show(`Away-Timeout-${x}`);
+                });
+            });
+
+            /*  MAIN SCOREBUG ANIMATION  */
+            tl.from("#Info", { duration: 0.5, opacity: 0, y: "+=50", ease: "power3.out" })
+            tl.from("#Info text", { duration: 0.5, y: "+=100", opacity: 0, ease: "power3.out" }, "<0.1")
+            tl.from("#Away", { duration: 0.5, x: "+=50", opacity: 0, ease: "power3.out" }, "-=0.75")
+            tl.from("#Home", { duration: 0.5, x: "-=50", opacity: 0, ease: "power3.out" }, "-=0.75")
+            tl.from("#Away g", { duration: 0.5, x: "+=100", opacity: 0, ease: "power3.out" }, "<0.5")
+            tl.from("#Home g", { duration: 0.5, x: "-=100", opacity: 0, ease: "power3.out" }, "<")
+            tl.from("#Sponsor", { duration: 0.5, opacity: 0, y: "-=10", ease: "power3.out" }, "<")
+            tl.call(() => doSetPlaying())
+            tl.addPause("+=0")
+            tl.to("#Page-1", { duration: 0.3, opacity: 0, ease: "power3.out" })
+
+            /*  GENERIC SLIDER ANIMATION  */
+            window.genericSliderTl = gsap.timeline({ paused: true });
+            genericSliderTl.from("#Generic-Slider", { duration: 0.5, opacity: 0, y: "+=40", ease: "power3.out" })
+                           .addPause("+=0")
+                           .to("#Generic-Slider", { duration: 0.5, opacity: 0, y: "+=40", ease: "power3.out" })
+                           .eventCallback("onComplete", () => genericSliderTl.seek(0).pause());
+
+            signal("Generic-Slider:toggle", () => genericSliderTl.play())
+
+            /* COMPARISON SLIDER ANIMATION */
+            window.comparisonSliderTl = gsap.timeline({ paused: true });
+            comparisonSliderTl.from("#Comparison-Slider", { duration: 0.5, opacity: 0, y: "+=40", ease: "power3.out" })
+                              .addPause("+=0")
+                              .to("#Comparison-Slider", { duration: 0.5, opacity: 0, y: "+=40", ease: "power3.out" })
+                              .eventCallback("onComplete", () => comparisonSliderTl.seek(0).pause());
+
+            signal("Comparison-Slider:toggle", () => comparisonSliderTl.play())
+
+            
+            /* AWAY SLIDER */
+            window.awaySliderTl = gsap.timeline({ paused: true });
+            awaySliderTl.from("#Away-Slider-Background", { duration: 0.5, opacity: 0, x: "+=40", ease: "power3.out" })
+                         .from("#Away-Big-Text-Slider", { duration: 0.5, opacity: 0, x: "+=40", ease: "power3.out" }, "<0.1")
+                         .addPause("+=0")
+                         .to("#Away-Slider", { duration: 0.5, opacity: 0, ease: "power3.out" })
+                         .eventCallback("onComplete", () => awaySliderTl.seek(0).pause());
+
+            signal("Away-Slider:toggle", () => awaySliderTl.play())
+
+            /* HOME SLIDER */
+            window.homeSliderTl = gsap.timeline({ paused: true });
+            homeSliderTl.from("#Home-Slider-Background", { duration: 0.5, opacity: 0, x: "-=40", ease: "power3.out" })
+                         .from("#Home-Big-Text-Slider", { duration: 0.5, opacity: 0, x: "-=40", ease: "power3.out" }, "<0.1")
+                         .addPause("+=0")
+                         .to("#Home-Slider", { duration: 0.5, opacity: 0, ease: "power3.out" })
+                         .eventCallback("onComplete", () => homeSliderTl.seek(0).pause());
+
+            signal("Home-Slider:toggle", () => homeSliderTl.play())
+
+            /* AWAY PLAYER SLIDER */
+            window.awayPlayerSliderTl = gsap.timeline({ paused: true, overwrite: "auto" });
+            awayPlayerSliderTl.from("#Away-Player-Slider-Background", { duration: 0.5, opacity: 0, x: "+=40", ease: "power3.out" })
+                            .from("#Away-Player", { duration: 0.5, opacity: 0, x: "+=40", ease: "power3.out" }, "<0.1")
+                            .addPause("+=0")
+                            .to("#Away-Player-Slider", { duration: 0.5, opacity: 0, ease: "power3.out" })
+                            .eventCallback("onComplete", () => awayPlayerSliderTl.seek(0).pause());
+
+            signal("Away-Player-Slider:toggle", () => awayPlayerSliderTl.play())
+
+            /* HOME PLAYER SLIDER */
+            window.homePlayerSliderTl = gsap.timeline({ paused: true, overwrite: "auto" });
+            homePlayerSliderTl.from("#Home-Player-Slider-Background", { duration: 0.5, opacity: 0, x: "-=40", ease: "power3.out" })
+                            .from("#Home-Player", { duration: 0.5, opacity: 0, x: "-=40", ease: "power3.out" }, "<0.1")
+                            .addPause("+=0")
+                            .to("#Home-Player-Slider", { duration: 0.5, opacity: 0, ease: "power3.out" })
+                            .eventCallback("onComplete", () => homePlayerSliderTl.seek(0).pause());
+
+            signal("Home-Player-Slider:toggle", () => homePlayerSliderTl.play())
+
+            showBody();
+        })
+
+        window.handleExtra = async (k, v) => { }
+    </script>
+</body>
+
+</html>
