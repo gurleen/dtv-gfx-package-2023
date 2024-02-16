@@ -3,7 +3,7 @@ from pydak.daktronics import Daktronics, DakSerial, dakSports
 import socketio
 import inflection
 
-PORT = "/dev/cu.usbserial-120"
+PORT = "/dev/cu.usbserial-2110"
 STOP_SEQ = [b'\x16', b'\x17']
 
 def main():
