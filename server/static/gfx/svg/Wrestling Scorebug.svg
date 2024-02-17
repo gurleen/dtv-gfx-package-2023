@@ -51,7 +51,7 @@
                 <g id="Group-4" transform="translate(85, 0)">
                     <rect id="Action-BG" stroke="#979797" fill="#D8D8D8" x="0" y="0" width="175" height="33"></rect>
                     <text id="Action" font-family="Zuume-Bold, Zuume" font-size="27" font-weight="bold" fill="#000000">
-                        <tspan x="45.9335" y="25">TAKEDOWN</tspan>
+                        <tspan x="45.9335" y="25"></tspan>
                     </text>
                 </g>
                 <g id="Group-2" transform="translate(260, 0)">
@@ -80,13 +80,13 @@
                 <mask id="mask-6" fill="white">
                     <use xlink:href="#path-5"></use>
                 </mask>
-                <use id="Away-Color-Darker" stroke="#979797" fill="#731525" xlink:href="#path-5"></use>
+                <use id="Away-Color-Darker" stroke="#979797" fill="#141f4a" xlink:href="#path-5"></use>
                 <g id="Away-Score" mask="url(#mask-6)" fill="#FFFFFF" fill-opacity="1">
                     <use filter="url(#filter-8)" xlink:href="#text-7"></use>
                     <use xlink:href="#text-7"></use>
                 </g>
                 <text id="Away-Riding-Time" font-family="Zuume-Bold, Zuume" font-size="27" font-weight="bold" fill="#FFFFFF">
-                    <tspan x="292.085" y="29">1:00</tspan>
+                    <tspan x="292.085" y="29"></tspan>
                 </text>
             </g>
             <g id="Home" transform="translate(0, 41)">
@@ -108,7 +108,7 @@
                     <use xlink:href="#text-15"></use>
                 </g>
                 <text id="Home-Riding-Time" font-family="Zuume-Bold, Zuume" font-size="27" font-weight="bold" fill="#FFFFFF">
-                    <tspan x="292.085" y="29">1:00</tspan>
+                    <tspan x="292.085" y="29"></tspan>
                 </text>
             </g>
         </g>
