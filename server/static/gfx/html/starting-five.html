@@ -250,6 +250,13 @@
             endAlignText("P5-Number", 330)
             middleAlignText("Title", 950)
 
+            _.range(1, 6).forEach((x) => {
+                let key = `Player-${x}-Last-Name-Font-Size`
+                setHandler(key, (v) => {
+                    $("#P" + x + "-Last-Name").style.fontSize = `${v}px`;
+                })
+            })
+
             showBody();
         })
     </script>

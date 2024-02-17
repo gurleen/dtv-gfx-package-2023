@@ -106,10 +106,12 @@
                                     <template x-if="$store.g.stopped">
                                         <button @click.stop="play(graphic)">PLAY</button>
                                     </template>
-                                    <template x-if="$store.g.playing && ($store.g.id == graphic.id && $store.g.gfxLoaded)">
+                                    <template
+                                        x-if="$store.g.playing && ($store.g.id == graphic.id && $store.g.gfxLoaded)">
                                         <button @click.stop="stop()">STOP</button>
                                     </template>
-                                    <template x-if="$store.g.playing && ($store.g.id != graphic.id && $store.g.gfxLoaded)">
+                                    <template
+                                        x-if="$store.g.playing && ($store.g.id != graphic.id && $store.g.gfxLoaded)">
                                         <button disabled>PLAY</button>
                                     </template>
                                     <template x-if="$store.g.animating">
@@ -282,6 +284,20 @@
                     <div class="row">
                         <button @click="updateTeams()">Update Teams</button>
                         <p x-cloak x-transition x-show="teamsUpdated">Updated!</p>
+                    </div>
+                </details>
+                <details class="card" x-data="liveKeys()">
+                    <summary>Live Keys</summary>
+                    <div class="row">
+                        <label for="key">Key</label>
+                        <input type="text" x-model="key">
+                    </div>
+                    <div class="row">
+                        <label for="value">Value</label>
+                        <input type="text" x-model="value">
+                    </div>
+                    <div class="row">
+                        <button @click="setKey()">Update</button>
                     </div>
                 </details>
             </div>
@@ -548,6 +564,46 @@
                     sock.emit("setTeams", this.selectedHomeId, this.selectedAwayId, this.sport)
                     this.teamsUpdated = true
                     setTimeout(() => this.teamsUpdated = false, 2000)
+                }
+            }
+        })
+
+        const LIVEKEYS_URL = "https://livestats.gurleen.dev/";
+        const lkSock = io(LIVESTATS_URL);
+
+        sock.on("connect", () => {
+            console.log("Connected to livestats.");
+            sock.emit("get_store", (store) => {
+                console.log(store);
+                window.doUpdate(store);
+            });
+
+            sock.on("update", (payload) => {
+                console.log(payload)
+            });
+
+            sock.on("signal", (payload) => {
+                console.log("SIGNAL: ", payload);
+            });
+
+            window.emitSignal = (key) => {
+                sock.emit("send_signal", { signal: key });
+            };
+
+            window.updateKey = (key, value) => {
+                sock.emit("do_update", { key: key, value: value });
+                payload = {};
+                payload[key] = value;
+                console.log(payload);
+            };
+        });
+
+        Alpine.data("liveKeys", () => {
+            return {
+                key: "",
+                value: "",
+                setKey() {
+                    window.updateKey(this.key, this.value);
                 }
             }
         })

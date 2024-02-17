@@ -279,6 +279,21 @@ editSpanTextReverse = (textElementId, newTextArray) => {
   });
 };
 
+fitTextTo = (textElement, maxWidth) => {
+  if (!(textElement instanceof SVGTextElement)) {
+    console.error('The provided element is not an SVGTextElement.');
+    return;
+  }
+
+  const bbox = textElement.getBBox();
+  const scaleFactor = maxWidth / (bbox.width + 75);
+  const fontSize = parseFloat(window.getComputedStyle(textElement, null).getPropertyValue('font-size'));
+  const newFontSize = fontSize * Math.min(scaleFactor, 1); // Prevents upsizing
+  console.log('bbox.width', bbox.width, 'scaleFactor', scaleFactor, 'fontSize', fontSize, 'newFontSize', newFontSize);
+
+  textElement.style.fontSize = `${newFontSize}px`;
+}
+
 createTemplateDefinition = (svg) => {
   def = {
     description: "Top left with icon",

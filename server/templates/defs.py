@@ -54,7 +54,10 @@ TEMPLATES = [
         TemplateVar(name="Away Bonus", key="show:Away-Bonus", type=TemplateVarType.BOOLEAN, default=False),
         TemplateVar(name="Period", key="Period", type=TemplateVarType.OPTION, default="1st", choices=["1st", "2nd", "3rd", "4th", "OT", "2OT", "3OT", "Final"]),
     ]),
-    Template(name="Matchup", template_file="/static/gfx/html/Matchup/Matchup.html", vars=[]),
+    Template(name="Matchup", template_file="/static/gfx/html/Matchup/Matchup.html", vars=[
+        TemplateVar(name="Home School Record", key="Home-School-Record", type=TemplateVarType.STRING, default=" "),
+        TemplateVar(name="Away School Record", key="Away-School-Record", type=TemplateVarType.STRING, default=" "),
+    ]),
     Template(name="Wrestling Matchup", template_file="/static/gfx/html/Wrestling Matchup/Wrestling Matchup.html", vars=[]),
     Template(name="Big Scoreboard", template_file="/static/gfx/html/Big Scoreboard/Big Scoreboard.html", vars=[
         TemplateVar(name="Period", key="Period", type=TemplateVarType.STRING, default=""),
@@ -62,6 +65,11 @@ TEMPLATES = [
     Template(name="Starting Five", template_file="/static/gfx/html/starting-five.html", vars=[
         TemplateVar(name="Team", key="Team", type=TemplateVarType.OPTION, default="Home", choices=["Home", "Away"]),
         TemplateVar(name="Players", key="Players", type=TemplateVarType.STRING, default=""),
+        TemplateVar(name="Player 1 Last Name Font Size", key="Player-1-Last-Name-Font-Size", type=TemplateVarType.INTEGER, default=113),
+        TemplateVar(name="Player 2 Last Name Font Size", key="Player-2-Last-Name-Font-Size", type=TemplateVarType.INTEGER, default=113),
+        TemplateVar(name="Player 3 Last Name Font Size", key="Player-3-Last-Name-Font-Size", type=TemplateVarType.INTEGER, default=113),
+        TemplateVar(name="Player 4 Last Name Font Size", key="Player-4-Last-Name-Font-Size", type=TemplateVarType.INTEGER, default=113),
+        TemplateVar(name="Player 5 Last Name Font Size", key="Player-5-Last-Name-Font-Size", type=TemplateVarType.INTEGER, default=113),
     ]),
     Template(name="Halftime Stats", template_file="/static/gfx/html/halftime-stats.html", vars=[
         TemplateVar(name="Home Stats (csv)", key="Home-Stats", type=TemplateVarType.STRING, default=""),
