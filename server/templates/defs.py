@@ -35,6 +35,13 @@ TEMPLATES = [
         TemplateVar(name="Stat Name 4", key="Stat-Name-4", type=TemplateVarType.STRING, default="PTS"),
         TemplateVar(name="Stat Value 4", key="Stat-Value-4", type=TemplateVarType.STRING, default="0"),
     ]),
+    Template(name="Lower Third One Line - Manual", template_file="/static/gfx/html/lower-third-one-line.html", vars=[
+        TemplateVar(name="Team", key="Team", type=TemplateVarType.OPTION, default="Home", choices=["Home", "Away"]),
+        TemplateVar(name="Line", key="Single-Line-Text", type=TemplateVarType.STRING, default="THE QUICK BROWN FOX JUMPS"),
+        TemplateVar(name="First Name", key="First-Name", type=TemplateVarType.STRING, default="DREXEL"),
+        TemplateVar(name="Last Name", key="Last-Name", type=TemplateVarType.STRING, default="DRAGONS"),
+        TemplateVar(name="Position", key="Position", type=TemplateVarType.STRING, default=""),
+    ]),
     Template(name="Scorebug", template_file="/static/gfx/html/scorebug-old.html", vars=[
         TemplateVar(name="Home Timeouts", key="Home-Timeouts", type=TemplateVarType.INTEGER, default=4),
         TemplateVar(name="Away Timeouts", key="Away-Timeouts", type=TemplateVarType.INTEGER, default=4),
