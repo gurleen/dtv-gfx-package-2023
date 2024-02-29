@@ -123,6 +123,11 @@ updateImage = (k, v) =>
 qUpdateColor = (k, v) => document.querySelector(k).setAttribute("fill", v);
 qUpdateImage = (k, v) =>
   document.querySelector(k).setAttribute("xlink:href", v);
+updateFontSize = (k, v) => {
+  const textElement = document.getElementById(k);
+  if (!textElement) return;
+  textElement.style.fontSize = v;
+}
 findAllWith = (k) => document.querySelectorAll(`[id*="${k}"]`);
 update = (data, delay = false) => {
   parsed = JSON.parse(data);
@@ -174,6 +179,8 @@ handleKeyValue = (prefix, key, value) => {
       setVisibility(key, Boolean(Number(value)));
     } else if (prefix == "live") {
       updateKey(key, value);
+    } else if (prefix == "font") {
+      updateFontSize(key, value);
     } else {
       updateText(key, value);
     }

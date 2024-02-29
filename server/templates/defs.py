@@ -22,6 +22,7 @@ TEMPLATES = [
         TemplateVar(name="Team", key="Team", type=TemplateVarType.OPTION, default="Home", choices=["Home", "Away"]),
         TemplateVar(name="Player", key="Player", type=TemplateVarType.INTEGER, default=0),
         TemplateVar(name="Line", key="Single-Line-Text", type=TemplateVarType.STRING, default="THE QUICK BROWN FOX JUMPS"),
+        TemplateVar(name="Last Name Font Size", key="font:text-7", type=TemplateVarType.INTEGER, default=65),
     ]),
     Template(name="Player Lower Third Stat", template_file="/static/gfx/html/lower-third-stat.html", vars=[
         TemplateVar(name="Team", key="Team", type=TemplateVarType.OPTION, default="Home", choices=["Home", "Away"]),
