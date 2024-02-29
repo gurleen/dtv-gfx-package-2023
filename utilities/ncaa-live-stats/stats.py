@@ -181,4 +181,4 @@ class NCAALiveStats:
             if value > 0:
                 stat_line.append(f"{value} {STAT_ABBR_MAP[stat_names[i]]}")
 
-        return " | ".join(stat_line)
+        return dict(line=" | ".join(stat_line))
