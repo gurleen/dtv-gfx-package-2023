@@ -14,7 +14,7 @@ document.addEventListener('alpine:init', () => {
                 updateKey("fade:Generic-Slider-Text", text)
             },
             add() {
-                this.items = [...this.items, this.inputItem]
+                this.items = [...this.items, deepCopy(this.inputItem)]
                 this.selected = this.items.length - 1
                 cache("infoBarItems", this.items)
             },
@@ -47,7 +47,7 @@ document.addEventListener('alpine:init', () => {
                 let player = ajax(`/teams/${teamInfo.sport}/${teamId}/players/${this.shirt}`)
                 this.player = player
                 this.playerImage = this.player ? `/headshot/${teamId}/${this.teamInfo.sport}/${this.shirt}` : ""
-                this.statLine = ajax(`http://localhost:8081/player/${this.side}/${this.shirt}/line`).line
+                this.statLine = ajax(`http://localhost:8081/player/${this.side}/${this.shirt}/line`).line ?? ""
 
                 let side = this.side.charAt(0).toUpperCase() + this.side.slice(1)
                 updateKey(`fade:${side}-Player-Name`, this.player.firstName + " " + this.player.lastName)
@@ -83,7 +83,67 @@ document.addEventListener('alpine:init', () => {
             }
         }
     })
+
+    Alpine.data("teamSliderControl", (side) => {
+        return {
+            side: side == 1 ? "Home" : "Away",
+            rawText: "",
+            shouldFade: false,
+            formattedText () {
+                /*
+                    Template string format: ... since/10:00
+                */
+                let split = this.rawText.split(" ")
+                split.forEach((word, i) => {
+                    if(word.startsWith("since/")) {
+                        let sinceSplit = word.split("/")
+                        let from = sinceSplit[1]
+                        let to = window.CACHE["Clock"] ?? "00:00"
+                        console.log(from, to)
+                        split[i] = getTimeDifference(from, to)
+                    }
+                })
+                return split.join(" ")
+            },
+            update() {
+                let text = this.formattedText()
+                let key = `${this.side}-Big-Text-Slider`
+                if(this.shouldFade) { key = `fade:${key}` }
+                updateKey(key, text)
+            },
+            toggle() {
+                emitSignal(`${this.side}-Slider:toggle`)
+            },
+            init() {
+                let funcName = `update${this.side}Slider`
+                window[funcName] = () => {
+                    if(this.rawText.includes("since/")) {
+                        this.update()
+                        document.querySelector(`#slider${this.side}FormattedText`).innerHTML = this.formattedText()
+                    }
+                }
+            }
+        }
+    })
 })
+
+function deepCopy(obj) {
+    return JSON.parse(JSON.stringify(obj))
+}
+
+function getTimeDifference(time1, time2) {
+    /*
+        time1 and time2 are strings in the format "10:00"
+    */
+    const [minutes1, seconds1] = time1.split(':').map(Number);
+    const [minutes2, seconds2] = time2.split(':').map(Number);
+    let totalSeconds1 = minutes1 * 60 + seconds1;
+    let totalSeconds2 = minutes2 * 60 + seconds2;
+    let diffInSeconds = Math.abs(totalSeconds1 - totalSeconds2);
+    let minutes = Math.floor(diffInSeconds / 60);
+    let seconds = diffInSeconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
 
 const STATS = ['assists', 'blocks', 'blocks_received', 'efficiency', 'fast_break_points_made', 'field_goals', 'field_goals_attempted', 'field_goals_made', 'field_goals_percentage', 'fouls_on', 'fouls_personal', 'fouls_technical', 'free_throws', 'free_throws_attempted', 'free_throws_made', 'free_throws_percentage', 'minutes', 'plus_minus_points', 'points', 'points_fast_break', 'points_from_turnovers', 'points_in_the_paint', 'points_in_the_paint_made', 'points_second_chance', 'rebounds_defensive', 'rebounds_offensive', 'rebounds_total', 'second_chance_points_made', 'steals', 'three_pointers', 'three_pointers_attempted', 'three_pointers_made', 'three_pointers_percentage', 'turnovers', 'two_pointers_attempted', 'two_pointers_made', 'two_pointers_percentage']
 const STATS_PROPER_NAME_MAP = {
@@ -138,15 +198,22 @@ ajax = (url) => {
 
 const LIVESTATS_URL = "https://livestats.gurleen.dev/";
 const sock = io(LIVESTATS_URL);
+window.CACHE = {}
 
 sock.on("connect", () => {
     console.log("Connected to livestats.");
     sock.emit("get_store", (store) => {
+        window.CACHE = store
         console.log(store)
     })
 
     sock.on("update", (payload) => {
         console.log(payload)
+        window.CACHE[payload.key] = payload.value
+        if(payload.key == "Clock") {
+            window.updateHomeSlider()
+            window.updateAwaySlider()
+        }
     })
 
     sock.on("signal", (payload) => {

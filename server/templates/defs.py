@@ -67,7 +67,7 @@ TEMPLATES = [
     ]),
     Template(name="Wrestling Matchup", template_file="/static/gfx/html/Wrestling Matchup/Wrestling Matchup.html", vars=[]),
     Template(name="Big Scoreboard", template_file="/static/gfx/html/Big Scoreboard/Big Scoreboard.html", vars=[
-        TemplateVar(name="Period", key="Period", type=TemplateVarType.STRING, default=""),
+        TemplateVar(name="Period", key="Period-Full", type=TemplateVarType.STRING, default=""),
     ]),
     Template(name="Starting Five", template_file="/static/gfx/html/starting-five.html", vars=[
         TemplateVar(name="Team", key="Team", type=TemplateVarType.OPTION, default="Home", choices=["Home", "Away"]),

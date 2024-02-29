@@ -26,16 +26,22 @@
         };
 
         window.addEventListener("loaded", () => {
-            alignText("#Clock", "middle")
-            alignText("#Away-Score", "end")
-            alignText("#Period", "middle")
-            alignText("#Shot-Clock", "middle")
-            alignText("#Comparison-Slider-Stat", "middle")
-            alignText("#Home-Comp-Stat", "middle")
-            alignText("#Away-Comp-Stat", "middle")
-            alignText("#Away-Player-Text", "end")
-            alignText("#Away-Player-Name", "end")
-            alignText("#Home-Player-Number", "end")
+            // alignText("#Clock", "middle")
+            middleAlignText("Clock", 180)
+            endAlignText("Away-Score", 240)
+            middleAlignText("Period", 55)
+            middleAlignText("Shot-Clock", 305)
+            middleAlignText("Home-Player-Position", 13)
+            middleAlignText("Home-Player-Number", 13)
+            middleAlignText("Home-Big-Text-Slider", 260)
+            middleAlignText("Away-Big-Text-Slider", 267)
+            endAlignText("Away-Player-Name", 335)
+            endAlignText("Away-Player-Text", 335)
+            middleAlignText("Away-Player-Position", 513)
+            middleAlignText("Away-Player-Number", 513)
+            middleAlignText("Away-Comp-Stat", 55)
+            middleAlignText("Home-Comp-Stat", 525)
+            middleAlignText("Comparison-Slider-Stat", 290)
 
             setHandler("Shot-Clock", (v) => {
                 val = Number(v);
@@ -101,6 +107,7 @@
             tl.from("#Home g", { duration: 0.5, x: "-=100", opacity: 0, ease: "power3.out" }, "<")
             tl.from("#Sponsor", { duration: 0.5, opacity: 0, y: "-=10", ease: "power3.out" }, "<")
             tl.call(() => doSetPlaying())
+            tl.addLabel("playing")
             tl.addPause("+=0")
             tl.to("#Page-1", { duration: 0.3, opacity: 0, ease: "power3.out" })
 
@@ -108,6 +115,7 @@
             window.genericSliderTl = gsap.timeline({ paused: true });
             genericSliderTl.from("#Generic-Slider", { duration: 0.5, opacity: 0, y: "+=40", ease: "power3.out" })
                            .addPause("+=0")
+                           .addLabel("playing")
                            .to("#Generic-Slider", { duration: 0.5, opacity: 0, y: "+=40", ease: "power3.out" })
                            .eventCallback("onComplete", () => genericSliderTl.seek(0).pause());
 
@@ -117,6 +125,7 @@
             window.comparisonSliderTl = gsap.timeline({ paused: true });
             comparisonSliderTl.from("#Comparison-Slider", { duration: 0.5, opacity: 0, y: "+=40", ease: "power3.out" })
                               .addPause("+=0")
+                              .addLabel("playing")
                               .to("#Comparison-Slider", { duration: 0.5, opacity: 0, y: "+=40", ease: "power3.out" })
                               .eventCallback("onComplete", () => comparisonSliderTl.seek(0).pause());
 
@@ -128,6 +137,7 @@
             awaySliderTl.from("#Away-Slider-Background", { duration: 0.5, opacity: 0, x: "+=40", ease: "power3.out" })
                          .from("#Away-Big-Text-Slider", { duration: 0.5, opacity: 0, x: "+=40", ease: "power3.out" }, "<0.1")
                          .addPause("+=0")
+                         .addLabel("playing")
                          .to("#Away-Slider", { duration: 0.5, opacity: 0, ease: "power3.out" })
                          .eventCallback("onComplete", () => awaySliderTl.seek(0).pause());
 
@@ -138,6 +148,7 @@
             homeSliderTl.from("#Home-Slider-Background", { duration: 0.5, opacity: 0, x: "-=40", ease: "power3.out" })
                          .from("#Home-Big-Text-Slider", { duration: 0.5, opacity: 0, x: "-=40", ease: "power3.out" }, "<0.1")
                          .addPause("+=0")
+                         .addLabel("playing")
                          .to("#Home-Slider", { duration: 0.5, opacity: 0, ease: "power3.out" })
                          .eventCallback("onComplete", () => homeSliderTl.seek(0).pause());
 
@@ -148,6 +159,7 @@
             awayPlayerSliderTl.from("#Away-Player-Slider-Background", { duration: 0.5, opacity: 0, x: "+=40", ease: "power3.out" })
                             .from("#Away-Player", { duration: 0.5, opacity: 0, x: "+=40", ease: "power3.out" }, "<0.1")
                             .addPause("+=0")
+                            .addLabel("playing")
                             .to("#Away-Player-Slider", { duration: 0.5, opacity: 0, ease: "power3.out" })
                             .eventCallback("onComplete", () => awayPlayerSliderTl.seek(0).pause());
 
@@ -158,6 +170,7 @@
             homePlayerSliderTl.from("#Home-Player-Slider-Background", { duration: 0.5, opacity: 0, x: "-=40", ease: "power3.out" })
                             .from("#Home-Player", { duration: 0.5, opacity: 0, x: "-=40", ease: "power3.out" }, "<0.1")
                             .addPause("+=0")
+                            .addLabel("playing")
                             .to("#Home-Player-Slider", { duration: 0.5, opacity: 0, ease: "power3.out" })
                             .eventCallback("onComplete", () => homePlayerSliderTl.seek(0).pause());
 

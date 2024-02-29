@@ -39,10 +39,20 @@
                     console.log("Doing alignment");
                     let prefix = `#Game-${i}-Box > `;
                     let ident = `#Game-${i}-Ident > `;
+                    /*
                     endAlignTextElement(prefix + "#Status");
                     endAlignTextElement(prefix + "#Away > #Away-Score");
                     endAlignTextElement(ident + "#Home-Team > #Name");
+                    */
                 }
+
+                const leftScoreElements = ["text-55", "text-95", "text-105", "text-65", "text-75", "text-85"]
+                const timeElements = ["text-57", "text-97", "text-107", "text-67", "text-77", "text-87"]
+                const rightNameElements = ["text-3", "text-11", "text-19", "text-27", "text-35", "text-43"]
+
+                leftScoreElements.forEach(id => endAlignText(id, 240))
+                timeElements.forEach(id => middleAlignText(id, 248))
+                rightNameElements.forEach(id => endAlignText(id, 240))
             });
 
             logoForTeam = (team) => {
@@ -50,7 +60,7 @@
             };
 
             updateScores = (first) => {
-                let games = get("/around-the-caa/womens");
+                let games = get("/around-the-caa/mens");
                 let i = 1;
                 for (i = 0; i < 7; i++) {
                     try {

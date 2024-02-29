@@ -21,7 +21,7 @@
 
     <!-- Scripts -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="./app.js"></script>
+    <script src="/static/control/basketball/app.js"></script>
 
     <style>
         [x-cloak] {
@@ -151,6 +151,30 @@
                 <p>Stat: <span x-text="selectedProperName"></span></p>
                 <p>Home: <span x-text="homeStat"></span></p>
                 <p>Away: <span x-text="awayStat"></span></p>
+            </fieldset>
+        </div>
+
+        <div class="col-4" x-data="teamSliderControl(1)">
+            <fieldset>
+                <legend>Home Team Slider</legend>
+                <input type="text" x-model="rawText">
+                <label for="shouldFade">Fade?</label>
+                <input type="checkbox" name="shouldFade" x-model="shouldFade">
+                <p><em>Formatted text: </em><span id="sliderHomeFormattedText" x-text="formattedText"></span></p>
+                <button @click="update()">Update</button>
+                <button @click="toggle()">TOGGLE</button>
+            </fieldset>
+        </div>
+
+        <div class="col-4" x-data="teamSliderControl(2)">
+            <fieldset>
+                <legend>Away Team Slider</legend>
+                <input type="text" x-model="rawText">
+                <label for="shouldFade">Fade?</label>
+                <input type="checkbox" name="shouldFade" x-model="shouldFade">
+                <p><em>Formatted text: </em><span id="sliderAwayFormattedText" x-text="formattedText"></span></p>
+                <button @click="update()">Update</button>
+                <button @click="toggle()">TOGGLE</button>
             </fieldset>
         </div>
     </div>
