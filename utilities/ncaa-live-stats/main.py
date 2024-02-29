@@ -66,6 +66,7 @@ def listen_thread(sock: BufferedSocket, nls: NCAALiveStats, queue: Queue):
 
 def run_http_server(nls: NCAALiveStats):
     app = Flask(__name__)
+    CORS(app)
 
     @app.route("/box")
     def boxscore():
