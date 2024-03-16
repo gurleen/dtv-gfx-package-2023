@@ -30,7 +30,7 @@
             middleAlignText("Clock", 180)
             endAlignText("Away-Score", 240)
             middleAlignText("Period", 55)
-            middleAlignText("Shot-Clock", 305)
+            // middleAlignText("Shot-Clock", 305)
             middleAlignText("Home-Player-Position", 13)
             middleAlignText("Home-Player-Number", 13)
             middleAlignText("Home-Big-Text-Slider", 260)
@@ -43,6 +43,7 @@
             middleAlignText("Home-Comp-Stat", 525)
             middleAlignText("Comparison-Slider-Stat", 290)
 
+            /*
             setHandler("Shot-Clock", (v) => {
                 val = Number(v);
                 if (val > 10) {
@@ -51,7 +52,7 @@
                     updateColor("Shot-Clock", "rgb(220,65,59)");
                 }
                 updateText("Shot-Clock", v);
-            });
+            });*/
 
             hide = (k) => { console.log("hide", k); $(k).classList.add("hide"); $(k).classList.remove("show") } 
             show = (k) => { console.log("show", k); $(k).classList.add("show"); $(k).classList.remove("hide") }
@@ -88,6 +89,7 @@
                 updateColor("Away-Player-Slider-Background", v);
             });
 
+            /*
             setHandler("Shot-Clock", (v) => {
                 val = Number(v);
                 if (val > 10) {
@@ -96,7 +98,7 @@
                     updateColor("Shot-Clock", "rgb(220,65,59)");
                 }
                 updateText("Shot-Clock", v);
-            });
+            });*/
 
             /*  MAIN SCOREBUG ANIMATION  */
             tl.from("#Info", { duration: 0.5, opacity: 0, y: "+=50", ease: "power3.out" })
