@@ -67,6 +67,7 @@ TEMPLATES = [
         TemplateVar(name="Away School Record", key="Away-School-Record", type=TemplateVarType.STRING, default=" "),
     ]),
     Template(name="Wrestling Matchup", template_file="/static/gfx/html/Wrestling Matchup/Wrestling Matchup.html", vars=[]),
+    Template(name="Lacrosse Matchup", template_file="/static/gfx/html/Lacrosse Matchup/Lacrosse Matchup.html", vars=[]),
     Template(name="Big Scoreboard", template_file="/static/gfx/html/Big Scoreboard/Big Scoreboard.html", vars=[
         TemplateVar(name="Period", key="Period-Full", type=TemplateVarType.STRING, default=""),
     ]),
